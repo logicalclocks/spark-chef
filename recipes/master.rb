@@ -13,7 +13,7 @@ hadoop_hdfs_directory "#{node[:spark][:home]}/assembly/lib/spark-assembly_*.jar"
   action :put
   dest "/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar "
   owner node[:spark][:user]
-  mode "755"
+  mode "0755"
 end
 
 # hdfs dfs -mkdir -p /user/spark/share/lib 
