@@ -39,18 +39,19 @@ cached_package_filename = "#{Chef::Config[:file_cache_path]}/#{base_package_file
 
 remote_file cached_package_filename do
   source package_url
-  owner "#{node[:spark][:user]}"
+  owner "root"
   mode "0644"
   action :create_if_missing
 end
 
 # Extract Spark
 bash 'extract-spark' do
-        user node[:spark][:user]
-        group node[:spark][:group]
+        user "root"
         code <<-EOH
                 tar -xf #{cached_package_filename} -C #{node[:spark][:dir]}
+                chown -R #{node[:spark][:user]}:#{node[:spark][:group]} #{node[:spark][:home]}
                 touch #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
+                chown #{node[:spark][:user]} #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
         EOH
      not_if { ::File.exists?( "#{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}" ) }
 end
