@@ -1,6 +1,7 @@
 dependencies: 
   - recipe: spark::install
     local:
+      - kagent::install
       - hadoop::install
   - recipe: hadoop::install
   - recipe: hadoop::nn
@@ -30,6 +31,11 @@ dependencies:
   - recipe: spark::master
     local:
       - spark::install
+    global:  
+      - hadoop::rm
+      - hadoop::nm
+      - hadoop::nn
+      - hadoop::dn
   - recipe: spark::slave
     local:
       - spark::install
