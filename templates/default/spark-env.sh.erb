@@ -35,7 +35,8 @@ export SPARK_LOCAL_IP=<%= @private_ip %>
 
 # Options for the daemons used in the standalone deploy mode
 export SPARK_MASTER_IP=<%= @master_ip %>
-# export SPARK_MASTER_PORT / SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
+export SPARK_MASTER_PORT =<%= node[:spark][:master][:port] %>
+#export SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
 # export SPARK_MASTER_OPTS, to set config properties only for the master (e.g. "-Dx=y")
 # export SPARK_WORKER_CORES
 # export SPARK_WORKER_MEMORY, to set how much total memory workers have to give executors (e.g. 1000m, 2g)

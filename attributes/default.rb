@@ -17,4 +17,6 @@ default[:spark][:driver_memory]             = "1g"
 default[:spark][:eventlog_enabled]          = "false"
 default[:spark][:driver][:maxResultSize]    = "1g"
 
+default[:spark][:master][:port]             = 7077
+
 default[:spark][:worker][:cleanup][:enabled] = true

@@ -8,11 +8,8 @@
 # 
 jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datanucleus-rdbms-3.2.9.jar",  "spark-#{node[:spark][:version]}-yarn-shuffle.jar",  "spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"]
 
-#,  "spark-examples-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"]
-
 
 for jar in jars
-  
   jar.gsub! "-#{node[:spark][:version]}" ""
   jar.gsub! "-#{node[:hadoop][:version]}" ""
 
