@@ -38,13 +38,21 @@ suites:
             dn:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
-#            native_libraries: "true"
+            rm:
+               private_ips: ["10.0.2.15"]
+               public_ips: ["10.0.2.15"]
+            nm:
+               private_ips: ["10.0.2.15"]
+               public_ips: ["10.0.2.15"]
          spark:
             master:
+               public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
             slave:
+               public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
             yarn:
+               public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]

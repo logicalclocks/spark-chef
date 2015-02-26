@@ -1,0 +1,3 @@
+<% for slave in node[:spark][:slave][:private_ips] -%>
+<%= slave %>
+<% end -%>

@@ -21,3 +21,10 @@ end
 # /user/spark/share/lib/spark-assembly.jar 
 # SPARK_JAR=hdfs://<nn>:<port>/user/spark/share/lib/spark-assembly.jar
 
+template"#{node[:spark][:home]}/conf/slaves" do
+  source "slaves.erb"
+  owner node[:spark][:user]
+  group node[:spark][:group]
+  mode 0655
+end
+
