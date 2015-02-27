@@ -19,7 +19,7 @@ action :start_slave do
     code <<-EOF
 #    #{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf
     cd #{node[:spark][:home]}
-    ./sbin/start-slave.sh #{new_resource.master_url}
+    ./sbin/start-slave.sh #{new_resource.slave_id} #{new_resource.master_url}
     EOF
 #    not_if "#{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
   end

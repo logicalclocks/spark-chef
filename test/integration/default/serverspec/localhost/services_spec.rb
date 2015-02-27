@@ -15,3 +15,4 @@ describe command("jps") do
   its (:stdout) { should match /Worker/ }
 end
 
+
