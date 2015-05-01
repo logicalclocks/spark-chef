@@ -6,8 +6,9 @@ description      'Installs/Configures Spark'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0"
 
-depends          "hadoop"
 depends          "kagent"
+depends          "hops"
+depends          "hadoop"
 
 recipe           "install", "Installs Spark binaries"
 recipe           "master", "Starts a Spark master"

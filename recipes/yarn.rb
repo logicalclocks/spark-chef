@@ -26,3 +26,27 @@ for jar in jars
   end
 end
 
+
+hadoop_hdfs_directory "/user/#{node[:spark][:user]}" do
+  action :create
+  owner node[:spark][:user]
+  group node[:hadoop][:group]
+  mode "1755"
+end
+
+hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
+  action :put
+  owner node[:spark][:user]
+  group node[:hadoop][:group]
+  mode "1755"
+  dest "/user/#{node[:spark][:user]}/spark.jar"
+end
+
+#
+# HopsWorks looks for this if it can't find a version in hdfs.
+#
+  link "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
+    owner node[:spark][:user]
+    group node[:hadoop][:group]
+    to "#{node[:spark][:home]}/spark.jar"
+  end
