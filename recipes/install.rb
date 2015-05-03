@@ -7,9 +7,9 @@
 # All rights reserved
 #
 
-group node[:spark][:group] do
-  action :create
-end
+# group node[:spark][:group] do
+#   action :create
+# end
 
 user node[:spark][:user] do
   supports :manage_home => true
@@ -20,7 +20,7 @@ user node[:spark][:user] do
   not_if "getent passwd #{node[:spark]['user']}"
 end
 
-group node[:spark][:group] do
+group node[:hadoop][:group] do
   action :modify
   members ["#{node[:spark][:user]}"]
   append true
