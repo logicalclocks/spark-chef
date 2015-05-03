@@ -1,7 +1,6 @@
 dependencies: 
   - recipe: spark::install
     local:
-      - kagent::install
       - hadoop::install
   - recipe: hadoop::install
   - recipe: hadoop::nn
