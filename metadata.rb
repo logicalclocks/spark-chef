@@ -12,6 +12,7 @@ depends          "kagent"
 recipe           "install", "Installs Spark binaries"
 recipe           "master", "Starts a Spark master"
 recipe           "slave", "Starts a Spark slave"
+recipe           "yarn", "Install for yarn"
 
 
 attribute "spark/executor_memory",
