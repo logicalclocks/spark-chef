@@ -76,7 +76,7 @@ require File.join(libpath, 'inifile')
 
 my_ip = my_private_ip()
 master_ip = private_recipe_ip("spark","master")
-namenode_ip = private_recipe_ip("hadoop","nn")
+namenode_ip = private_recipe_ip("hops","nn")
 
 template"#{node[:spark][:home]}/conf/spark-env.sh" do
   source "spark-env.sh.erb"
