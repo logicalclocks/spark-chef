@@ -9,22 +9,22 @@
 jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datanucleus-rdbms-3.2.9.jar",  "spark-#{node[:spark][:version]}-yarn-shuffle.jar",  "spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"]
 
 
-for jar in jars
-  jar.gsub! "-#{node[:spark][:version]}" ""
-  jar.gsub! "-#{node[:hadoop][:version]}" ""
+# for jar in jars
+#   jar.gsub! "-#{node[:spark][:version]}" ""
+#   jar.gsub! "-#{node[:hadoop][:version]}" ""
 
-  file "#{node[:hadoop][:home]}/share/hadoop/yarn/#{jar}" do
-    owner node[:hadoop][:yarn][:user]
-    group node[:hadoop][:group]
-    action :delete
-  end
+#   file "#{node[:hadoop][:home]}/share/hadoop/yarn/#{jar}" do
+#     owner node[:hadoop][:yarn][:user]
+#     group node[:hadoop][:group]
+#     action :delete
+#   end
 
-  link "#{node[:hadoop][:home]}/share/hadoop/yarn/#{jar}" do
-    owner node[:hadoop][:yarn][:user]
-    group node[:hadoop][:group]
-    to "#{node[:spark][:home]}/lib/#{jar}"
-  end
-end
+#   link "#{node[:hadoop][:home]}/share/hadoop/yarn/#{jar}" do
+#     owner node[:hadoop][:yarn][:user]
+#     group node[:hadoop][:group]
+#     to "#{node[:spark][:home]}/lib/#{jar}"
+#   end
+# end
 
 
 hadoop_hdfs_directory "/user/#{node[:spark][:user]}" do
@@ -45,8 +45,8 @@ end
 #
 # HopsWorks looks for this if it can't find a version in hdfs.
 #
-  link "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
-    owner node[:spark][:user]
-    group node[:hadoop][:group]
-    to "#{node[:spark][:home]}/spark.jar"
-  end
+link "#{node[:spark][:home]}/spark.jar" do
+  owner node[:spark][:user]
+  group node[:hadoop][:group]
+  to "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"
+end

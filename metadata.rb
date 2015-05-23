@@ -18,23 +18,25 @@ recipe           "yarn", "Install for yarn"
 
 attribute "spark/executor_memory",
 :display_name => "Executor memory (e.g., 512m)",
-:type => 'string',
-:default => '512m'
+:type => 'string'
 
 attribute "spark/driver_memory",
 :display_name => "Driver memory (e.g., 1g)",
-:type => 'string',
-:default => '1g'
+:type => 'string'
 
 attribute "spark/eventlog_enabled",
 :display_name => "Eventlog enabled (true|false)",
-:type => 'string',
-:default => 'false'
+:type => 'string'
 
 attribute "spark/worker/cleanup/enabled",
 :display_name => "Spark standalone worker cleanup enabled (true|false)",
-:type => 'string',
-:default => 'true'
+:type => 'string'
 
+attribute "spark/eventlog_enabled",
+:display_name => "Eventlog enabled (true|false)",
+:type => 'string'
 
+attribute "spark/hadoop/distribution",
+:display_name => "Hadoop distribution (hops|apache)",
+:type => 'string'
 

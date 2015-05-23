@@ -7,10 +7,6 @@
 # All rights reserved
 #
 
-# group node[:spark][:group] do
-#   action :create
-# end
-
 user node[:spark][:user] do
   supports :manage_home => true
   home "/home/#{node[:spark][:user]}"
@@ -27,7 +23,7 @@ group node[:hadoop][:group] do
 end
 
 
-for p in %w{ git scala }
+for p in %w{ scala }
   package p do
     action :install
   end
@@ -76,7 +72,8 @@ require File.join(libpath, 'inifile')
 
 my_ip = my_private_ip()
 master_ip = private_recipe_ip("spark","master")
-namenode_ip = private_recipe_ip("hops","nn")
+
+namenode_ip = private_recipe_ip(node[:spark][:hadoop][:distribution],"nn")
 
 template"#{node[:spark][:home]}/conf/spark-env.sh" do
   source "spark-env.sh.erb"
