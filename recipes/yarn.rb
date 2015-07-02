@@ -28,7 +28,7 @@ jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datan
 
 
 hadoop_hdfs_directory "/user/#{node[:spark][:user]}" do
-  action :create
+  action :create_as_superuser
   owner node[:spark][:user]
   group node[:hadoop][:group]
   mode "1755"
