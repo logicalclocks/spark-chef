@@ -1,10 +1,10 @@
 include_attribute "kagent"
-include_attribute "hadoop"
+include_attribute "hops"
 
 default[:spark][:user]                      = "spark"
 default[:spark][:group]                     = "#{node[:hadoop][:group]}"
 
-default[:spark][:version]                   = "1.3.1"
+default[:spark][:version]                   = "1.4.0"
 default[:spark][:hadoop][:version]          = "2.4"
 default[:scala][:version] 	            = "2.10"
 default[:spark][:dir]                       = "/srv"
@@ -19,5 +19,7 @@ default[:spark][:driver][:maxResultSize]    = "1g"
 
 default[:spark][:master][:port]             = 7077
 
-default[:spark][:worker][:cleanup][:enabled] = true
+default[:spark][:worker][:cleanup][:enabled]= true
 
+# Pick hadoop distribution. Options are 'hops' and 'apache'
+default[:spark][:hadoop][:distribution]     = "hops"
