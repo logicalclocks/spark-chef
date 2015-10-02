@@ -4,7 +4,7 @@ include_attribute "hops"
 default[:spark][:user]                      = "spark"
 default[:spark][:group]                     = "#{node[:hadoop][:group]}"
 
-default[:spark][:version]                   = "1.4.0"
+default[:spark][:version]                   = "1.3.1"
 default[:spark][:hadoop][:version]          = "2.4"
 default[:scala][:version] 	            = "2.10"
 default[:spark][:dir]                       = "/srv"

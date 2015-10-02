@@ -43,7 +43,7 @@ suites:
       - recipe[spark::master]
       - recipe[spark::slave]
       - recipe[spark::yarn]
-      - recipe[spark::historyserver]
+      #- recipe[spark::historyserver]
     attributes:
          ndb:
             mgmd:
