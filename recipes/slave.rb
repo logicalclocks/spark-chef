@@ -28,3 +28,8 @@ spark_start "spark://#{master_ip}:#{node[:spark][:master][:port]}" do
   action :start_slave
 end
 
+homedir = node[:spark][:user].eql?("root") ? "/root" : "/home/#{node[:spark][:home]}"
+
+spark_master "#{homedir}" do
+  action :get_publickey
+end

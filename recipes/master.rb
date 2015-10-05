@@ -29,3 +29,9 @@ template"#{node[:spark][:home]}/conf/slaves" do
   mode 0655
 end
 
+homedir = node[:spark][:user].eql?("root") ? "/root" : "/home/#{node[:spark][:home]}"
+
+spark_master
+ "#{homedir}" do
+  action :return_publickey
+end

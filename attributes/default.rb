@@ -23,3 +23,5 @@ default[:spark][:worker][:cleanup][:enabled]= true
 
 # Pick hadoop distribution. Options are 'hops' and 'apache'
 default[:spark][:hadoop][:distribution]     = "hops"
+
+default[:spark][:master][:public_key]       = ""
