@@ -72,7 +72,7 @@ suites:
                public_ips: ["10.0.2.15"]
             use_hopsworks: "false"
          spark:
-            user: "yarn"
+            user: "spark"
             master:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
