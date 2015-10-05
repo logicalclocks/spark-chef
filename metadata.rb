@@ -16,6 +16,14 @@ recipe           "slave", "Starts a Spark slave"
 recipe           "yarn", "Install for yarn"
 
 
+attribute "spark/user",
+:display_name => "Username to run spark master/slave as",
+:type => 'string'
+
+attribute "spark/group",
+:display_name => "Groupname to run spark master/slave as",
+:type => 'string'
+
 attribute "spark/executor_memory",
 :display_name => "Executor memory (e.g., 512m)",
 :type => 'string'
