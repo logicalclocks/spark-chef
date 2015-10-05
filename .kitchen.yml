@@ -33,7 +33,6 @@ suites:
       - recipe[ndb::mgmd]
       - recipe[ndb::ndbd]
       - recipe[ndb::mysqld]
-      - recipe[ndb::memcached]
       - recipe[hops::ndb]
       - recipe[hops::nn]
       - recipe[hops::dn]
@@ -45,6 +44,7 @@ suites:
       - recipe[spark::yarn]
       #- recipe[spark::historyserver]
     attributes:
+         vagrant: true
          ndb:
             mgmd:
                private_ips: ["10.0.2.15"]
@@ -70,8 +70,9 @@ suites:
             nm:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
+            use_hopsworks: "false"
          spark:
-            user: "yarn"
+            user: "spark"
             master:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
@@ -90,4 +91,3 @@ suites:
             public_ips: ["10.0.2.15"]
          private_ips: ["10.0.2.15"]
          public_ips: ["10.0.2.15"]
-         vagrant: "enabled"
