@@ -30,11 +30,6 @@ template"#{node[:spark][:home]}/conf/slaves" do
   mode 0655
 end
 
-# link "#{node[:spark][:home]}/spark.jar" do
-#   owner node[:spark][:user]
-#   group node[:spark][:group]
-#   to "#{node[:spark][:home]}/assembly/lib/spark-assembly_#{node[:spark][:version]}-hadoop2.4.0.jar"
-# end
 
 homedir = node[:spark][:user].eql?("root") ? "/root" : "/home/#{node[:spark][:user]}"
 

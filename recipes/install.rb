@@ -100,3 +100,8 @@ template"#{node[:spark][:home]}/conf/spark-defaults.conf" do
            })
 end
 
+link "#{node[:spark][:home]}/spark.jar" do
+  owner node[:spark][:user]
+  group node[:spark][:group]
+  to "#{node[:spark][:home]}/assembly/lib/spark-assembly_#{node[:spark][:version]}-hadoop2.4.0.jar"
+end
