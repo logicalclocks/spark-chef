@@ -20,15 +20,11 @@ action :start_slave do
     set -e
 
     cd #{node[:spark][:home]}    
-    ./sbin/start-slave.sh --properties-file conf/spark-defaults.conf
-
-# spark 1.4 here
-#    ./sbin/start-slave.sh #{new_resource.master_url}
+    ./sbin/start-slave.sh #{new_resource.master_url}
 # Older spark here
 #    #./sbin/start-slave.sh #{new_resource.slave_id} #{new_resource.master_url}
     EOF
 #    not_if "#{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
-    not_if "jps | grep \"Worker\""
   end
  
 end
