@@ -11,10 +11,13 @@ describe service('datanode') do
   it { should be_running   }
 end 
 
-describe command("jps") do
-  its (:stdout) { should match /Master/ }
-  its (:stdout) { should match /Worker/ }
-end
+describe service('Master') do  
+  it { should be_running   }
+end 
+
+describe service('Slave') do  
+  it { should be_running   }
+end 
 
 # describe service('JobHistoryServer') do  
 #   it { should be_running   }

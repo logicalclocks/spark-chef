@@ -20,9 +20,10 @@ action :start_slave do
     set -e
 
     cd #{node[:spark][:home]}    
-    ./sbin/start-slave.sh #{new_resource.master_url}
-# Older spark here
-#    #./sbin/start-slave.sh #{new_resource.slave_id} #{new_resource.master_url}
+# Spark 1.4.x
+#    ./sbin/start-slave.sh #{new_resource.master_url}
+# Spark 1.3.x
+    ./sbin/start-slave.sh #{new_resource.slave_id} #{new_resource.master_url}
     EOF
 #    not_if "#{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
   end
