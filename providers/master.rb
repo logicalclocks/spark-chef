@@ -14,7 +14,7 @@ action :return_publickey do
     source "ssh_config.erb"
     owner node[:spark][:user]
     group node[:spark][:group]
-    mode 0664
+    mode 0600
   end
  
  kagent_param "/tmp" do

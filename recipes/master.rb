@@ -42,15 +42,6 @@ bash "generate-ssh-keypair-for-master" do
  not_if { ::File.exists?( "#{homedir}/.ssh/id_rsa" ) }
 end
 
-template "#{homedir}/.ssh/config" do
-  source "ssh_config.erb"
-  owner node[:spark][:user]
-  group node[:spark][:group]
-  mode 0600
-end
-
-
-
 spark_master "#{homedir}" do
   action :return_publickey
 end
