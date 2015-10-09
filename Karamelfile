@@ -1,48 +1,12 @@
 dependencies: 
   - recipe: spark::install
-    local:
-      - hops::install
-  - recipe: hops::install
-  - recipe: hops::nn
-    local:
-      - hops::install
-  - recipe: hops::rm
-    local:
-      - hops::install
-    global:  
-      - hops::nn
-  - recipe: hops::dn
-    local:
-      - hops::install
-    global:  
-      - hops::nn
-  - recipe: hops::nm
-    local:
-      - hops::install
-    global:  
-      - hops::rm
-  - recipe: hops::jhs
-    local:
-      - hops::install
-    global:  
-      - hops::nn
-      - hops::dn
   - recipe: spark::master
-    local:
-      - spark::install
-    global:  
-      - hops::rm
-      - hops::nm
-      - hops::nn
-      - hops::dn
+    global:
+      - hadoop::nn
+  - recipe: spark::historyserver
+    global:
+      - hadoop::nn
   - recipe: spark::yarn
-    local:
-      - spark::install
-    global:  
-      - hops::rm
-      - hops::nm
-      - hops::nn
-      - hops::dn
   - recipe: spark::slave
-    local:
-      - spark::install
+    global:
+      - spark::master
