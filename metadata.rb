@@ -7,7 +7,6 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0"
 
 depends          "kagent"
-depends          "hops"
 depends          "hadoop"
 
 recipe           "install", "Installs Spark binaries"
