@@ -37,18 +37,6 @@ suites:
       #- recipe[spark::historyserver]
     attributes:
          vagrant: true
-         ndb:
-            mgmd:
-               private_ips: ["10.0.2.15"]
-            ndbd:
-               private_ips: ["10.0.2.15"]
-            mysqld:
-               private_ips: ["10.0.2.15"]
-            memcached:
-               private_ips: ["10.0.2.15"]
-            private_ips: ["10.0.2.15"]
-            public_ips: ["10.0.2.15"]
-            enabled: "true"
          hadoop:
             nn:
                private_ips: ["10.0.2.15"]
