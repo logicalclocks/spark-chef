@@ -12,7 +12,7 @@ depends          "hadoop"
 recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
 recipe           "master", "Starts a Spark master"
-#link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Slave %host%</a>
+#link:<a target='_blank' href='http://%host%:8081/'>Launch the WebUI for the Spark Slave %host%</a>
 recipe           "slave", "Starts a Spark slave"
 recipe           "yarn", "Install for yarn"
 
