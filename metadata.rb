@@ -42,8 +42,3 @@ attribute "spark/worker/cleanup/enabled",
 attribute "spark/eventlog_enabled",
 :display_name => "Eventlog enabled (true|false)",
 :type => 'string'
-
-attribute "spark/hadoop/distribution",
-:display_name => "Hadoop distribution (hops|apache)",
-:type => 'string'
-
