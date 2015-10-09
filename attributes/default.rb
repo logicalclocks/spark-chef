@@ -20,7 +20,7 @@ default[:spark][:master][:port]             = 7077
 
 default[:spark][:worker][:cleanup][:enabled]= true
 
-# Pick hadoop distribution. Options are 'hops' and 'apache'
-default[:spark][:hadoop][:distribution]     = "hops"
+# Pick hadoop distribution. Options are 'hops' and 'hadoop'
+default[:spark][:hadoop][:distribution]     = "hadoop"
 
 default[:spark][:master][:public_key]       = ""
