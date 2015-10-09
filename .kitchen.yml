@@ -27,7 +27,6 @@ suites:
       - recipe[kagent::install]
       - recipe[hadoop::install]
       - recipe[spark::install]
-      - recipe[hadoop::ndb]
       - recipe[hadoop::nn]
       - recipe[hadoop::dn]
       - recipe[hadoop::rm]
