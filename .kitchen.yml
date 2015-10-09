@@ -16,9 +16,7 @@ provisioner:
   name: chef_solo
 
 platforms:
-#  - name: ubuntu-12.04
   - name: ubuntu-14.04
-#  - name: centos-6.5
 
 suites:
   - name: default
@@ -27,18 +25,13 @@ suites:
   - name: default
     run_list:
       - recipe[kagent::install]
-      - recipe[ndb::install]
-      - recipe[hops::install]
+      - recipe[hadoop::install]
       - recipe[spark::install]
-      - recipe[ndb::mgmd]
-      - recipe[ndb::ndbd]
-      - recipe[ndb::mysqld]
-      - recipe[hops::ndb]
-      - recipe[hops::nn]
-      - recipe[hops::dn]
-      - recipe[hops::rm]
-      - recipe[hops::nm]
-      - recipe[hops::jhs]
+      - recipe[hadoop::ndb]
+      - recipe[hadoop::nn]
+      - recipe[hadoop::dn]
+      - recipe[hadoop::rm]
+      - recipe[hadoop::nm]
       - recipe[spark::master]
       - recipe[spark::slave]
       - recipe[spark::yarn]
@@ -57,7 +50,7 @@ suites:
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
             enabled: "true"
-         hops:
+         hadoop:
             nn:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
@@ -70,7 +63,7 @@ suites:
             nm:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
-            use_hopsworks: "false"
+            use_hadoopworks: "false"
          spark:
             user: "spark"
             master:
@@ -83,7 +76,7 @@ suites:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
             hadoop:
-               distribution: "hops"
+               distribution: "hadoop"
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
          kagent:
