@@ -10,6 +10,7 @@ depends          "kagent"
 depends          "hadoop"
 
 recipe           "install", "Installs Spark binaries"
+#link:<a target='_blank' href='http://%host%:4040/'>Launch the WebUI for the Spark Web Interafce</a>
 recipe           "master", "Starts a Spark master"
 recipe           "slave", "Starts a Spark slave"
 recipe           "yarn", "Install for yarn"
