@@ -2,10 +2,10 @@ dependencies:
   - recipe: spark::install
   - recipe: spark::master
     global:
-      - hadoop::nn
+      - hops::nn
   - recipe: spark::historyserver
     global:
-      - hadoop::nn
+      - hops::nn
   - recipe: spark::yarn
   - recipe: spark::slave
     global:
