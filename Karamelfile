@@ -1,5 +1,7 @@
 dependencies: 
   - recipe: spark::install
+    local:
+      - hadoop::install
   - recipe: spark::master
     global:
       - hops::nn
