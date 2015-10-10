@@ -1,5 +1,6 @@
 include_attribute "kagent"
 include_attribute "hops"
+include_attribute "hadoop"
 
 default[:spark][:user]                      = "spark"
 default[:spark][:group]                     = "#{node[:hadoop][:group]}"
