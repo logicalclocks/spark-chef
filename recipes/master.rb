@@ -4,7 +4,8 @@ spark_start "master" do
 end
 
 hadoop_hdfs_directory "/user/#{node[:spark][:user]}/share/lib" do 
-  action :create_as_superuser
+#  action :create_as_superuser
+  action :create
   owner node[:spark][:user]
   group node[:spark][:group]
   mode "755"
