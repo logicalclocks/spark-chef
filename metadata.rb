@@ -12,16 +12,16 @@ depends          "hadoop"
 
 recipe           "install", "Installs Spark binaries"
 recipe           "master", "Starts a Spark master"
-recipe           "slave", "Starts a Spark slave"
+recipe           "worker", "Starts a Spark worker"
 recipe           "yarn", "Install for yarn"
 
 
 attribute "spark/user",
-:display_name => "Username to run spark master/slave as",
+:display_name => "Username to run spark master/worker as",
 :type => 'string'
 
 attribute "spark/group",
-:display_name => "Groupname to run spark master/slave as",
+:display_name => "Groupname to run spark master/worker as",
 :type => 'string'
 
 attribute "spark/executor_memory",

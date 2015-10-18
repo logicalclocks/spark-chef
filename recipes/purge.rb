@@ -2,8 +2,8 @@ bash 'kill_running_service_spark' do
     user "root"
     ignore_failure :true
     code <<-EOF
-      pkill Master
-      pkill Slave
+      pkillall -9 Master
+      pkillall -9 Worker
     EOF
 end
 

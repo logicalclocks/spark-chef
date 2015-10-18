@@ -9,6 +9,6 @@ dependencies:
     global:
       - hops::nn
   - recipe: spark::yarn
-  - recipe: spark::slave
+  - recipe: spark::worker
     global:
       - spark::master
