@@ -11,9 +11,9 @@ action :start_master do
 end
 
 
-action :start_slave do
+action :start_worker do
 
-  bash "start-slave" do
+  bash "start-worker" do
     user node[:spark][:user]
     group node[:spark][:group]
     code <<-EOF
@@ -21,9 +21,9 @@ action :start_slave do
 
     cd #{node[:spark][:home]}    
 # Spark 1.4.x
-#    ./sbin/start-slave.sh #{new_resource.master_url}
+#    ./sbin/start-worker.sh #{new_resource.master_url}
 # Spark 1.3.x
-    ./sbin/start-slave.sh #{new_resource.slave_id} #{new_resource.master_url}
+    ./sbin/start-slave.sh #{new_resource.worker_id} #{new_resource.master_url}
     EOF
 #    not_if "#{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
      not_if "jps | grep Worker"

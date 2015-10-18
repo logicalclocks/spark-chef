@@ -13,16 +13,16 @@ recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
 recipe           "master", "Starts a Spark master"
 #link:<a target='_blank' href='http://%host%:8081/'>Launch the WebUI for the Spark Slave %host%</a>
-recipe           "slave", "Starts a Spark slave"
+recipe           "worker", "Starts a Spark worker"
 recipe           "yarn", "Install for yarn"
 
 
 attribute "spark/user",
-:display_name => "Username to run spark master/slave as",
+:display_name => "Username to run spark master/worker as",
 :type => 'string'
 
 attribute "spark/group",
-:display_name => "Groupname to run spark master/slave as",
+:display_name => "Groupname to run spark master/worker as",
 :type => 'string'
 
 attribute "spark/executor_memory",
