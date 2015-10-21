@@ -103,5 +103,5 @@ end
 link "#{node[:spark][:home]}/spark.jar" do
   owner node[:spark][:user]
   group node[:spark][:group]
-  to "#{node[:spark][:home]}/assembly/lib/spark-assembly_#{node[:spark][:version]}-hadoop2.4.0.jar"
+  to "#{node[:spark][:home]}/lib/spark-assembly_#{node[:spark][:version]}-hadoop2.4.0.jar"
 end
