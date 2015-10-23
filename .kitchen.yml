@@ -32,7 +32,7 @@ suites:
       - recipe[hadoop::rm]
       - recipe[hadoop::nm]
       - recipe[spark::master]
-      - recipe[spark::slave]
+      - recipe[spark::worker]
       - recipe[spark::yarn]
       #- recipe[spark::historyserver]
     attributes:
@@ -56,7 +56,7 @@ suites:
             master:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
-            slave:
+            worker:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
             yarn:
