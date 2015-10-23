@@ -26,11 +26,13 @@ attribute "spark/group",
 
 attribute "spark/executor_memory",
 :display_name => "Executor memory (e.g., 512m)",
-:type => 'string'
+:type => 'string',
+:required => "required"
 
 attribute "spark/driver_memory",
 :display_name => "Driver memory (e.g., 1g)",
-:type => 'string'
+:type => 'string',
+:required => "required"
 
 attribute "spark/eventlog_enabled",
 :display_name => "Eventlog enabled (true|false)",

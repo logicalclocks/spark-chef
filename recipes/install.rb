@@ -71,8 +71,14 @@ libpath = File.expand_path '../../../kagent/libraries', __FILE__
 require File.join(libpath, 'inifile')
 
 my_ip = my_private_ip()
-master_ip = private_recipe_ip("spark","master")
+begin
+  master_ip = private_recipe_ip("spark","master")
+rescue
+# No master is needed for YARN
+  master_ip = my_private_ip()
+end
 
+# Get the NN IP for either Hops or Apache Hadoop
 namenode_ip = private_recipe_ip(node[:spark][:hadoop][:distribution],"nn")
 
 template"#{node[:spark][:home]}/conf/spark-env.sh" do
