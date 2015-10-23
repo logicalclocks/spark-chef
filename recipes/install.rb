@@ -100,6 +100,11 @@ template"#{node[:spark][:home]}/conf/spark-defaults.conf" do
            })
 end
 
+file "#{node[:spark][:home]}/spark.jar" do
+  action :delete
+  force_unlink true  
+end
+
 link "#{node[:spark][:home]}/spark.jar" do
   owner node[:spark][:user]
   group node[:spark][:group]
