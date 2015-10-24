@@ -40,7 +40,7 @@ suites:
       - recipe[hops::nm]
       - recipe[hops::jhs]
       - recipe[spark::master]
-      - recipe[spark::slave]
+      - recipe[spark::worker]
       - recipe[spark::yarn]
       #- recipe[spark::historyserver]
     attributes:
@@ -57,6 +57,7 @@ suites:
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
             enabled: "true"
+            dir: "/tmp"
          hops:
             nn:
                private_ips: ["10.0.2.15"]
@@ -71,12 +72,13 @@ suites:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
             use_hopsworks: "false"
+            dir: "/tmp"
          spark:
             user: "spark"
             master:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
-            slave:
+            worker:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
             yarn:
@@ -86,8 +88,10 @@ suites:
                distribution: "hops"
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
+            dir: "/tmp"
          kagent:
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
+            dir: "/tmp"
          private_ips: ["10.0.2.15"]
          public_ips: ["10.0.2.15"]
