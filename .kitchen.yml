@@ -41,7 +41,6 @@ suites:
       - recipe[hops::jhs]
       - recipe[spark::master]
       - recipe[spark::worker]
-      - recipe[spark::yarn]
       #- recipe[spark::historyserver]
     attributes:
          vagrant: true
