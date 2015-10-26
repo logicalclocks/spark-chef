@@ -11,7 +11,6 @@ hadoop_hdfs_directory "/user/#{node[:spark][:user]}/share/lib" do
 end
 
 hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
-#hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly_#{node[:spark][:version]}-hadoop2.4.0.jar" do
   action :put
   dest "/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
   owner node[:spark][:user]
@@ -20,7 +19,7 @@ hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][
 end
 
 # hdfs dfs -mkdir -p /user/spark/share/lib 
-# hdfs dfs -put $SPARK_HOME/lib/spark-assembly_*.jar  \     
+# hdfs dfs -put $SPARK_HOME/lib/spark-assembly-*.jar  \     
 # /user/spark/share/lib/spark-assembly.jar 
 # SPARK_JAR=hdfs://<nn>:<port>/user/spark/share/lib/spark-assembly.jar
 
