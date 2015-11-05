@@ -17,16 +17,13 @@ action :start_worker do
     user node[:spark][:user]
     group node[:spark][:group]
     code <<-EOF
-    set -e
-
     cd #{node[:spark][:home]}    
 # Spark 1.4.x
 #    ./sbin/start-slave.sh #{new_resource.master_url}
 # Spark 1.3.x
-    ./sbin/start-slave.sh #{new_resource.worker_id} #{new_resource.master_url}
+    ./sbin/start-slave.sh #{new_resource.worker_id} #{new_resource.master_url} || true
     EOF
-    not_if "jps | grep Worker"
-#    not_if "#{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
+#    not_if "cd #{node[:spark][:home]} && ./sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
   end
  
 end

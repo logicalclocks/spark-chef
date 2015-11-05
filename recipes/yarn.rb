@@ -26,21 +26,27 @@ jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datan
 #   end
 # end
 
-
 hadoop_hdfs_directory "/user/#{node[:spark][:user]}" do
-#  action :create_as_superuser
-  action :create
+  action :create_as_superuser
   owner node[:spark][:user]
   group node[:hadoop][:group]
   mode "1755"
 end
 
+hadoop_hdfs_directory "/user/#{node[:spark][:user]}/share/lib" do 
+  action :create_as_superuser
+  owner node[:spark][:user]
+  group node[:spark][:group]
+  mode "755"
+end
+
 hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
-  action :put_as_superuser
+  action :put
   owner node[:spark][:user]
   group node[:hadoop][:group]
   mode "1755"
-  dest "/user/#{node[:spark][:user]}/spark.jar"
+ dest "/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
+#  dest "/user/#{node[:spark][:user]}/spark.jar"
 end
 
 #
