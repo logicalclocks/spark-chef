@@ -41,12 +41,12 @@ hadoop_hdfs_directory "/user/#{node[:spark][:user]}/share/lib" do
 end
 
 hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
-  action :put
+  action :put_as_superuser
   owner node[:spark][:user]
   group node[:hadoop][:group]
   mode "1755"
- dest "/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
-#  dest "/user/#{node[:spark][:user]}/spark.jar"
+# dest "/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
+  dest "/user/#{node[:spark][:user]}/spark.jar"
 end
 
 #

@@ -15,7 +15,7 @@ describe service('Master') do
   it { should be_running   }
 end 
 
-describe service('Slave') do  
+describe service('Worker') do  
   it { should be_running   }
 end 
 

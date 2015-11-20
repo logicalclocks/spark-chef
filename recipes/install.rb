@@ -22,12 +22,19 @@ group node[:hadoop][:group] do
   append true
 end
 
+# node.normal['java']['jdk_version'] = 7
+# include_recipe "java"
 
 for p in %w{ scala }
   package p do
     action :install
   end
 end
+
+# Doesnt work for ubuntu
+#node.normal['scala']['version'] = node[:spark][:scala][:version]
+#include_recipe "scala"
+
 
 package_url = "#{node[:spark][:url]}"
 base_package_filename = File.basename(package_url)
@@ -49,7 +56,7 @@ bash 'extract-spark' do
                 touch #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
                 chown #{node[:spark][:user]} #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
         EOH
-     not_if { ::File.exists?( "#{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}" ) }
+     not_if { ::File.exists?( "#{node[:spark][:home]}/.spark_extracted_#{node[:spark][:version]}" ) }
 end
 
 

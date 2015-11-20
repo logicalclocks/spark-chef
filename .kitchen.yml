@@ -4,13 +4,12 @@ driver:
   customize:
     memory: 4096
     cpuexecutioncap: 90
-    cpus: 2
+    cpus: 1
     natdnshostresolver1: "on"
     natdnsproxy1: "on"
     nictype1: "virtio"
   network:
   - ["forwarded_port", {guest: 50070, host: 57072}]
-  - ["forwarded_port", {guest: 50075, host: 57079}]
 
 provisioner:
   name: chef_solo

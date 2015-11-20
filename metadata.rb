@@ -9,6 +9,8 @@ version          "1.0"
 depends          "kagent"
 depends          "hops"
 depends          "hadoop"
+#depends          "scala"
+#depends          "java"
 
 recipe           "install", "Installs Spark binaries"
 recipe           "master", "Starts a Spark master"
@@ -48,5 +50,9 @@ attribute "spark/eventlog_enabled",
 
 attribute "spark/hadoop/distribution",
 :display_name => "Hadoop distribution (hops|apache)",
+:type => 'string'
+
+attribute "spark/scala/version",
+:display_name => "Version of scala to install",
 :type => 'string'
 
