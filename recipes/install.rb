@@ -49,7 +49,7 @@ bash 'extract-spark' do
                 touch #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
                 chown #{node[:spark][:user]} #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
         EOH
-     not_if { ::File.exists?( "#{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}" ) }
+     not_if { ::File.exists?( "#{node[:spark][:home]}/.spark_extracted_#{node[:spark][:version]}" ) }
 end
 
 
