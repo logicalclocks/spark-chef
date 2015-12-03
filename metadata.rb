@@ -19,40 +19,48 @@ recipe           "yarn", "Install for yarn"
 
 
 attribute "spark/user",
-:display_name => "Username to run spark master/worker as",
+:description => "Username to run spark master/worker as",
 :type => 'string'
 
 attribute "spark/group",
-:display_name => "Groupname to run spark master/worker as",
+:description => "Groupname to run spark master/worker as",
 :type => 'string'
 
 attribute "spark/executor_memory",
-:display_name => "Executor memory (e.g., 512m)",
+:description => "Executor memory (e.g., 512m)",
 :type => 'string',
 :required => "required"
 
 attribute "spark/driver_memory",
-:display_name => "Driver memory (e.g., 1g)",
+:description => "Driver memory (e.g., 1g)",
 :type => 'string',
 :required => "required"
 
 attribute "spark/eventlog_enabled",
-:display_name => "Eventlog enabled (true|false)",
+:description => "Eventlog enabled (true|false)",
 :type => 'string'
 
 attribute "spark/worker/cleanup/enabled",
-:display_name => "Spark standalone worker cleanup enabled (true|false)",
+:description => "Spark standalone worker cleanup enabled (true|false)",
 :type => 'string'
 
 attribute "spark/eventlog_enabled",
-:display_name => "Eventlog enabled (true|false)",
+:description => "Eventlog enabled (true|false)",
 :type => 'string'
 
 attribute "spark/hadoop/distribution",
-:display_name => "Hadoop distribution (hops|apache)",
+:description => "Hadoop distribution (hops|apache)",
 :type => 'string'
 
 attribute "spark/scala/version",
-:display_name => "Version of scala to install",
+:description => "Version of scala to install",
+:type => 'string'
+
+attribute "spark/master/port",
+:description => "Port for Master UI",
+:type => 'string'
+
+attribute "spark/worker/webui_port",
+:description => "Port for Worker Web UI",
 :type => 'string'
 

@@ -19,6 +19,8 @@ default[:spark][:eventlog_enabled]          = "false"
 default[:spark][:driver][:maxResultSize]    = "1g"
 
 default[:spark][:master][:port]             = 7077
+default[:spark][:worker][:webui_port]       = 9091
+
 
 default[:spark][:worker][:cleanup][:enabled]= true
 
