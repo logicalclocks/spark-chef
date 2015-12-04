@@ -7,6 +7,8 @@
 # All rights reserved
 #
 
+include_recipe "java"
+
 user node[:spark][:user] do
   supports :manage_home => true
   home "/home/#{node[:spark][:user]}"
