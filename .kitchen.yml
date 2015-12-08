@@ -17,9 +17,8 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
-
-suites:
-  - name: default
+    run_list:
+     - recipe[apt]
 
 suites:
   - name: default
@@ -36,8 +35,14 @@ suites:
       - recipe[spark::yarn]
       #- recipe[spark::historyserver]
     attributes:
+         java:
+           jdk_version: 8
+           install_flavor: oracle
+           oracle:
+             accept_oracle_download_terms: true
          vagrant: true
          hadoop:
+#            version: 2.6.0
             nn:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]

@@ -1,4 +1,10 @@
 
+# hdfs dfs -mkdir -p /user/spark/share/lib 
+# hdfs dfs -put $SPARK_HOME/assembly/lib/spark-assembly_*.jar  \     
+# /user/spark/share/lib/spark-assembly.jar 
+# SPARK_JAR=hdfs://<nn>:<port>/user/spark/share/lib/spark-assembly.jar
+
+
 # 
 # Creating symbolic links from spark jars in the lib/ directory where spark is installed to 
 # the directory containing yarn jars in hadoop. Hopefully, yarn will pick up these jars and add them
@@ -26,8 +32,15 @@ jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datan
 #   end
 # end
 
+hadoop_hdfs_directory "/User" do
+  action :create_as_superuser
+  owner node[:spark][:user]
+  group node[:hadoop][:group]
+  mode "1755"
+end
 
-hadoop_hdfs_directory "/user/#{node[:spark][:user]}" do
+
+hadoop_hdfs_directory "/User/#{node[:spark][:user]}" do
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:hadoop][:group]
@@ -39,7 +52,7 @@ hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][
   owner node[:spark][:user]
   group node[:hadoop][:group]
   mode "1755"
-  dest "/user/#{node[:spark][:user]}/spark.jar"
+  dest "/User/#{node[:spark][:user]}/spark.jar"
 end
 
 #

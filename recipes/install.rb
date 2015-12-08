@@ -7,6 +7,8 @@
 # All rights reserved
 #
 
+include_recipe "java"
+
 user node[:spark][:user] do
   supports :manage_home => true
   home "/home/#{node[:spark][:user]}"
@@ -49,7 +51,7 @@ bash 'extract-spark' do
                 touch #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
                 chown #{node[:spark][:user]} #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
         EOH
-     not_if { ::File.exists?( "#{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}" ) }
+     not_if { ::File.exists?( "#{node[:spark][:home]}/.spark_extracted_#{node[:spark][:version]}" ) }
 end
 
 
@@ -108,5 +110,5 @@ end
 link "#{node[:spark][:home]}/spark.jar" do
   owner node[:spark][:user]
   group node[:spark][:group]
-  to "#{node[:spark][:home]}/assembly/lib/spark-assembly_#{node[:spark][:version]}-hadoop2.4.0.jar"
+  to "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop2.4.0.jar"
 end
