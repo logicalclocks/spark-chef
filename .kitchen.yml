@@ -9,7 +9,7 @@ driver:
     natdnsproxy1: "on"
     nictype1: "virtio"
   network:
-  - ["forwarded_port", {guest: 50070, host: 57072}]
+  - ["forwarded_port", {guest: 8080, host: 8987}]
 
 provisioner:
   name: chef_solo
@@ -42,6 +42,8 @@ suites:
       - recipe[spark::worker]
       #- recipe[spark::historyserver]
     attributes:
+         java:
+            jdk_version: 8
          vagrant: true
          ndb:
             mgmd:

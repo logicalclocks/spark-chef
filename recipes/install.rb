@@ -22,8 +22,7 @@ group node[:hadoop][:group] do
   append true
 end
 
-# node.normal['java']['jdk_version'] = 7
-# include_recipe "java"
+include_recipe "java"
 
 for p in %w{ scala }
   package p do
