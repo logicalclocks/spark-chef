@@ -7,6 +7,8 @@
 # All rights reserved
 #
 
+node.default['java']['jdk_version'] = 8
+
 include_recipe "java"
 
 user node[:spark][:user] do
