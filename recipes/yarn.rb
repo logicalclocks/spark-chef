@@ -58,6 +58,12 @@ end
 #
 # HopsWorks looks for this if it can't find a version in hdfs.
 #
+
+file "#{node[:spark][:home]}/spark.jar" do
+  action :delete
+  force_unlink true  
+end
+
 link "#{node[:spark][:home]}/spark.jar" do
   owner node[:spark][:user]
   group node[:hadoop][:group]
