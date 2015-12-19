@@ -35,7 +35,10 @@ action :get_publickey do
     user node[:spark][:user]
     group node[:spark][:group]
     code <<-EOF
-      mkdir #{homedir}/.ssh
+      set -e
+      if [ ! -d "$DIR" ] ; then
+        mkdir #{homedir}/.ssh
+      fi
       echo "#{node[:spark][:master][:public_key]}" >> #{homedir}/.ssh/authorized_keys
       touch #{homedir}/.ssh/.jobmgr_key_authorized
   EOF
