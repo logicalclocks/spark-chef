@@ -36,7 +36,7 @@ action :get_publickey do
     group node[:spark][:group]
     code <<-EOF
       set -e
-      if [ ! -d "$DIR" ] ; then
+      if [ ! -d #{homedir}/.ssh ] ; then
         mkdir #{homedir}/.ssh
       fi
       echo "#{node[:spark][:master][:public_key]}" >> #{homedir}/.ssh/authorized_keys
