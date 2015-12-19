@@ -8,17 +8,12 @@ driver:
     natdnshostresolver1: "on"
     natdnsproxy1: "on"
     nictype1: "virtio"
-  network:
-  - ["forwarded_port", {guest: 50070, host: 57072}]
-  - ["forwarded_port", {guest: 50075, host: 57079}]
 
 provisioner:
   name: chef_solo
 
 platforms:
   - name: ubuntu-14.04
-    run_list:
-     - recipe[apt]
 
 suites:
   - name: default

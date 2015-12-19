@@ -34,9 +34,9 @@ homedir = node[:spark][:user].eql?("root") ? "/root" : "/home/#{node[:spark][:us
 # end
 
 kagent_keys "#{homedir}" do
-  cookbook_user node[:spark][:user]
-  cookbook_group node[:spark][:group]
-  cookbook_name "spark"
-  cookbook_recipe "master"  
+  cb_user "#{node[:spark][:user]}"
+  cb_group "#{node[:spark][:group]}"
+  cb_name "spark"
+  cb_recipe "master"  
   action :get_publickey
 end  
