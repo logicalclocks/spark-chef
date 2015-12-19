@@ -24,22 +24,22 @@ suites:
   - name: default
     run_list:
       - recipe[kagent::install]
-      - recipe[hadoop::install]
+#      - recipe[hadoop::install]
       - recipe[spark::install]
-      - recipe[hadoop::nn]
-      - recipe[hadoop::dn]
-      - recipe[hadoop::rm]
-      - recipe[hadoop::nm]
+#      - recipe[hadoop::nn]
+#      - recipe[hadoop::dn]
+#      - recipe[hadoop::rm]
+#      - recipe[hadoop::nm]
       - recipe[spark::master]
       - recipe[spark::worker]
-      - recipe[spark::yarn]
+#      - recipe[spark::yarn]
       #- recipe[spark::historyserver]
     attributes:
          java:
            jdk_version: 8
-           install_flavor: oracle
-           oracle:
-             accept_oracle_download_terms: true
+#           install_flavor: oracle
+#           oracle:
+#             accept_oracle_download_terms: true
          vagrant: true
          hadoop:
 #            version: 2.6.0
