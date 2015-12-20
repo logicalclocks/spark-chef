@@ -13,19 +13,6 @@ end
 
 homedir = node[:spark][:user].eql?("root") ? "/root" : "/home/#{node[:spark][:user]}"
 
-
-# bash "generate-ssh-keypair-for-master" do
-#  user node[:spark][:user]
-#   code <<-EOF
-#      ssh-keygen -b 2048 -f #{homedir}/.ssh/id_rsa -t rsa -q -N ''
-#   EOF
-#  not_if { ::File.exists?( "#{homedir}/.ssh/id_rsa" ) }
-# end
-
-# spark_master "#{homedir}" do
-#   action :return_publickey
-# end
-
 kagent_keys "#{homedir}" do
   cb_user node[:spark][:user]
   cb_group node[:spark][:group]
