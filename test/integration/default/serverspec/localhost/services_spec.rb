@@ -1,15 +1,15 @@
 
 require 'spec_helper'
 
-describe service('namenode') do  
-  it { should be_enabled   }
-  it { should be_running   }
-end 
+# describe service('namenode') do  
+#   it { should be_enabled   }
+#   it { should be_running   }
+# end 
 
-describe service('datanode') do  
-  it { should be_enabled   }
-  it { should be_running   }
-end 
+# describe service('datanode') do  
+#   it { should be_enabled   }
+#   it { should be_running   }
+# end 
 
 describe service('Master') do  
   it { should be_running   }
