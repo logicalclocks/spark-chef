@@ -3,8 +3,10 @@ action :start_master do
   bash "start-master" do
     user node[:spark][:user]
     group node[:spark][:group]
+    cwd node[:spark][:base_dir]
     code <<-EOF
-     #{node[:spark][:home]}/sbin/start-master.sh
+     . sbin/spark-config.sh
+     ./sbin/start-master.sh
     EOF
   end
  
@@ -16,10 +18,11 @@ action :start_worker do
   bash "start-worker" do
     user node[:spark][:user]
     group node[:spark][:group]
+    cwd node[:spark][:base_dir]
     code <<-EOF
-    set -e
+     
+    . sbin/spark-config.sh
 
-    cd #{node[:spark][:home]}    
 # Spark 1.4.x
     ./sbin/start-slave.sh #{new_resource.master_url}
 # Spark 1.3.x
