@@ -1,13 +1,9 @@
 dependencies: 
   - recipe: spark::install
-    local:
-      - hadoop::install
   - recipe: spark::master
-    global:
-      - hadoop::dn
   - recipe: spark::historyserver
     global:
-      - hadoop::nn
+      - hadoop::dn
   - recipe: spark::yarn
   - recipe: spark::worker
     global:
