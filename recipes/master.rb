@@ -3,7 +3,7 @@ spark_start "master" do
   action :start_master
 end
 
-hadoop_hdfs_directory "/user/#{node[:spark][:user]}/share/lib" do 
+hadoop_hdfs_directory "/User/#{node[:spark][:user]}/share/lib" do 
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:spark][:group]
@@ -12,7 +12,7 @@ end
 
 hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
   action :put
-  dest "/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
+  dest "/User/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
   owner node[:spark][:user]
   group node[:spark][:group]
   mode "0755"
@@ -33,15 +33,16 @@ end
 
 homedir = node[:spark][:user].eql?("root") ? "/root" : "/home/#{node[:spark][:user]}"
 
+kagent_keys "#{homedir}" do
+  cb_user node[:spark][:user]
+  cb_group node[:spark][:group]
+  action :generate  
+end  
 
-bash "generate-ssh-keypair-for-master" do
- user node[:spark][:user]
-  code <<-EOF
-     ssh-keygen -b 2048 -f #{homedir}/.ssh/id_rsa -t rsa -q -N ''
-  EOF
- not_if { ::File.exists?( "#{homedir}/.ssh/id_rsa" ) }
-end
-
-spark_master "#{homedir}" do
+kagent_keys "#{homedir}" do
+  cb_user node[:spark][:user]
+  cb_group node[:spark][:group]
+  cb_name "spark"
+  cb_recipe "master"  
   action :return_publickey
-end
+end  

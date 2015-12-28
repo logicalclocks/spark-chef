@@ -7,6 +7,14 @@
 # All rights reserved
 #
 
+include_recipe "java"
+
+
+group node[:spark][:group] do
+  action :create
+end
+
+
 user node[:spark][:user] do
   supports :manage_home => true
   home "/home/#{node[:spark][:user]}"
@@ -16,13 +24,11 @@ user node[:spark][:user] do
   not_if "getent passwd #{node[:spark]['user']}"
 end
 
-group node[:hadoop][:group] do
+group node[:spark][:group] do
   action :modify
-  members ["#{node[:spark][:user]}"]
+   members ["#{node[:spark][:user]}"]
   append true
 end
-
-include_recipe "java"
 
 for p in %w{ scala }
   package p do
@@ -73,8 +79,8 @@ link node[:spark][:base_dir] do
 end
 
 
-libpath = File.expand_path '../../../kagent/libraries', __FILE__
-require File.join(libpath, 'inifile')
+#libpath = File.expand_path '../../../kagent/libraries', __FILE__
+#require File.join(libpath, 'inifile')
 
 my_ip = my_private_ip()
 begin
@@ -84,8 +90,7 @@ rescue
   master_ip = my_private_ip()
 end
 
-# Get the NN IP for either Hops or Apache Hadoop
-namenode_ip = private_recipe_ip(node[:spark][:hadoop][:distribution],"nn")
+#namenode_ip = private_recipe_ip(node[:spark][:hadoop][:distribution],"nn")
 
 template"#{node[:spark][:home]}/conf/spark-env.sh" do
   source "spark-env.sh.erb"
@@ -94,8 +99,8 @@ template"#{node[:spark][:home]}/conf/spark-env.sh" do
   mode 0655
   variables({ 
         :private_ip => my_ip,
-        :master_ip => master_ip,
-        :spark_assembly => "hdfs://#{namenode_ip}:#{node[:hadoop][:nn][:port]}/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
+        :master_ip => master_ip
+#        :spark_assembly => "hdfs://#{namenode_ip}:#{node[:hadoop][:nn][:port]}/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
            })
 end
 
@@ -107,13 +112,18 @@ template"#{node[:spark][:home]}/conf/spark-defaults.conf" do
   mode 0655
   variables({ 
         :private_ip => my_ip,
-        :namenode_ip => namenode_ip,
+#        :namenode_ip => namenode_ip,
         :master_ip => master_ip
            })
+end
+
+file "#{node[:spark][:home]}/spark.jar" do
+  action :delete
+  force_unlink true  
 end
 
 link "#{node[:spark][:home]}/spark.jar" do
   owner node[:spark][:user]
   group node[:spark][:group]
-  to "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop2.4.0.jar"
+  to "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"
 end

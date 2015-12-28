@@ -5,7 +5,7 @@ include_attribute "hadoop"
 default[:spark][:user]                      = "spark"
 default[:spark][:group]                     = "#{node[:hadoop][:group]}"
 
-default[:spark][:version]                   = "1.3.1"
+default[:spark][:version]                   = "1.5.2"
 default[:spark][:hadoop][:version]          = "2.4"
 default[:spark][:scala][:version] 	    = "2.11"
 default[:spark][:dir]                       = "/srv"
@@ -24,7 +24,7 @@ default[:spark][:worker][:webui_port]       = 9091
 
 default[:spark][:worker][:cleanup][:enabled]= true
 
-# Pick hadoop distribution. Options are 'hops' and 'apache'
-default[:spark][:hadoop][:distribution]     = "hops"
+# Pick hadoop distribution. Options are 'hops' and 'hadoop'
+default[:spark][:hadoop][:distribution]     = "hadoop"
 
 default[:spark][:master][:public_key]       = ""

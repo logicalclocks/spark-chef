@@ -8,38 +8,31 @@ driver:
     natdnshostresolver1: "on"
     natdnsproxy1: "on"
     nictype1: "virtio"
+<<<<<<< HEAD
   network:
   - ["forwarded_port", {guest: 8080, host: 8987}]
+=======
+>>>>>>> origin
 
 provisioner:
   name: chef_solo
 
 platforms:
-#  - name: ubuntu-12.04
   - name: ubuntu-14.04
-#  - name: centos-6.5
-
-suites:
-  - name: default
 
 suites:
   - name: default
     run_list:
       - recipe[kagent::install]
-      - recipe[ndb::install]
-      - recipe[hops::install]
+#      - recipe[hadoop::install]
       - recipe[spark::install]
-      - recipe[ndb::mgmd]
-      - recipe[ndb::ndbd]
-      - recipe[ndb::mysqld]
-      - recipe[hops::ndb]
-      - recipe[hops::nn]
-      - recipe[hops::dn]
-      - recipe[hops::rm]
-      - recipe[hops::nm]
-      - recipe[hops::jhs]
+#      - recipe[hadoop::nn]
+#      - recipe[hadoop::dn]
+#      - recipe[hadoop::rm]
+#      - recipe[hadoop::nm]
       - recipe[spark::master]
       - recipe[spark::worker]
+<<<<<<< HEAD
       #- recipe[spark::historyserver]
     attributes:
          java:
@@ -59,6 +52,19 @@ suites:
             enabled: "true"
             dir: "/tmp"
          hops:
+=======
+#      - recipe[spark::yarn]
+      #- recipe[spark::historyserver]
+    attributes:
+         java:
+           jdk_version: 8
+#           install_flavor: oracle
+#           oracle:
+#             accept_oracle_download_terms: true
+         vagrant: true
+         hadoop:
+#            version: 2.6.0
+>>>>>>> origin
             nn:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
@@ -71,8 +77,12 @@ suites:
             nm:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
+<<<<<<< HEAD
             use_hopsworks: "false"
             dir: "/tmp"
+=======
+            use_hadoopworks: "false"
+>>>>>>> origin
          spark:
             user: "spark"
             master:
@@ -85,7 +95,7 @@ suites:
                public_ips: ["10.0.2.15"]
                private_ips: ["10.0.2.15"]
             hadoop:
-               distribution: "hops"
+               distribution: "hadoop"
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
             dir: "/tmp"

@@ -28,6 +28,10 @@ end
 
 homedir = node[:spark][:user].eql?("root") ? "/root" : "/home/#{node[:spark][:user]}"
 
-spark_master "#{homedir}" do
+kagent_keys "#{homedir}" do
+  cb_user "#{node[:spark][:user]}"
+  cb_group "#{node[:spark][:group]}"
+  cb_name "spark"
+  cb_recipe "master"  
   action :get_publickey
-end
+end  

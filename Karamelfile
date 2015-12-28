@@ -1,13 +1,7 @@
 dependencies: 
-  - recipe: spark::install
-    local:
-      - hops::install
-  - recipe: spark::master
-    global:
-      - hops::nn
   - recipe: spark::historyserver
     global:
-      - hops::nn
+      - hops::dn
   - recipe: spark::yarn
   - recipe: spark::worker
     global:

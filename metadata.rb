@@ -7,12 +7,13 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0"
 
 depends          "kagent"
-depends          "hops"
 depends          "hadoop"
 depends          "java"
 
 recipe           "install", "Installs Spark binaries"
+#link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
 recipe           "master", "Starts a Spark master"
+#link:<a target='_blank' href='http://%host%:8081/'>Launch the WebUI for the Spark Slave %host%</a>
 recipe           "worker", "Starts a Spark worker"
 recipe           "yarn", "Install for yarn"
 
@@ -49,10 +50,6 @@ attribute "spark/eventlog_enabled",
 
 attribute "spark/hadoop/distribution",
 :description => "Hadoop distribution (hops|apache)",
-:type => 'string'
-
-attribute "spark/scala/version",
-:description => "Version of scala to install",
 :type => 'string'
 
 attribute "spark/master/port",
