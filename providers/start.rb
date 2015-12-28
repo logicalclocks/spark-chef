@@ -7,6 +7,7 @@ action :start_master do
     code <<-EOF
      . sbin/spark-config.sh
      ./sbin/start-master.sh
+     # ./sbin/spark-daemon.sh start org.apache.spark.deploy.master.Master 
     EOF
   end
  

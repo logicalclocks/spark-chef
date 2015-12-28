@@ -14,15 +14,10 @@
 # end
 
 
-libpath = File.expand_path '../../../kagent/libraries', __FILE__
-require File.join(libpath, 'inifile')
-
 my_ip = my_private_ip()
 my_public_ip = my_public_ip()
 
 firstNN = "hdfs://" + private_recipe_ip("hadoop", "nn") + ":#{node[:hadoop][:nn][:port]}"
-
-  #dfs =node['hadoop']['core_site']['fs.defaultFS']
 
 eventlog_dir =
   if node['spark']['spark_defaults'].key?('spark.eventLog.dir')
@@ -31,7 +26,7 @@ eventlog_dir =
     '/user/#{node[:spark][:user]}/applicationHistory'
   end
 
-tmp_dirs   = ["/user/#{node[:spark][:user]}", eventlog_dir ]
+tmp_dirs   = ["/User/#{node[:spark][:user]}", eventlog_dir ]
 for d in tmp_dirs
   hadoop_hdfs_directory d do
     action :create
