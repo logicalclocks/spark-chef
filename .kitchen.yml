@@ -19,8 +19,13 @@ suites:
   - name: default
     run_list:
       - recipe[kagent::install]
+      - recipe[ndb::install]
       - recipe[hops::install]
       - recipe[spark::install]
+      - recipe[ndb::mgmd]
+      - recipe[ndb::ndbd]
+      - recipe[ndb::mysqld]
+      - recipe[hops::ndb]
       - recipe[hops::nn]
       - recipe[hops::dn]
       - recipe[hops::rm]
@@ -45,7 +50,6 @@ suites:
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
             enabled: "true"
-            dir: "/tmp"
          hops:
          vagrant: true
          hadoop:
@@ -62,7 +66,6 @@ suites:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
             use_hopsworks: "false"
-            dir: "/tmp"
          spark:
             user: "spark"
             master:
@@ -78,10 +81,8 @@ suites:
                distribution: "hadoop"
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
-            dir: "/tmp"
          kagent:
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
-            dir: "/tmp"
          private_ips: ["10.0.2.15"]
          public_ips: ["10.0.2.15"]
