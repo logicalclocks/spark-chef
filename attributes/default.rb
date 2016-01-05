@@ -28,3 +28,23 @@ default[:spark][:worker][:cleanup][:enabled]= true
 default[:spark][:hadoop][:distribution]     = "hadoop"
 
 default[:spark][:master][:public_key]       = ""
+
+default[:spark][:yarn]                      = "false"
+
+node.default.spark.yarn.applicationMaster.waitTries     = 10
+node.default.spark.yarn.submit.file.replication         = 3
+node.default.spark.yarn.preserve.staging.files          = "false"
+node.default.spark.yarn.scheduler.heartbeat.interval-ms = 5000
+#node.default.spark.yarn.max.executor.failures           = 3
+#node.default.spark.yarn.historyServer.address
+node.default.spark.yarn.queue                           = "default"
+# the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
+# The path given is the full hdfs path, without the protocol prefix ( hdfs://)
+node.default.spark.yarn.jar                             =  "/#{node.spark.user}/spark.jar"
+node.default.spark.yarn.dist.archives                   = ""
+node.default.spark.yarn.dist.files                      = ""
+node.default.spark.yarn.am.memory                       = "512m"
+node.default.spark.yarn.containerLauncherMaxThreads     = 25
+
+# Hash of environment variables
+node.default.spark.yarn.appMasterEnv                    = {}

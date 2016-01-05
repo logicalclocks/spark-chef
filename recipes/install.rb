@@ -112,8 +112,8 @@ template"#{node[:spark][:home]}/conf/spark-defaults.conf" do
   mode 0655
   variables({ 
         :private_ip => my_ip,
-#        :namenode_ip => namenode_ip,
-        :master_ip => master_ip
+        :master_ip => master_ip,
+        :yarn => node[:spark][:yarn]
            })
 end
 

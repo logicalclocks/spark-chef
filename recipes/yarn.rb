@@ -4,6 +4,8 @@
 # /user/spark/share/lib/spark-assembly.jar 
 # SPARK_JAR=hdfs://<nn>:<port>/user/spark/share/lib/spark-assembly.jar
 
+# will automatically handle generating and distributing the shared secret on YARN. Each application will use a unique shared secret.
+# spark.authenticate=true 
 
 # 
 # Creating symbolic links from spark jars in the lib/ directory where spark is installed to 

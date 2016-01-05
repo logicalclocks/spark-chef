@@ -9,21 +9,33 @@ spark.serializer              org.apache.spark.serializer.KryoSerializer
 
 spark.worker.cleanup.enabled  <%= node[:spark][:worker][:cleanup][:enabled] %>
 
+# YARN-specific parameters
 
-# spark.yarn.applicationMaster.waitTries	10
-# spark.yarn.submit.file.replication 3
-# spark.yarn.preserve.staging.files false
-# spark.yarn.scheduler.heartbeat.interval-ms 5000
-# spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
-# spark.yarn.historyServer.address
-# spark.yarn.dist.archives
-# spark.yarn.dist.files
-# spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
-# spark.yarn.driver.memoryOverhead	driverMemory * 0.07, with minimum of 384
-# spark.yarn.queue	default
-# spark.yarn.jar 
-# spark.yarn.access.namenodes
-# spark.yarn.appMasterEnv.[EnvironmentVariableName]	(none)
-# spark.yarn.containerLauncherMaxThreads	25
+
+<% auth = if node[:spark][:yarn] == "true"
+                   "spark.authenticate = true"
+               else
+                   "spark.authenticate.secret = #{node.spark.authenticate.secret}"
+               end
+-%>
+<%= auth  %>
+
+spark.yarn.applicationMaster.waitTries	<%= node.default.spark.yarn.applicationMaster.waitTries %>
+spark.yarn.submit.file.replication <%= node.ark.yarn.submit.file.replication %>
+spark.yarn.preserve.staging.files <%= node.default.spark.yarn.preserve.staging.files %>
+spark.yarn.scheduler.heartbeat.interval-ms <%= node.spark.yarn.scheduler.heartbeat.interval-ms %>
+spark.yarn.queue <%= node.spark.yarn.queue %> 
+spark.yarn.jar hdfs://<%= @namenode_ip %>:<%= node[:hadoop][:nn][:port] %><%= node.spark.yarn.jar %> 
+spark.yarn.containerLauncherMaxThreads <%= node.ark.yarn.containerLauncherMaxThreads %>
+spark.yarn.dist.archives <%= node.spark.yarn.dist.archives %> 
+spark.yarn.dist.files <%= node.spark.yarn.dist.files %> 
+spark.yarn.am.memory <%= node.spark.yarn.am.memory %>
+<% for env in node.spark.yarn.appMasterEnv.keys -%>
+spark.yarn.appMasterEnv.<% env -%> = <% node.spark.yarn.appMasterEnvenv[env] -%>
+<% end -%>
 
 # spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
+#spark.yarn.executor.memoryOverhead <%= node.spark.yarn.executor.memoryOverhead %> 
+#spark.yarn.driver.memoryOverhead <%= node.spark.yarn.driver.memoryOverhead %>
+#spark.yarn.max.executor.failures <%= node.spark.yarn.max.executor.failures %> 
+#spark.yarn.historyServer.address <%= node.spark.yarn.historyServer.address %>
