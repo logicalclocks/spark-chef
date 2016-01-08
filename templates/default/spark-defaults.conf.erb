@@ -12,7 +12,7 @@ spark.worker.cleanup.enabled  <%= node[:spark][:worker][:cleanup][:enabled] %>
 # YARN-specific parameters
 
 
-<% auth = if node[:spark][:yarn] == "true"
+<% auth = if node[:spark][:yarn][:support] == "true"
                    "spark.authenticate = true"
                else
                    "spark.authenticate.secret = #{node.spark.authenticate.secret}"
@@ -23,7 +23,7 @@ spark.worker.cleanup.enabled  <%= node[:spark][:worker][:cleanup][:enabled] %>
 spark.yarn.applicationMaster.waitTries	<%= node.default.spark.yarn.applicationMaster.waitTries %>
 spark.yarn.submit.file.replication <%= node.ark.yarn.submit.file.replication %>
 spark.yarn.preserve.staging.files <%= node.default.spark.yarn.preserve.staging.files %>
-spark.yarn.scheduler.heartbeat.interval-ms <%= node.spark.yarn.scheduler.heartbeat.interval-ms %>
+spark.yarn.scheduler.heartbeat.interval-ms <%= node.spark.yarn.scheduler.heartbeat.interval_ms %>
 spark.yarn.queue <%= node.spark.yarn.queue %> 
 spark.yarn.jar hdfs://<%= @namenode_ip %>:<%= node[:hadoop][:nn][:port] %><%= node.spark.yarn.jar %> 
 spark.yarn.containerLauncherMaxThreads <%= node.ark.yarn.containerLauncherMaxThreads %>

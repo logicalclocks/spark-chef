@@ -113,7 +113,7 @@ template"#{node[:spark][:home]}/conf/spark-defaults.conf" do
   variables({ 
         :private_ip => my_ip,
         :master_ip => master_ip,
-        :yarn => node[:spark][:yarn]
+        :yarn => node[:spark][:yarn][:support]
            })
 end
 

@@ -36,7 +36,7 @@ suites:
       #- recipe[spark::historyserver]
     attributes:
          java:
-            jdk_version: 8
+            jdk_version: 7
          vagrant: true
          ndb:
             mgmd:
@@ -51,8 +51,6 @@ suites:
             public_ips: ["10.0.2.15"]
             enabled: "true"
          hops:
-         vagrant: true
-         hadoop:
             nn:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
