@@ -5,9 +5,11 @@ action :start_master do
     group node[:spark][:group]
     cwd node[:spark][:base_dir]
     code <<-EOF
-     . sbin/spark-config.sh
      ./sbin/start-master.sh
-     # ./sbin/spark-daemon.sh start org.apache.spark.deploy.master.Master 
+     if [ $? -ne 0 ] ; then
+         ./sbin/stop-master.sh
+         ./sbin/start-master.sh
+     fi
     EOF
   end
  
@@ -22,15 +24,12 @@ action :start_worker do
     cwd node[:spark][:base_dir]
     code <<-EOF
      
-    . sbin/spark-config.sh
-
-# Spark 1.4.x
     ./sbin/start-slave.sh #{new_resource.master_url}
-# Spark 1.3.x
-#    ./sbin/start-slave.sh #{new_resource.worker_id} #{new_resource.master_url}
+     if [ $? -ne 0 ] ; then
+         ./sbin/stop-slave.sh
+         ./sbin/start-slave.sh #{new_resource.master_url}
+     fi
     EOF
-#    not_if "#{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
-     not_if "jps | grep Worker"
   end
  
 end
