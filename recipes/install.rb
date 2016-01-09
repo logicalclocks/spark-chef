@@ -100,7 +100,6 @@ template"#{node[:spark][:home]}/conf/spark-env.sh" do
   variables({ 
         :private_ip => my_ip,
         :master_ip => master_ip
-#        :spark_assembly => "hdfs://#{namenode_ip}:#{node[:hadoop][:nn][:port]}/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
            })
 end
 

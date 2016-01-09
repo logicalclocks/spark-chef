@@ -28,10 +28,10 @@ eventlog_dir =
   if node['spark']['spark_defaults'].key?('spark.eventLog.dir')
     node['spark']['spark_defaults']['spark.eventLog.dir']
   else
-    '/user/#{node[:spark][:user]}/applicationHistory'
+    node[:hdfs][:user_home] + "/" + node[:spark][:user] + "/applicationHistory"
   end
 
-tmp_dirs   = ["/user/#{node[:spark][:user]}", eventlog_dir ]
+tmp_dirs   = ["#{node[:hdfs][:user_home]}/#{node[:spark][:user]}", eventlog_dir ]
 for d in tmp_dirs
   hadoop_hdfs_directory d do
     action :create
@@ -42,26 +42,7 @@ for d in tmp_dirs
   end
 end
 
-# execute 'hdfs-spark-userdir' do
-#   command "hdfs dfs -mkdir -p #{dfs}/user/spark && hdfs dfs -chown -R spark:spark #{dfs}/user/spark"
-#   user 'hdfs'
-#   group 'hdfs'
-#   timeout 300
-#   action :nothing
-# end
-# execute 'hdfs-spark-eventlog-dir' do
-#   command "hdfs dfs -mkdir -p #{dfs}#{eventlog_dir} && hdfs dfs -chown -R spark:spark #{dfs}#{eventlog_dir} && hdfs dfs -chmod 1777 #{dfs}#{eventlog_dir}"
-#   user 'hdfs'
-#   group 'hdfs'
-#   timeout 300
-#   action :nothing
-# end
 
-# if node['hadoop']['distribution'] == 'cdh'
-#   s_cmd = "service #{pkg}"
-# else
-#   s_cmd = 'true #' # Ends with # to make arguments a comment, versus part of command line
-# end
 
 # service 'spark-history-server' do
 #   status_command "#{s_cmd} status"

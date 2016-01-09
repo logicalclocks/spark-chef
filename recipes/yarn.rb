@@ -34,7 +34,7 @@ jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datan
 #   end
 # end
 
-hadoop_hdfs_directory "/User" do
+hadoop_hdfs_directory "#{node[:hdfs][:user_home]}" do
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:hadoop][:group]
@@ -42,14 +42,14 @@ hadoop_hdfs_directory "/User" do
 end
 
 
-hadoop_hdfs_directory "/User/#{node[:spark][:user]}" do
+hadoop_hdfs_directory "#{node[:hdfs][:user_home]}/#{node[:spark][:user]}" do
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:hadoop][:group]
   mode "1755"
 end
 
-hadoop_hdfs_directory "/User/#{node[:spark][:user]}/eventlog" do
+hadoop_hdfs_directory "#{node[:hdfs][:user_home]}/#{node[:spark][:user]}/eventlog" do
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:hadoop][:group]
@@ -69,7 +69,7 @@ hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][
   owner node[:spark][:user]
   group node[:hadoop][:group]
   mode "1755"
-  dest "/User/#{node[:spark][:user]}/spark.jar"
+  dest "#{node[:hdfs][:user_home]}/#{node[:spark][:user]}/spark.jar"
 end
 
 #

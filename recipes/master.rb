@@ -3,7 +3,7 @@ spark_start "master" do
   action :start_master
 end
 
-hadoop_hdfs_directory "/User/#{node[:spark][:user]}/share/lib" do 
+hadoop_hdfs_directory "#{node[:hdfs][:user_home]}/#{node[:spark][:user]}/share/lib" do 
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:spark][:group]
@@ -12,7 +12,7 @@ end
 
 hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
   action :put
-  dest "/User/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
+  dest "#{node[:hdfs][:user_home]}/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
   owner node[:spark][:user]
   group node[:spark][:group]
   mode "0755"
