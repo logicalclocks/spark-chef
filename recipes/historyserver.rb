@@ -28,10 +28,10 @@ eventlog_dir =
   if node['spark']['spark_defaults'].key?('spark.eventLog.dir')
     node['spark']['spark_defaults']['spark.eventLog.dir']
   else
-    '/user/#{node[:spark][:user]}/applicationHistory'
+    '#{node[:hdfs][:user_home]}/#{node[:spark][:user]}/applicationHistory'
   end
 
-tmp_dirs   = ["/user/#{node[:spark][:user]}", eventlog_dir ]
+tmp_dirs   = ["#{node[:hdfs][:user_home]}/#{node[:spark][:user]}", eventlog_dir ]
 for d in tmp_dirs
   hadoop_hdfs_directory d do
     action :create
@@ -43,7 +43,7 @@ for d in tmp_dirs
 end
 
 # execute 'hdfs-spark-userdir' do
-#   command "hdfs dfs -mkdir -p #{dfs}/user/spark && hdfs dfs -chown -R spark:spark #{dfs}/user/spark"
+#   command "hdfs dfs -mkdir -p #{dfs}#{node[:hdfs][:user_home]}/spark && hdfs dfs -chown -R spark:spark #{dfs}#{node[:hdfs][:user_home]}/spark"
 #   user 'hdfs'
 #   group 'hdfs'
 #   timeout 300
