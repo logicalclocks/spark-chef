@@ -31,6 +31,7 @@ default[:spark][:master][:public_key]       = ""
 
 
 default.spark.yarn.support                         = "false"
+default.spark.authenticate.secret                  = ""
 default.spark.yarn.applicationMaster.waitTries     = 10
 default.spark.yarn.submit.file.replication         = 3
 default.spark.yarn.preserve.staging.files          = "false"

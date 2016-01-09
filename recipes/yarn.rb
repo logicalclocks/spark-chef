@@ -49,6 +49,14 @@ hadoop_hdfs_directory "/User/#{node[:spark][:user]}" do
   mode "1755"
 end
 
+hadoop_hdfs_directory "/User/#{node[:spark][:user]}/eventlog" do
+  action :create_as_superuser
+  owner node[:spark][:user]
+  group node[:hadoop][:group]
+  mode "1755"
+end
+
+
 hadoop_hdfs_directory "/user/#{node[:spark][:user]}/share/lib" do 
   action :create_as_superuser
   owner node[:spark][:user]
