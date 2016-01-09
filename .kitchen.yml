@@ -19,12 +19,10 @@ suites:
   - name: default
     run_list:
       - recipe[kagent::install]
-#      - recipe[hadoop::install]
+      - recipe[hadoop::install]
       - recipe[spark::install]
       - recipe[hadoop::nn]
       - recipe[hadoop::dn]
-#      - recipe[hadoop::rm]
-#      - recipe[hadoop::nm]
       - recipe[spark::master]
       - recipe[spark::worker]
       - recipe[spark::yarn]
