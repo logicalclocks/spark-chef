@@ -20,18 +20,22 @@ spark.worker.cleanup.enabled  <%= node[:spark][:worker][:cleanup][:enabled] %>
 -%>
 <%= auth  %>
 
-spark.yarn.applicationMaster.waitTries	<%= node.spark.yarn.applicationMaster.waitTries %>
-spark.yarn.submit.file.replication <%= node.spark.yarn.submit.file.replication %>
-spark.yarn.preserve.staging.files <%= node.spark.yarn.preserve.staging.files %>
+spark.dynamicAllocation.enabled            true
+#spark.dynamicAllocation.minExecutors 1
+#spark.dynamicAllocation.maxExecutors
+#spark.dynamicAllocation.initialExecutors
+spark.yarn.applicationMaster.waitTries	   <%= node.spark.yarn.applicationMaster.waitTries %>
+spark.yarn.submit.file.replication         <%= node.spark.yarn.submit.file.replication %>
+spark.yarn.preserve.staging.files          <%= node.spark.yarn.preserve.staging.files %>
 spark.yarn.scheduler.heartbeat.interval-ms <%= node.spark.yarn.scheduler.heartbeat.interval_ms %>
-spark.yarn.queue <%= node.spark.yarn.queue %> 
-spark.yarn.jar hdfs://<%= @namenode_ip %>:<%= node.hadoop.nn.port %><%= node.spark.yarn.jar %> 
-spark.yarn.containerLauncherMaxThreads <%= node.spark.yarn.containerLauncherMaxThreads %>
-spark.yarn.dist.archives <%= node.spark.yarn.dist.archives %> 
-spark.yarn.dist.files <%= node.spark.yarn.dist.files %> 
-spark.yarn.am.memory <%= node.spark.yarn.am.memory %>
+spark.yarn.queue                           <%= node.spark.yarn.queue %> 
+spark.yarn.jar                             hdfs://<%= @namenode_ip %>:<%= node.hadoop.nn.port %><%= node.spark.yarn.jar %> 
+spark.yarn.containerLauncherMaxThreads     <%= node.spark.yarn.containerLauncherMaxThreads %>
+spark.yarn.dist.archives                   <%= node.spark.yarn.dist.archives %> 
+spark.yarn.dist.files                      <%= node.spark.yarn.dist.files %> 
+spark.yarn.am.memory                       <%= node.spark.yarn.am.memory %>
 <% for env in node.spark.yarn.appMasterEnv.keys -%>
-spark.yarn.appMasterEnv.<% env -%> = <% node.spark.yarn.appMasterEnvenv[env] -%>
+spark.yarn.appMasterEnv.<% env -%>         <% node.spark.yarn.appMasterEnv[env] -%>
 <% end -%>
 
 # spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
