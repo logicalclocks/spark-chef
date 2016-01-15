@@ -90,6 +90,13 @@ rescue
   master_ip = my_private_ip()
 end
 
+begin
+  namenode_ip = private_recipe_ip("hops","nn")
+rescue
+  namenode_ip = my_private_ip()
+end
+
+
 #namenode_ip = private_recipe_ip(node[:spark][:hadoop][:distribution],"nn")
 
 template"#{node[:spark][:home]}/conf/spark-env.sh" do
@@ -112,6 +119,7 @@ template"#{node[:spark][:home]}/conf/spark-defaults.conf" do
   variables({ 
         :private_ip => my_ip,
         :master_ip => master_ip,
+        :namenode_ip => namenode_ip,
         :yarn => node[:spark][:yarn][:support]
            })
 end
