@@ -61,3 +61,6 @@ attribute "spark/worker/webui_port",
 :description => "Port for Worker Web UI",
 :type => 'string'
 
+attribute "spark/dir",
+:description => "Installation directory for Spark",
+:type => 'string'
