@@ -5,6 +5,3 @@ dependencies:
   - recipe: spark::yarn
     global:
       - hops::dn
-  - recipe: spark::worker
-    global:
-      - spark::master
