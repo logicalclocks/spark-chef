@@ -45,3 +45,8 @@ attribute "spark/worker/cleanup/enabled",
 attribute "spark/eventlog_enabled",
 :display_name => "Eventlog enabled (true|false)",
 :type => 'string'
+
+
+attribute "spark/version",
+:display_name => "Spark version (e.g., 1.4.1 or 1.5.2)",
+:type => 'string'
