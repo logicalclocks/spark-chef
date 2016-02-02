@@ -10,6 +10,7 @@ depends          "kagent"
 depends          "hadoop"
 depends          "java"
 depends          "hops"
+depends          "scala"
 
 recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>

@@ -30,15 +30,18 @@ group node[:spark][:group] do
   append true
 end
 
-for p in %w{ scala }
-  package p do
+case node[:platform_family]
+  when "debian"
+  package "scala" do
     action :install
   end
+  when "rhel"
+  # Doesnt work for ubuntu
+#  node.normal['scala']['version'] = node[:spark][:scala][:version]
+  include_recipe "scala"
+
 end
 
-# Doesnt work for ubuntu
-#node.normal['scala']['version'] = node[:spark][:scala][:version]
-#include_recipe "scala"
 
 
 package_url = "#{node[:spark][:url]}"
