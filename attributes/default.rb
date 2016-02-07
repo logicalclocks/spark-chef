@@ -5,7 +5,7 @@ include_attribute "hadoop"
 default[:spark][:user]                      = "spark"
 default[:spark][:group]                     = "#{node[:hadoop][:group]}"
 
-default[:spark][:version]                   = "1.5.2"
+default[:spark][:version]                   = "1.6.0"
 default[:spark][:hadoop][:version]          = "2.4"
 default[:spark][:scala][:version] 	    = "2.11"
 default[:spark][:dir]                       = "/srv"
