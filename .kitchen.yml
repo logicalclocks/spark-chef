@@ -14,8 +14,8 @@ provisioner:
 
 platforms:
   - name: centos-7.0
-  - name: ubuntu-14.04
-  - name: ubuntu-15.04
+#  - name: ubuntu-14.04
+#  - name: ubuntu-15.04
 
 suites:
   - name: default
@@ -32,14 +32,14 @@ suites:
       - recipe[hops::dn]
       - recipe[hops::rm]
       - recipe[hops::nm]
-      - recipe[spark::yarn]
+#      - recipe[spark::yarn]
       - recipe[spark::master]
       - recipe[spark::worker]
       #- recipe[spark::historyserver]
     attributes:
          java:
             jdk_version: 7
-         vagrant: true
+         vagrant: "true"
          ndb:
             mgmd:
                private_ips: ["10.0.2.15"]
