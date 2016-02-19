@@ -34,6 +34,7 @@ jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datan
 #   end
 # end
 
+
 home = node[:hdfs][:user_home]
 
 hadoop_hdfs_directory "#{home}" do
@@ -51,7 +52,16 @@ hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}" do
   mode "1755"
 end
 
-hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}/share/lib" do 
+
+hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}/eventlog" do
+  action :create_as_superuser
+  owner node[:spark][:user]
+  group node[:hadoop][:group]
+  mode "1755"
+end
+
+
+hadoop_hdfs_directory "/#{home}/#{node[:spark][:user]}/share/lib" do 
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:spark][:group]
@@ -66,17 +76,3 @@ hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][
   dest "#{home}/#{node[:spark][:user]}/spark.jar"
 end
 
-#
-# HopsWorks looks for this if it can't find a version in hdfs.
-#
-
-file "#{node[:spark][:home]}/spark.jar" do
-  action :delete
-  force_unlink true  
-end
-
-link "#{node[:spark][:home]}/spark.jar" do
-  owner node[:spark][:user]
-  group node[:hadoop][:group]
-  to "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"
-end

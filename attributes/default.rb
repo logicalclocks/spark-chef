@@ -26,25 +26,25 @@ default[:spark][:worker][:cleanup][:enabled]       = true
 
 # Pick hadoop distribution. Options are 'hops' and 'hadoop'
 default[:spark][:hadoop][:distribution]            = "hadoop"
-
 default[:spark][:master][:public_key]              = ""
-
-default.spark.yarn                                 = "true"
+default.spark.yarn.support                         = "false"
+default.spark.authenticate.secret                  = ""
 default.spark.yarn.applicationMaster.waitTries     = 10
-default.spark.yarn.am.waitTime                     = "100s"
 default.spark.yarn.submit.file.replication         = 3
 default.spark.yarn.preserve.staging.files          = "false"
-default.spark.yarn.scheduler.heartbeat.interval-ms = 5000
+default.spark.yarn.scheduler.heartbeat.interval_ms = 5000
 default.spark.yarn.queue                           = "default"
-# Allows YARN to cache spark jar on nodes so that it doesn't need to be distributed each time an application runs.
+# the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
-default.spark.yarn.jar                             = "/#{node.spark.user}/spark.jar"
+default.spark.yarn.jar                             =  "/user/#{node.spark.user}/spark.jar"
 default.spark.yarn.dist.archives                   = ""
 default.spark.yarn.dist.files                      = ""
 default.spark.yarn.am.memory                       = "512m"
-default.spark.yarn.containerLauncherMaxThreads     = nn25
+default.spark.yarn.containerLauncherMaxThreads     = 25
+#default.spark.yarn.am.waitTime                     = "100s"
+#default.spark.yarn.max.executor.failures           = 3
+#default.spark.yarn.historyServer.address
+
 # Hash of environment variables
 default.spark.yarn.appMasterEnv                    = {}
 
-#default.spark.yarn.max.executor.failures           = 3
-#default.spark.yarn.historyServer.address

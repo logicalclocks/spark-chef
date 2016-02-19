@@ -2,9 +2,9 @@
 driver:
   name: vagrant
   customize:
-    memory: 4096
+    memory: 8096
     cpuexecutioncap: 90
-    cpus: 1
+    cpus: 2
     natdnshostresolver1: "on"
     natdnsproxy1: "on"
     nictype1: "virtio"
@@ -13,7 +13,9 @@ provisioner:
   name: chef_solo
 
 platforms:
+  - name: centos-7.0
   - name: ubuntu-14.04
+  - name: ubuntu-15.04
 
 suites:
   - name: default
@@ -30,14 +32,14 @@ suites:
       - recipe[hops::dn]
       - recipe[hops::rm]
       - recipe[hops::nm]
-      - recipe[spark::master]
-      - recipe[spark::worker]
       - recipe[spark::yarn]
+#      - recipe[spark::master]
+#      - recipe[spark::worker]
       #- recipe[spark::historyserver]
     attributes:
          java:
-            jdk_version: 8
-         vagrant: true
+            jdk_version: 7
+         vagrant: "true"
          ndb:
             mgmd:
                private_ips: ["10.0.2.15"]
@@ -50,9 +52,8 @@ suites:
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
             enabled: "true"
+            use_systemd: "true"
          hops:
-         vagrant: true
-         hadoop:
             nn:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
@@ -66,6 +67,7 @@ suites:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
             use_hopsworks: "false"
+            use_systemd: "true"
          spark:
             user: "spark"
             master:
@@ -81,8 +83,10 @@ suites:
                distribution: "hadoop"
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
+            use_systemd: "true"
          kagent:
             private_ips: ["10.0.2.15"]
             public_ips: ["10.0.2.15"]
+            use_systemd: "true"
          private_ips: ["10.0.2.15"]
          public_ips: ["10.0.2.15"]
