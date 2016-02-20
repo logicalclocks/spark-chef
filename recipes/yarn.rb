@@ -34,6 +34,7 @@ jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datan
 #   end
 # end
 
+include_recipe "hops::wrap"
 
 home = node[:hdfs][:user_home]
 
@@ -61,7 +62,7 @@ hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}/eventlog" do
 end
 
 
-hadoop_hdfs_directory "/#{home}/#{node[:spark][:user]}/share/lib" do 
+hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}/share/lib" do 
   action :create_as_superuser
   owner node[:spark][:user]
   group node[:spark][:group]
