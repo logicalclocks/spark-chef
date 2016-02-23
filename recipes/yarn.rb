@@ -14,9 +14,7 @@
 # One potential problem could be if you install spark as a different user than the default user 'yarn'.
 # Then the symbolic link may not be able to be created due to a lack of file privileges.
 # 
-jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datanucleus-rdbms-3.2.9.jar",  "spark-#{node[:spark][:version]}-yarn-shuffle.jar",  "spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"]
-
-
+#jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datanucleus-rdbms-3.2.9.jar",  "spark-#{node[:spark][:version]}-yarn-shuffle.jar",  "spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"]
 # for jar in jars
 #   jar.gsub! "-#{node[:spark][:version]}" ""
 #   jar.gsub! "-#{node[:hadoop][:version]}" ""
