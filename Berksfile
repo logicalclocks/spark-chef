@@ -1,8 +1,9 @@
-source "https://api.berkshelf.com"
+source 'https://supermarket.chef.io'
 
 metadata
 
-cookbook 'kagent', github: 'karamelchef/kagent-chef'
+cookbook 'kagent'
 cookbook 'hadoop', github: 'hopshadoop/apache-hadoop-chef'
-cookbook 'java', github: 'jimdowling/java'
+#cookbook 'java', github: 'jimdowling/java'
+cookbook 'java'
 cookbook 'ark'

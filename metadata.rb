@@ -18,6 +18,10 @@ recipe           "worker", "Starts a Spark worker"
 recipe           "yarn", "Install for yarn"
 
 
+attribute "java/jdk_version",
+          :description =>  "Jdk version",
+          :type => 'string'
+
 attribute "spark/user",
 :display_name => "Username to run spark master/worker as",
 :type => 'string'
