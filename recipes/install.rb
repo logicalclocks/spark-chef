@@ -11,6 +11,7 @@ node.default['java']['jdk_version'] = 7
 node.default['java']['set_etc_environment'] = true
 include_recipe "java"
 
+include_recipe "hops::wrap"
 
 group node[:spark][:group] do
   action :create
