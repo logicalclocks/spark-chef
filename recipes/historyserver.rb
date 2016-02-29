@@ -10,40 +10,35 @@
 #       policy_rcd('enable') if node['platform_family'] == 'debian'
 #     end
 #   end
-#   only_if { node['hadoop']['distribution'] == 'cdh' }
+#   only_if { node.hadoop.distribution == 'cdh' }
 # end
 
-
-libpath = File.expand_path '../../../kagent/libraries', __FILE__
-require File.join(libpath, 'inifile')
 
 my_ip = my_private_ip()
 my_public_ip = my_public_ip()
 
-firstNN = "hdfs://" + private_recipe_ip("hadoop", "nn") + ":#{node[:hadoop][:nn][:port]}"
-
-  #dfs =node['hadoop']['core_site']['fs.defaultFS']
+firstNN = "hdfs://" + private_recipe_ip("apache_hadoop", "nn") + ":#{node.hadoop.nn.port}"
 
 eventlog_dir =
-  if node['spark']['spark_defaults'].key?('spark.eventLog.dir')
-    node['spark']['spark_defaults']['spark.eventLog.dir']
+  if node.spark.spark_defaults.key?('spark.eventLog.dir')
+    "#{node.spark.spark_defaults.spark.eventLog.dir}"
   else
-    '#{node[:hdfs][:user_home]}/#{node[:spark][:user]}/applicationHistory'
+    "#{node.apache_hadoop.hdfs.user_home}/#{node.spark.user}/applicationHistory"
   end
 
-tmp_dirs   = ["#{node[:hdfs][:user_home]}/#{node[:spark][:user]}", eventlog_dir ]
+tmp_dirs   = ["#{node.apache_hadoop.hdfs.user_home}/#{node.spark.user}", eventlog_dir ]
 for d in tmp_dirs
   hadoop_hdfs_directory d do
     action :create
-    owner node[:spark][:user]
-    group node[:spark][:group]
+    owner node.spark.user
+    group node.spark.group
     mode "1771"
-    not_if ". #{node[:hadoop][:home]}/sbin/set-env.sh && #{node[:hadoop][:home]}/bin/hdfs dfs -test -d #{d}"
+    not_if ". #{node.hadoop.home}/sbin/set-env.sh && #{node.hadoop.home}/bin/hdfs dfs -test -d #{d}"
   end
 end
 
 # execute 'hdfs-spark-userdir' do
-#   command "hdfs dfs -mkdir -p #{dfs}#{node[:hdfs][:user_home]}/spark && hdfs dfs -chown -R spark:spark #{dfs}#{node[:hdfs][:user_home]}/spark"
+#   command "hdfs dfs -mkdir -p #{dfs}#{node.apache_hadoop.hdfs.user_home}/spark && hdfs dfs -chown -R spark:spark #{dfs}#{node.apache_hadoop.hdfs.user_home}/spark"
 #   user 'hdfs'
 #   group 'hdfs'
 #   timeout 300
@@ -57,7 +52,7 @@ end
 #   action :nothing
 # end
 
-# if node['hadoop']['distribution'] == 'cdh'
+# if node.hadoop.distribution == 'cdh'
 #   s_cmd = "service #{pkg}"
 # else
 #   s_cmd = 'true #' # Ends with # to make arguments a comment, versus part of command line
@@ -68,6 +63,6 @@ end
 #   start_command "#{s_cmd} start"
 #   stop_command "#{s_cmd} stop"
 #   restart_command "#{s_cmd} restart"
-#   supports [:restart => true, :reload => false, :status => true]
+#   supports .restart => true, :reload => false, :status => true]
 #   action :nothing
 # end
