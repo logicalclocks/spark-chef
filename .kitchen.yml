@@ -19,14 +19,14 @@ suites:
   - name: default
     run_list:
       - recipe[kagent::install]
-      - recipe[hadoop::install]
-      - recipe[spark::install]
-      - recipe[hadoop::nn]
-      - recipe[hadoop::dn]
-      - recipe[spark::master]
-      - recipe[spark::worker]
-      - recipe[spark::yarn]
-      #- recipe[spark::historyserver]
+      - recipe[apache_hadoop::install]
+      - recipe[hadoop_spark::install]
+      - recipe[apache_hadoop::nn]
+      - recipe[apache_hadoop::dn]
+      - recipe[hadoop_spark::master]
+      - recipe[hadoop_spark::worker]
+      - recipe[hadoop_spark::yarn]
+      #- recipe[hadoop_spark::historyserver]
     attributes:
          java:
            jdk_version: 8
@@ -34,7 +34,7 @@ suites:
 #           oracle:
 #             accept_oracle_download_terms: true
          vagrant: true
-         hadoop:
+         apache_hadoop:
 #            version: 2.6.0
             nn:
                private_ips: ["10.0.2.15"]
@@ -49,7 +49,7 @@ suites:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
             use_hadoopworks: "false"
-         spark:
+         hadoop_spark:
             user: "spark"
             master:
                public_ips: ["10.0.2.15"]

@@ -1,29 +1,29 @@
-# https://spark.apache.org/docs/1.2.0/running-on-yarn.html 
+<# https:/.apache_hadoop.spark.apache.org/docs/1.2.0/running-on-yarn.html 
 
-spark.master                  spark://<%= @master_ip %>:7077
-spark.driver.memory           <%= node.spark.driver_memory %>
-spark.executor.memory         <%= node.spark.executor_memory %>
-spark.eventLog.enabled        <%= node.spark.eventlog_enabled %>
-# spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.hadoop.nn.port %>/tmp
+spark.master                 spark//<%= @master_ip %>:7077
+spark.driver.memory           <%= node.hadoop_spark.driver_memory %>
+spark.executor.memory         <%= node.hadoop_spark.executor_memory %>
+spark.eventLog.enabled        <%= node.hadoop_spark.eventlog_enabled %>
+#.apache_hadoop.spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/tmp
 spark.serializer              org.apache.spark.serializer.KryoSerializer
 
-spark.worker.cleanup.enabled  <%= node.spark.worker.cleanupenabled %>
+spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
 
 
-# spark.yarn.applicationMaster.waitTries	10
-# spark.yarn.submit.file.replication 3
-# spark.yarn.preserve.staging.files false
-# spark.yarn.scheduler.heartbeat.interval-ms 5000
-# spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
-# spark.yarn.historyServer.address
-# spark.yarn.dist.archives
-# spark.yarn.dist.files
-# spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
-# spark.yarn.driver.memoryOverhead	driverMemory * 0.07, with minimum of 384
-# spark.yarn.queue	default
-# spark.yarn.jar 
-# spark.yarn.access.namenodes
-# spark.yarn.appMasterEnv.[EnvironmentVariableName]	(none)
-# spark.yarn.containerLauncherMaxThreads	25
+#.apache_hadoop.spark.yarn.applicationMaster.waitTries	10
+#.apache_hadoop.spark.yarn.submit.file.replication 3
+#.apache_hadoop.spark.yarn.preserve.staging.files false
+#.apache_hadoop.spark.yarn.scheduler.heartbeat.interval-ms 5000
+#.apache_hadoop.spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
+#.apache_hadoop.spark.yarn.historyServer.address
+#.apache_hadoop.spark.yarn.dist.archives
+#.apache_hadoop.spark.yarn.dist.files
+#.apache_hadoop.spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
+#.apache_hadoop.spark.yarn.driver.memoryOverhead	driverMemory * 0.07, with minimum of 384
+#.apache_hadoop.spark.yarn.queue	default
+#.apache_hadoop.spark.yarn.jar 
+#.apache_hadoop.spark.yarn.access.namenodes
+#.apache_hadoop.spark.yarn.appMasterEnv.[EnvironmentVariableName]	(none)
+#.apache_hadoop.spark.yarn.containerLauncherMaxThreads	25
 
-# spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
+#.apache_hadoop.spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
