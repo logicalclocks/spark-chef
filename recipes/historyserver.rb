@@ -42,8 +42,6 @@ for d in tmp_dirs
   end
 end
 
-
-
 # service 'spark-history-server' do
 #   status_command "#{s_cmd} status"
 #   start_command "#{s_cmd} start"

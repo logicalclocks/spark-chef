@@ -1,10 +1,10 @@
-source "https://api.berkshelf.com"
+source 'https://supermarket.chef.io'
 
 metadata
 
-cookbook 'kagent', github: 'karamelchef/kagent-chef'
-cookbook 'hadoop', github: 'hopshadoop/apache-hadoop-chef'
-cookbook 'hops', github: 'hopshadoop/hops-hadoop-chef'
-cookbook 'ndb', github: 'hopshadoop/ndb-chef'
-cookbook 'java', github: 'jimdowling/java'
-cookbook 'scala', github: 'RiotGamesCookbooks/scala-cookbook'
+cookbook 'kagent', '~> 0.1.2'
+cookbook 'apache_hadoop', '~> 0.1.0'
+cookbook 'hops', '~> 0.1.0'
+cookbook 'ndb', '~> 0.1'
+cookbook 'java', '~> 1.39.0'
+cookbook 'scala', '~> 2.1.0'

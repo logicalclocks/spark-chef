@@ -20,6 +20,10 @@ recipe           "worker", "Starts a Spark worker"
 recipe           "yarn", "Install for yarn"
 
 
+attribute "java/jdk_version",
+          :description =>  "Jdk version",
+          :type => 'string'
+
 attribute "spark/user",
 :description => "Username to run spark master/worker as",
 :type => 'string'
@@ -65,3 +69,9 @@ attribute "spark/worker/webui_port",
 attribute "spark/dir",
 :description => "Installation directory for Spark",
 :type => 'string'
+
+
+attribute "spark/version",
+:display_name => "Spark version (e.g., 1.4.1 or 1.5.2)",
+:type => 'string'
+

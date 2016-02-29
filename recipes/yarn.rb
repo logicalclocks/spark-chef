@@ -1,8 +1,8 @@
 
-# hdfs dfs -mkdir -p /user/spark/share/lib 
+# hdfs dfs -mkdir -p #{node[:hdfs][:user_home]}/spark/share/lib 
 # hdfs dfs -put $SPARK_HOME/assembly/lib/spark-assembly_*.jar  \     
-# /user/spark/share/lib/spark-assembly.jar 
-# SPARK_JAR=hdfs://<nn>:<port>/user/spark/share/lib/spark-assembly.jar
+# #{node[:hdfs][:user_home]}/spark/share/lib/spark-assembly.jar 
+# SPARK_JAR=hdfs://<nn>:<port>#{node[:hdfs][:user_home]}/spark/share/lib/spark-assembly.jar
 
 # will automatically handle generating and distributing the shared secret on YARN. Each application will use a unique shared secret.
 # spark.authenticate=true 

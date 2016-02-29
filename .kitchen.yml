@@ -33,8 +33,6 @@ suites:
       - recipe[hops::rm]
       - recipe[hops::nm]
       - recipe[spark::yarn]
-#      - recipe[spark::master]
-#      - recipe[spark::worker]
       #- recipe[spark::historyserver]
     attributes:
          java:
