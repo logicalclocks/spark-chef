@@ -21,7 +21,7 @@ if found_id == -1
 end
 
 
-hadoop_spark_start "spark//#{master_ip}:#{node.hadoop_spark.master.port}" do
+hadoop_spark_start "spark://#{master_ip}:#{node.hadoop_spark.master.port}" do
   worker_id found_id
   action :start_worker
 end

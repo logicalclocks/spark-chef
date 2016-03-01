@@ -20,8 +20,8 @@ recipe           "yarn", "Install for yarn"
 
 
 attribute "java/jdk_version",
-          :description =>  "Jdk version",
-          :type => 'string'
+:display_name =>  "Jdk version",
+:type => 'string'
 
 attribute "hadoop_spark/user",
 :display_name => "Username to run spark master/worker as",
