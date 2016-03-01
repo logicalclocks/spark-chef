@@ -1,6 +1,5 @@
 include_attribute "kagent"
 
-
 default.hadoop_spark.user                      = "spark"
 default.hadoop_spark.group                     = "#{node.apache_hadoop.group}"
 
