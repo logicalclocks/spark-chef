@@ -50,7 +50,6 @@ attribute "hadoop_spark/worker/cleanup/enabled",
 
 attribute "hadoop_spark/eventlog_enabled",
 :display_name => "Eventlog enabled (true|false)",
->>>>>>> b1e5c899bb9df259d586a8ced8dfdf05f4ac9044
 :type => 'string'
 
 
