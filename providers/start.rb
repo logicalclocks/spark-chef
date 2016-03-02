@@ -1,9 +1,9 @@
 action :start_master do
 
   bash "start-master" do
-    user node[:spark][:user]
-    group node[:spark][:group]
-    cwd node[:spark][:base_dir]
+    user node.hadoop_spark.user
+    group node.hadoop_spark.group
+    cwd node.hadoop_spark.base_dir
     code <<-EOF
      . sbin/spark-config.sh
      ./sbin/start-master.sh
@@ -16,9 +16,9 @@ end
 action :start_worker do
 
   bash "start-worker" do
-    user node[:spark][:user]
-    group node[:spark][:group]
-    cwd node[:spark][:base_dir]
+    user node.hadoop_spark.user
+    group node.hadoop_spark.group
+    cwd node.hadoop_spark.base_dir
     code <<-EOF
      
     . sbin/spark-config.sh
@@ -28,7 +28,7 @@ action :start_worker do
 # Spark 1.3.x
 #    ./sbin/start-slave.sh #{new_resource.worker_id} #{new_resource.master_url}
     EOF
-#    not_if "#{node[:spark][:home]}/sbin/start-slave.sh --properties-file #{node[:spark][:home]}/conf/spark-defaults.conf | grep \"stop it first\""
+#    not_if "#{node.hadoop_spark.home}/sbin/start-slave.sh --properties-file #{node.hadoop_spark.home}/conf/spark-defaults.conf | grep \"stop it first\""
      not_if "jps | grep Worker"
   end
  

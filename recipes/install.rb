@@ -9,36 +9,39 @@
 
 include_recipe "java"
 
-
-group node[:spark][:group] do
+group node.hadoop_spark.group do
   action :create
 end
 
 
-user node[:spark][:user] do
+user node.hadoop_spark.user do
   supports :manage_home => true
-  home "/home/#{node[:spark][:user]}"
+  home "/home/#{node.hadoop_spark.user}"
   action :create
   system true
   shell "/bin/bash"
-  not_if "getent passwd #{node[:spark]['user']}"
+  not_if "getent passwd #{node.hadoop_spark.user}"
 end
 
-group node[:spark][:group] do
+group node.hadoop_spark.group do
   action :modify
-   members ["#{node[:spark][:user]}"]
+   members ["#{node.hadoop_spark.user}"]
   append true
 end
 
-for p in %w{ scala }
-  package p do
+case node.platform_family
+ when "debian"
+  package "scala" do
     action :install
   end
+ when "redhat"
+  include_recipe "scala"
 end
 
-package_url = "#{node[:spark][:url]}"
+
+package_url = "#{node.hadoop_spark.url}"
 base_package_filename = File.basename(package_url)
-cached_package_filename = "#{Chef::Config[:file_cache_path]}/#{base_package_filename}"
+cached_package_filename = "#{Chef::Config.file_cache_path}/#{base_package_filename}"
 
 remote_file cached_package_filename do
   source package_url
@@ -48,72 +51,66 @@ remote_file cached_package_filename do
 end
 
 # Extract Spark
-bash 'extract-spark' do
+bash 'extract_hadoop_spark' do
         user "root"
         code <<-EOH
-                tar -xf #{cached_package_filename} -C #{node[:spark][:dir]}
-                chown -R #{node[:spark][:user]}:#{node[:spark][:group]} #{node[:spark][:home]}
-                touch #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
-                chown #{node[:spark][:user]} #{node[:spark][:dir]}/.spark_extracted_#{node[:spark][:version]}
+                tar -xf #{cached_package_filename} -C #{node.hadoop_spark.dir}
+                chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
+                touch #{node.hadoop_spark.dir}/.hadoop_spark.extracted_#{node.hadoop_spark.version}
+                chown #{node.hadoop_spark.user} #{node.hadoop_spark.dir}/.hadoop_spark.extracted_#{node.hadoop_spark.version}
         EOH
-     not_if { ::File.exists?( "#{node[:spark][:home]}/.spark_extracted_#{node[:spark][:version]}" ) }
+     not_if { ::File.exists?( "#{node.hadoop_spark.home}/.hadoop_spark.extracted_#{node.hadoop_spark.version}" ) }
 end
 
 
-template"#{node[:spark][:home]}/conf/log4j.properties" do
+template"#{node.hadoop_spark.home}/conf/log4j.properties" do
   source "log4j.properties.erb"
-  owner node[:spark][:user]
-  group node[:spark][:group]
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
   mode 0655
 end
 
-link node[:spark][:base_dir] do
-  owner node[:spark][:user]
-  group node[:spark][:group]
-  to node[:spark][:home]
+link node.hadoop_spark.base_dir do
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
+  to node.hadoop_spark.home
 end
 
-
-#libpath = File.expand_path '../../../kagent/libraries', __FILE__
-#require File.join(libpath, 'inifile')
 
 my_ip = my_private_ip()
-master_ip = private_recipe_ip("spark","master")
+master_ip = private_recipe_ip("hadoop_spark","master")
 
-#namenode_ip = private_recipe_ip(node[:spark][:hadoop][:distribution],"nn")
 
-template"#{node[:spark][:home]}/conf/spark-env.sh" do
+template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
   source "spark-env.sh.erb"
-  owner node[:spark][:user]
-  group node[:spark][:group]
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
   mode 0655
   variables({ 
         :private_ip => my_ip,
         :master_ip => master_ip
-#        :spark_assembly => "hdfs://#{namenode_ip}:#{node[:hadoop][:nn][:port]}/user/#{node[:spark][:user]}/share/lib/spark-assembly.jar"
            })
 end
 
 
-template"#{node[:spark][:home]}/conf/spark-defaults.conf" do
+template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
   source "spark-defaults.conf.erb"
-  owner node[:spark][:user]
-  group node[:spark][:group]
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
   mode 0655
   variables({ 
         :private_ip => my_ip,
-#        :namenode_ip => namenode_ip,
         :master_ip => master_ip
            })
 end
 
-file "#{node[:spark][:home]}/spark.jar" do
+file "#{node.hadoop_spark.home}/spark.jar" do
   action :delete
   force_unlink true  
 end
 
-link "#{node[:spark][:home]}/spark.jar" do
-  owner node[:spark][:user]
-  group node[:spark][:group]
-  to "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"
+link "#{node.hadoop_spark.home}/spark.jar" do
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
+  to "#{node.hadoop_spark.home}/lib/spark-assembly-#{node.hadoop_spark.version}-hadoop#{node.apache_hadoop.version}.jar"
 end
