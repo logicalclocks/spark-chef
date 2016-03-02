@@ -1,9 +1,9 @@
 action :start_master do
 
   bash "start-master" do
-    user node[:spark][:user]
-    group node[:spark][:group]
-    cwd node[:spark][:base_dir]
+    user node.hadoop_spark.user
+    group node.hadoop_spark.group
+    cwd node.hadoop_spark.base_dir
     code <<-EOF
      . sbin/spark-config.sh
      ./sbin/start-master.sh
@@ -16,9 +16,9 @@ end
 action :start_worker do
 
   bash "start-worker" do
-    user node[:spark][:user]
-    group node[:spark][:group]
-    cwd node[:spark][:base_dir]
+    user node.hadoop_spark.user
+    group node.hadoop_spark.group
+    cwd node.hadoop_spark.base_dir
     code <<-EOF
     . sbin/spark-config.sh
 # Spark >1.4.x

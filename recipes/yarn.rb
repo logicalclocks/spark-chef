@@ -1,77 +1,49 @@
-
-# hdfs dfs -mkdir -p #{node[:hdfs][:user_home]}/spark/share/lib 
-# hdfs dfs -put $SPARK_HOME/assembly/lib/spark-assembly_*.jar  \     
-# #{node[:hdfs][:user_home]}/spark/share/lib/spark-assembly.jar 
-# SPARK_JAR=hdfs://<nn>:<port>#{node[:hdfs][:user_home]}/spark/share/lib/spark-assembly.jar
-
-# will automatically handle generating and distributing the shared secret on YARN. Each application will use a unique shared secret.
-# spark.authenticate=true 
-
-# 
 # Creating symbolic links from spark jars in the lib/ directory where spark is installed to 
 # the directory containing yarn jars in hadoop. Hopefully, yarn will pick up these jars and add them
 # to the HADOOP_CLASSPATH :)
-# One potential problem could be if you install spark as a different user than the default user 'yarn'.
+# One potential problem could be if you install.hadoop_spark.as a different user than the default user 'yarn'.
 # Then the symbolic link may not be able to be created due to a lack of file privileges.
 # 
-#jars = ["datanucleus-api-jdo-3.2.6.jar",  "datanucleus-core-3.2.10.jar",  "datanucleus-rdbms-3.2.9.jar",  "spark-#{node[:spark][:version]}-yarn-shuffle.jar",  "spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar"]
-# for jar in jars
-#   jar.gsub! "-#{node[:spark][:version]}" ""
-#   jar.gsub! "-#{node[:hadoop][:version]}" ""
 
-#   file "#{node[:hadoop][:home]}/share/hadoop/yarn/#{jar}" do
-#     owner node[:hadoop][:yarn][:user]
-#     group node[:hadoop][:group]
-#     action :delete
-#   end
+home = node.apache_hadoop.hdfs.user_home
 
-#   link "#{node[:hadoop][:home]}/share/hadoop/yarn/#{jar}" do
-#     owner node[:hadoop][:yarn][:user]
-#     group node[:hadoop][:group]
-#     to "#{node[:spark][:home]}/lib/#{jar}"
-#   end
-# end
 
 include_recipe "hops::wrap"
 
-home = node[:hdfs][:user_home]
-
-hadoop_hdfs_directory "#{home}" do
+apache_hadoop_hdfs_directory "#{home}" do
   action :create_as_superuser
-  owner node[:spark][:user]
-  group node[:hadoop][:group]
+  owner node.hadoop_spark.user
+  group node.apache_hadoop.group
   mode "1755"
 end
 
 
-hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}" do
+apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}" do
   action :create_as_superuser
-  owner node[:spark][:user]
-  group node[:hadoop][:group]
+  owner node.hadoop_spark.user
+  group node.apache_hadoop.group
   mode "1755"
 end
 
-
-hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}/eventlog" do
+apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/eventlog" do
   action :create_as_superuser
-  owner node[:spark][:user]
-  group node[:hadoop][:group]
+  owner node.hadoop_spark.user
+  group node.apache_hadoop.group
   mode "1755"
 end
 
-
-hadoop_hdfs_directory "#{home}/#{node[:spark][:user]}/share/lib" do 
+apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/share/lib" do
   action :create_as_superuser
-  owner node[:spark][:user]
-  group node[:spark][:group]
-  mode "755"
+  owner node.hadoop_spark.user
+  group node.apache_hadoop.group
+  mode "1755"
 end
 
-hadoop_hdfs_directory "#{node[:spark][:home]}/lib/spark-assembly-#{node[:spark][:version]}-hadoop#{node[:hadoop][:version]}.jar" do
+apache_hadoop_hdfs_directory "#{node.hadoop_spark.home}/lib/spark-assembly-#{node.hadoop_spark.version}-hadoop#{node.apache_hadoop.version}.jar" do
   action :put_as_superuser
-  owner node[:spark][:user]
-  group node[:hadoop][:group]
+  owner node.hadoop_spark.user
+  group node.apache_hadoop.group
   mode "1755"
-  dest "#{home}/#{node[:spark][:user]}/spark.jar"
+  dest "#{home}/#{node.hadoop_spark.user}.spark.jar"
 end
 

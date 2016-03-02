@@ -10,43 +10,29 @@
 #       policy_rcd('enable') if node['platform_family'] == 'debian'
 #     end
 #   end
-#   only_if { node['hadoop']['distribution'] == 'cdh' }
+#   only_if { node.apache_hadoop.distribution == 'cdh' }
 # end
 
-
-libpath = File.expand_path '../../../kagent/libraries', __FILE__
-require File.join(libpath, 'inifile')
 
 my_ip = my_private_ip()
 my_public_ip = my_public_ip()
 
-firstNN = "hdfs://" + private_recipe_ip("hadoop", "nn") + ":#{node[:hadoop][:nn][:port]}"
-
-  #dfs =node['hadoop']['core_site']['fs.defaultFS']
+firstNN = "hdfs://" + private_recipe_ip("apache_hadoop., "nn") + ":#{node.apache_hadoop.nn.port}"
 
 eventlog_dir =
-  if node['spark']['spark_defaults'].key?('spark.eventLog.dir')
-    node['spark']['spark_defaults']['spark.eventLog.dir']
+  if node.hadoop_spark.spark_defaults.key?(.hadoop_spark.eventLog.dir')
+    "#{node.hadoop_spark.spark_defaults.hadoop_spark.eventLog.dir}"
   else
-    node[:hdfs][:user_home] + "/" + node[:spark][:user] + "/applicationHistory"
+    "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
   end
 
-tmp_dirs   = ["#{node[:hdfs][:user_home]}/#{node[:spark][:user]}", eventlog_dir ]
+tmp_dirs   = ["#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}", eventlog_dir ]
 for d in tmp_dirs
-  hadoop_hdfs_directory d do
+ apache_hadoop.hdfs_directory d do
     action :create
-    owner node[:spark][:user]
-    group node[:spark][:group]
+    owner node.hadoop_spark.user
+    group node.hadoop_spark.group
     mode "1771"
-    not_if ". #{node[:hadoop][:home]}/sbin/set-env.sh && #{node[:hadoop][:home]}/bin/hdfs dfs -test -d #{d}"
+    not_if ". #{node.apache_hadoop.home}/sbin/set-env.sh && #{node.apache_hadoop.home}/bin/hdfs dfs -test -d #{d}"
   end
 end
-
-# service 'spark-history-server' do
-#   status_command "#{s_cmd} status"
-#   start_command "#{s_cmd} start"
-#   stop_command "#{s_cmd} stop"
-#   restart_command "#{s_cmd} restart"
-#   supports [:restart => true, :reload => false, :status => true]
-#   action :nothing
-# end

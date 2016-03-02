@@ -13,14 +13,21 @@ provisioner:
   name: chef_solo
 
 platforms:
+<<<<<<< HEAD
   - name: centos-7.0
 #  - name: ubuntu-14.04
 #  - name: ubuntu-15.04
+=======
+#  - name: ubuntu-14.04
+#  - name: ubuntu-15.04
+  - name: centos-7.0
+>>>>>>> b1e5c899bb9df259d586a8ced8dfdf05f4ac9044
 
 suites:
   - name: default
     run_list:
       - recipe[kagent::install]
+<<<<<<< HEAD
       - recipe[ndb::install]
       - recipe[hops::install]
       - recipe[spark::install]
@@ -52,6 +59,25 @@ suites:
             enabled: "true"
             use_systemd: "true"
          hops:
+=======
+      - recipe[apache_hadoop::install]
+      - recipe[hadoop_spark::install]
+      - recipe[apache_hadoop::nn]
+      - recipe[apache_hadoop::dn]
+      - recipe[hadoop_spark::master]
+      - recipe[hadoop_spark::worker]
+      - recipe[hadoop_spark::yarn]
+      #- recipe[hadoop_spark::historyserver]
+    attributes:
+         java:
+           jdk_version: 8
+#           install_flavor: oracle
+#           oracle:
+#             accept_oracle_download_terms: true
+         vagrant: true
+         apache_hadoop:
+#            version: 2.6.0
+>>>>>>> b1e5c899bb9df259d586a8ced8dfdf05f4ac9044
             nn:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
@@ -64,9 +90,14 @@ suites:
             nm:
                private_ips: ["10.0.2.15"]
                public_ips: ["10.0.2.15"]
+<<<<<<< HEAD
             use_hopsworks: "false"
             use_systemd: "true"
          spark:
+=======
+            use_hadoopworks: "false"
+         hadoop_spark:
+>>>>>>> b1e5c899bb9df259d586a8ced8dfdf05f4ac9044
             user: "spark"
             master:
                public_ips: ["10.0.2.15"]
