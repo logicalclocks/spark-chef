@@ -11,10 +11,10 @@ spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
 # YARN-specific parameters
 
 
-<% auth = if node[:spark][:yarn][:support].eql? "true"
+<% auth = if node[:hadoop_spark][:yarn][:support].eql? "true"
                    "spark.authenticate = true"
                else
-                   "spark.authenticate.secret = #{node.spark.authenticate.secret}"
+                   "spark.authenticate.secret = #{node.hadoop_spark.authenticate.secret}"
                end
 -%>
 <%= auth  %>
@@ -23,18 +23,19 @@ spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
 #spark.dynamicAllocation.minExecutors 1
 #spark.dynamicAllocation.maxExecutors
 #spark.dynamicAllocation.initialExecutors
-spark.yarn.applicationMaster.waitTries	   <%= node.spark.yarn.applicationMaster.waitTries %>
-spark.yarn.submit.file.replication         <%= node.spark.yarn.submit.file.replication %>
-spark.yarn.preserve.staging.files          <%= node.spark.yarn.preserve.staging.files %>
-spark.yarn.scheduler.heartbeat.interval-ms <%= node.spark.yarn.scheduler.heartbeat.interval_ms %>
-spark.yarn.queue                           <%= node.spark.yarn.queue %> 
-spark.yarn.jar                             hdfs://<%= @namenode_ip %>:<%= node.hadoop.nn.port %><%= node.spark.yarn.jar %> 
-spark.yarn.containerLauncherMaxThreads     <%= node.spark.yarn.containerLauncherMaxThreads %>
-spark.yarn.dist.archives                   <%= node.spark.yarn.dist.archives %> 
-spark.yarn.dist.files                      <%= node.spark.yarn.dist.files %> 
-spark.yarn.am.memory                       <%= node.spark.yarn.am.memory %>
-<% for env in node.spark.yarn.appMasterEnv.keys -%>
-spark.yarn.appMasterEnv.<% env -%>         <% node.spark.yarn.appMasterEnv[env] -%>
+spark.yarn.applicationMaster.waitTries	   <%= node.hadoop_spark.yarn.applicationMaster.waitTries %>
+spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.file.replication %>
+spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
+spark.yarn.scheduler.heartbeat.interval-ms <%= node.hadoop_spark.yarn.scheduler.heartbeat.interval_ms %>
+spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %> 
+spark.yarn.jar                             hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %><%= node.hadoop_spark.yarn.jar %> 
+spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
+spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archives %> 
+spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
+# am.memory doesn't apply in cluster mode
+#spark.yarn.am.memory                       <%= node.hadoop_spark.yarn.am.memory %>
+<% for env in node.hadoop_spark.yarn.appMasterEnv.keys -%>
+spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEnv[env] -%>
 <% end -%>
 
 #spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"

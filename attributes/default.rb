@@ -42,7 +42,7 @@ default.hadoop_spark.yarn.scheduler.heartbeat.interval_ms = 5000
 default.hadoop_spark.yarn.queue                           = "default"
 # the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
-default.hadoop_spark.yarn.jar                             =  "/user/#{node.spark.user}/spark.jar"
+default.hadoop_spark.yarn.jar                             =  "/user/#{node.hadoop_spark.user}/spark.jar"
 default.hadoop_spark.yarn.dist.archives                   = ""
 default.hadoop_spark.yarn.dist.files                      = ""
 default.hadoop_spark.yarn.am.memory                       = "512m"
