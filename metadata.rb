@@ -52,8 +52,6 @@ attribute "hadoop_spark/eventlog_enabled",
 :display_name => "Eventlog enabled (true|false)",
 :type => 'string'
 
-
 attribute "hadoop_spark/version",
-:display_name => "Spark version (e.g., 1.4.1 or 1.5.2)",
+:display_name => "Spark version (e.g., 1.4.1 or 1.5.2 or 1.6.0)",
 :type => 'string'
-
