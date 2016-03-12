@@ -5,8 +5,11 @@ action :start_master do
     group node.hadoop_spark.group
     cwd node.hadoop_spark.base_dir
     code <<-EOF
-     . sbin/spark-config.sh
      ./sbin/start-master.sh
+     if [ $? -ne 0 ] ; then
+         ./sbin/stop-master.sh
+         ./sbin/start-master.sh
+     fi
     EOF
   end
  
@@ -21,12 +24,11 @@ action :start_worker do
     cwd node.hadoop_spark.base_dir
     code <<-EOF
      
-    . sbin/spark-config.sh
-
-# Spark 1.4.x
     ./sbin/start-slave.sh #{new_resource.master_url}
-# Spark 1.3.x
-#    ./sbin/start-slave.sh #{new_resource.worker_id} #{new_resource.master_url}
+     if [ $? -ne 0 ] ; then
+         ./sbin/stop-slave.sh
+         ./sbin/start-slave.sh #{new_resource.master_url}
+     fi
     EOF
 #    not_if "#{node.hadoop_spark.home}/sbin/start-slave.sh --properties-file #{node.hadoop_spark.home}/conf/spark-defaults.conf | grep \"stop it first\""
      not_if "jps | grep Worker"
