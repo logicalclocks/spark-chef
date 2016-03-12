@@ -1,10 +1,10 @@
 dependencies: 
-  - recipe: spark::install
-  - recipe: spark::master
-  - recipe: spark::historyserver
+  - recipe: hadoop_spark::install
+  - recipe: hadoop_spark::master
+  - recipe: hadoop_spark::historyserver
     global:
       - hadoop::dn
-  - recipe: spark::yarn
-  - recipe: spark::worker
+  - recipe: hadoop_spark::yarn
+  - recipe: hadoop_spark::worker
     global:
-      - spark::master
+      - hadoop_spark::master
