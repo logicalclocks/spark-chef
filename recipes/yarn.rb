@@ -44,6 +44,6 @@ apache_hadoop_hdfs_directory "#{node.hadoop_spark.home}/lib/spark-assembly-#{nod
   owner node.hadoop_spark.user
   group node.apache_hadoop.group
   mode "1755"
-  dest "#{home}/#{node.hadoop_spark.user}.spark.jar"
+  dest "#{home}/#{node.hadoop_spark.user}/spark.jar"
 end
 
