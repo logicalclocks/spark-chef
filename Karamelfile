@@ -3,7 +3,7 @@ dependencies:
   - recipe: hadoop_spark::master
   - recipe: hadoop_spark::historyserver
     global:
-      - hadoop::dn
+      - hops::dn
   - recipe: hadoop_spark::yarn
   - recipe: hadoop_spark::worker
     global:

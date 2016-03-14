@@ -9,6 +9,7 @@ version          "0.1.1"
 depends          "kagent"
 depends          "apache_hadoop"
 depends          "java"
+depends          "hops"
 depends          "scala"
 
 recipe           "install", "Installs Spark binaries"

@@ -1,29 +1,50 @@
 <# https:/.apache_hadoop.spark.apache.org/docs/1.2.0/running-on-yarn.html 
 
-spark.master                 spark//<%= @master_ip %>:7077
+spark.master                 spark://<%= @master_ip %>:7077
 spark.driver.memory           <%= node.hadoop_spark.driver_memory %>
 spark.executor.memory         <%= node.hadoop_spark.executor_memory %>
 spark.eventLog.enabled        <%= node.hadoop_spark.eventlog_enabled %>
-#.apache_hadoop.spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/tmp
+#spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/tmp
 spark.serializer              org.apache.spark.serializer.KryoSerializer
-
 spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
 
+# YARN-specific parameters
 
-#.apache_hadoop.spark.yarn.applicationMaster.waitTries	10
-#.apache_hadoop.spark.yarn.submit.file.replication 3
-#.apache_hadoop.spark.yarn.preserve.staging.files false
-#.apache_hadoop.spark.yarn.scheduler.heartbeat.interval-ms 5000
-#.apache_hadoop.spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
-#.apache_hadoop.spark.yarn.historyServer.address
-#.apache_hadoop.spark.yarn.dist.archives
-#.apache_hadoop.spark.yarn.dist.files
-#.apache_hadoop.spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
-#.apache_hadoop.spark.yarn.driver.memoryOverhead	driverMemory * 0.07, with minimum of 384
-#.apache_hadoop.spark.yarn.queue	default
-#.apache_hadoop.spark.yarn.jar 
-#.apache_hadoop.spark.yarn.access.namenodes
-#.apache_hadoop.spark.yarn.appMasterEnv.[EnvironmentVariableName]	(none)
-#.apache_hadoop.spark.yarn.containerLauncherMaxThreads	25
 
-#.apache_hadoop.spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
+<% auth = if node[:hadoop_spark][:yarn][:support].eql? "true"
+                   "spark.authenticate = true"
+               else
+                   "spark.authenticate.secret = #{node.hadoop_spark.authenticate.secret}"
+               end
+-%>
+<%= auth  %>
+
+#spark.dynamicAllocation.enabled            true
+#spark.dynamicAllocation.minExecutors 1
+#spark.dynamicAllocation.maxExecutors
+#spark.dynamicAllocation.initialExecutors
+spark.yarn.applicationMaster.waitTries	   <%= node.hadoop_spark.yarn.applicationMaster.waitTries %>
+spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.file.replication %>
+spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
+spark.yarn.scheduler.heartbeat.interval-ms <%= node.hadoop_spark.yarn.scheduler.heartbeat.interval_ms %>
+spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %> 
+spark.yarn.jar                             hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %><%= node.hadoop_spark.yarn.jar %> 
+spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
+spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archives %> 
+spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
+# am.memory doesn't apply in cluster mode
+#spark.yarn.am.memory                       <%= node.hadoop_spark.yarn.am.memory %>
+<% for env in node.hadoop_spark.yarn.appMasterEnv.keys -%>
+spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEnv[env] -%>
+<% end -%>
+
+#spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
+#spark.yarn.historyServer.address <%= @historyserver_ip %>
+#spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
+#spark.yarn.historyServer.address
+#spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
+#spark.yarn.driver.memoryOverhead	driverMemory * 0.07, with minimum of 384
+#spark.yarn.access.namenodes
+#spark.yarn.containerLauncherMaxThreads	25
+#spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
+

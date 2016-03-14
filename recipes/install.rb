@@ -9,10 +9,12 @@
 
 include_recipe "java"
 
+if node.hadoop_spark.hadoop.distribution === "hops"
+ include_recipe "hops::wrap"
+end
 group node.hadoop_spark.group do
   action :create
 end
-
 
 user node.hadoop_spark.user do
   supports :manage_home => true
@@ -78,8 +80,19 @@ end
 
 
 my_ip = my_private_ip()
-master_ip = private_recipe_ip("hadoop_spark","master")
 
+
+if node.hadoop_spark.hadoop.distribution === "apache_hadoop"
+ master_ip = private_recipe_ip("hadoop_spark","master")
+else
+ master_ip = "yarn"
+end
+
+begin
+  namenode_ip = private_recipe_ip("hops","nn")
+rescue
+  namenode_ip = my_private_ip()
+end
 
 template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
   source "spark-env.sh.erb"
@@ -87,8 +100,8 @@ template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
   group node.hadoop_spark.group
   mode 0655
   variables({ 
-        :private_ip => my_ip,
-        :master_ip => master_ip
+        :master_ip => master_ip,
+        :private_ip => my_ip
            })
 end
 
@@ -100,7 +113,9 @@ template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
   mode 0655
   variables({ 
         :private_ip => my_ip,
-        :master_ip => master_ip
+        :master_ip => master_ip,
+        :namenode_ip => namenode_ip,
+        :yarn => node.hadoop_spark.yarn.support
            })
 end
 
@@ -113,4 +128,13 @@ link "#{node.hadoop_spark.home}/spark.jar" do
   owner node.hadoop_spark.user
   group node.hadoop_spark.group
   to "#{node.hadoop_spark.home}/lib/spark-assembly-#{node.hadoop_spark.version}-hadoop#{node.apache_hadoop.version}.jar"
+end
+
+
+user_ulimit node.spark.user do
+  filehandle_limit 65000
+  process_limit 65000
+  memory_limit 100000
+  stack_soft_limit 65533
+  stack_hard_limit 65533
 end
