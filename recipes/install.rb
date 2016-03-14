@@ -8,8 +8,10 @@
 #
 
 include_recipe "java"
-include_recipe "hops::wrap"
 
+if node.hadoop_spark.hadoop.distribution === "hops"
+ include_recipe "hops::wrap"
+end
 group node.hadoop_spark.group do
   action :create
 end
@@ -79,6 +81,13 @@ end
 
 my_ip = my_private_ip()
 
+
+if node.hadoop_spark.hadoop.distribution === "apache_hadoop"
+ master_ip = private_recipe_ip("hadoop_spark","master")
+else
+ master_ip = "yarn"
+end
+
 begin
   namenode_ip = private_recipe_ip("hops","nn")
 rescue
@@ -91,6 +100,7 @@ template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
   group node.hadoop_spark.group
   mode 0655
   variables({ 
+        :master_ip => master_ip,
         :private_ip => my_ip
            })
 end
@@ -103,6 +113,7 @@ template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
   mode 0655
   variables({ 
         :private_ip => my_ip,
+        :master_ip => master_ip,
         :namenode_ip => namenode_ip,
         :yarn => node.hadoop_spark.yarn.support
            })

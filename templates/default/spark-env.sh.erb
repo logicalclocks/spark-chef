@@ -34,8 +34,8 @@ export SPARK_LOCAL_IP=<%= @private_ip %>
 # export SPARK_YARN_DIST_ARCHIVES, Comma separated list of archives to be distributed with the job.
 
 # Options for the daemons used in the standalone deploy mode
-# export SPARK_MASTER_IP=<%= @master_ip %>
-# export SPARK_MASTER_PORT=<%= node.hadoop_spark.master.port %>
+export SPARK_MASTER_IP=<%= @master_ip %>
+export SPARK_MASTER_PORT=<%= node.hadoop_spark.master.port %>
 #export SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
 # export SPARK_MASTER_OPTS, to set config properties only for the master (e.g. "-Dx=y")
 # export SPARK_WORKER_CORES

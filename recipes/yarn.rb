@@ -8,7 +8,10 @@
 home = node.apache_hadoop.hdfs.user_home
 
 
-include_recipe "hops::wrap"
+if node.hadoop_spark.hadoop.distribution === "hops"
+  include_recipe "hops::wrap"
+end
+
 
 apache_hadoop_hdfs_directory "#{home}" do
   action :create_as_superuser
