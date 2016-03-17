@@ -131,7 +131,7 @@ link "#{node.hadoop_spark.home}/spark.jar" do
 end
 
 
-user_ulimit node.spark.user do
+user_ulimit node.hadoop_spark.user do
   filehandle_limit 65000
   process_limit 65000
   memory_limit 100000
