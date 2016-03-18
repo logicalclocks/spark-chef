@@ -84,6 +84,7 @@ my_ip = my_private_ip()
 
 if node.hadoop_spark.hadoop.distribution === "apache_hadoop"
  master_ip = private_recipe_ip("hadoop_spark","master")
+ master_ip = "spark://#{master_ip}:#{node.hadoop_spark.master.port}"
 else
  master_ip = "yarn"
 end

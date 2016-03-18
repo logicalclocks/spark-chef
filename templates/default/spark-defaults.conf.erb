@@ -1,6 +1,6 @@
 <# https:/.apache_hadoop.spark.apache.org/docs/1.2.0/running-on-yarn.html 
 
-spark.master                 spark://<%= @master_ip %>:7077
+spark.master                 <%= @master_ip %>
 spark.driver.memory           <%= node.hadoop_spark.driver_memory %>
 spark.executor.memory         <%= node.hadoop_spark.executor_memory %>
 spark.eventLog.enabled        <%= node.hadoop_spark.eventlog_enabled %>
