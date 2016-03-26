@@ -17,7 +17,7 @@ apache_hadoop_hdfs_directory "#{home}" do
   action :create_as_superuser
   owner node.hadoop_spark.user
   group node.apache_hadoop.group
-  mode "1755"
+  mode "1777"
 end
 
 
