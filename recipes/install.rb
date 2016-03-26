@@ -130,12 +130,3 @@ link "#{node.hadoop_spark.home}/spark.jar" do
   group node.hadoop_spark.group
   to "#{node.hadoop_spark.home}/lib/spark-assembly-#{node.hadoop_spark.version}-hadoop#{node.apache_hadoop.version}.jar"
 end
-
-
-user_ulimit node.hadoop_spark.user do
-  filehandle_limit 65000
-  process_limit 65000
-  memory_limit 100000
-  stack_soft_limit 65533
-  stack_hard_limit 65533
-end
