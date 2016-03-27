@@ -17,7 +17,7 @@ apache_hadoop_hdfs_directory "#{home}" do
   action :create_as_superuser
   owner node.hadoop_spark.user
   group node.apache_hadoop.group
-  mode "1755"
+  mode "1777"
 end
 
 
@@ -25,28 +25,28 @@ apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}" do
   action :create_as_superuser
   owner node.hadoop_spark.user
   group node.apache_hadoop.group
-  mode "1755"
+  mode "1777"
 end
 
 apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/eventlog" do
   action :create_as_superuser
   owner node.hadoop_spark.user
   group node.apache_hadoop.group
-  mode "1755"
+  mode "1775"
 end
 
 apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/share/lib" do
   action :create_as_superuser
   owner node.hadoop_spark.user
   group node.apache_hadoop.group
-  mode "1755"
+  mode "1775"
 end
 
 apache_hadoop_hdfs_directory "#{node.hadoop_spark.home}/lib/spark-assembly-#{node.hadoop_spark.version}-hadoop#{node.apache_hadoop.version}.jar" do
   action :put_as_superuser
   owner node.hadoop_spark.user
   group node.apache_hadoop.group
-  mode "1755"
+  mode "1775"
   dest "#{home}/#{node.hadoop_spark.user}/spark.jar"
 end
 

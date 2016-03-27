@@ -23,7 +23,7 @@ spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
 #spark.dynamicAllocation.minExecutors 1
 #spark.dynamicAllocation.maxExecutors
 #spark.dynamicAllocation.initialExecutors
-spark.yarn.applicationMaster.waitTries	   <%= node.hadoop_spark.yarn.applicationMaster.waitTries %>
+spark.yarn.am.waitTime                     <%= node.hadoop_spark.yarn.am.waitTime %>
 spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.file.replication %>
 spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
 spark.yarn.scheduler.heartbeat.interval-ms <%= node.hadoop_spark.yarn.scheduler.heartbeat.interval_ms %>

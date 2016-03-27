@@ -16,7 +16,7 @@ default.hadoop_spark.url                       = "#{node.download_url}/spark-#{n
 default.hadoop_spark.executor_memory           = "512m"
 default.hadoop_spark.driver_memory             = "1g"
 default.hadoop_spark.eventlog_enabled          = "false"
-default.hadoop_spark.driver.maxResultSize      = "1g"
+default.hadoop_spark.driver.maxResultSize      = "512m"
 
 default.hadoop_spark.master.port               = 7077
 
@@ -36,7 +36,7 @@ default.hadoop_spark.hadoop.distribution                  = "hops"
 default.hadoop_spark.master.public_key                    = ""
 default.hadoop_spark.yarn.support                         = "false"
 default.hadoop_spark.authenticate.secret                  = ""
-default.hadoop_spark.yarn.applicationMaster.waitTries     = 10
+default.hadoop_spark.yarn.am.waitTime                     = "100s"
 default.hadoop_spark.yarn.submit.file.replication         = 3
 default.hadoop_spark.yarn.preserve.staging.files          = "false"
 default.hadoop_spark.yarn.scheduler.heartbeat.interval_ms = 5000
