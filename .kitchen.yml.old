@@ -81,15 +81,14 @@ suites:
         mysql_socket: /tmp/mysql-alt.sock
         mysqld: 
           private_ips: 
-            - "192.168.0.2"
             - "192.168.0.3"
+            - "192.168.0.2"
         ndbd: 
           private_ips: 
             - "192.168.0.2"
       hops:
         nn:
           private_ips: 
-            - "192.168.0.2"
             - "192.168.0.3"
         rm:
           private_ips: 
@@ -115,7 +114,7 @@ suites:
             - "192.168.0.2"
         historyserver:
           private_ips: 
-            - "192.168.0.2"
+            - "192.168.0.3"
         hadoop_distribution: "hops"
       hopsworks:
         default:
