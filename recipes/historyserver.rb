@@ -11,7 +11,7 @@ eventlog_dir =
 
 tmp_dirs   = ["#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}", eventlog_dir ]
 for d in tmp_dirs
- apache_hadoop.hdfs_directory d do
+ apache_hadoop_hdfs_directory d do
     action :create
     owner node.hadoop_spark.user
     group node.hadoop_spark.group
