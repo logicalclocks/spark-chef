@@ -64,3 +64,13 @@ end
 describe command("su spark -l -c \"/srv/spark/bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode cluster --executor-memory 1G --num-executors 1 /srv/spark/lib/spark-examples-1.5.2-hadoop2.4.0.jar  1000\"") do
   its (:stdout) { should match /Pi is roughly/ }
 end
+
+describe service('spark-history-server') do
+  it { should be_enabled   }
+  it { should be_running   }
+end
+
+describe command("service spark-history-server restart") do
+  its(:exit_status) { should eq 0 }
+end
+
