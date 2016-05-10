@@ -5,8 +5,8 @@ my_public_ip = my_public_ip()
 firstNN = "hdfs://" + private_recipe_ip("apache_hadoop., "nn") + ":#{node.apache_hadoop.nn.port}"
 
 eventlog_dir =
-  if node.hadoop_spark.spark_defaults.key?('.hadoop_spark.eventLog.dir')
-    "#{node.hadoop_spark.spark_defaults.hadoop_spark.eventLog.dir}"
+  if node.hadoop_spark.key?('.eventlog.dir')
+    "#{node.hadoop_spark.eventlog.dir}"
   else
     "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
   end
