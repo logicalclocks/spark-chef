@@ -107,6 +107,19 @@ template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
 end
 
 
+eventlog_dir =
+  if node.hadoop_spark.spark_defaults.key?('.hadoop_spark.eventLog.dir')
+    "#{node.hadoop_spark.spark_defaults.hadoop_spark.eventLog.dir}"
+  else
+    "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
+  end
+
+begin
+  historyserver_ip = private_recipe_ip("hadoop_spark","historyserver")
+rescue
+  historyserver_ip = my_private_ip()
+end
+
 template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
   source "spark-defaults.conf.erb"
   owner node.hadoop_spark.user
@@ -116,7 +129,9 @@ template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
         :private_ip => my_ip,
         :master_ip => master_ip,
         :namenode_ip => namenode_ip,
-        :yarn => node.hadoop_spark.yarn.support
+        :yarn => node.hadoop_spark.yarn.support,
+        :eventlog_dir => eventlog_dir,
+        :historyserver_ip => historyserver_ip
            })
 end
 

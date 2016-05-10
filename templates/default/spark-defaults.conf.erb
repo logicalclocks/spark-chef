@@ -1,10 +1,10 @@
 <# https:/.apache_hadoop.spark.apache.org/docs/1.2.0/running-on-yarn.html 
 
-spark.master                 <%= @master_ip %>
+spark.master                  <%= @master_ip %>
 spark.driver.memory           <%= node.hadoop_spark.driver_memory %>
 spark.executor.memory         <%= node.hadoop_spark.executor_memory %>
 spark.eventLog.enabled        <%= node.hadoop_spark.eventlog_enabled %>
-#spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/tmp
+spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/<% @eventlog_dir %> 
 spark.serializer              org.apache.spark.serializer.KryoSerializer
 spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
 
@@ -38,8 +38,9 @@ spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files
 spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEnv[env] -%>
 <% end -%>
 
+spark.yarn.historyServer.address <%= @historyserver_ip %>:18088
+
 #spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
-#spark.yarn.historyServer.address <%= @historyserver_ip %>
 #spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
 #spark.yarn.historyServer.address
 #spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384

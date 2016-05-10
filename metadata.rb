@@ -19,7 +19,7 @@ recipe           "master", "Starts a Spark master"
 #link:<a target='_blank' href='http://%host%:8081/'>Launch the WebUI for the Spark Slave %host%</a>
 recipe           "worker", "Starts a Spark worker"
 recipe           "yarn", "Install for yarn"
-
+recipe           "historyserver", "Installs/starts the Spark historyserver"
 
 attribute "java/jdk_version",
 :display_name =>  "Jdk version",
@@ -47,10 +47,6 @@ attribute "hadoop_spark/eventlog_enabled",
 
 attribute "hadoop_spark/worker/cleanup/enabled",
 :display_name => "Spark standalone worker cleanup enabled (true|false)",
-:type => 'string'
-
-attribute "hadoop_spark/eventlog_enabled",
-:display_name => "Eventlog enabled (true|false)",
 :type => 'string'
 
 attribute "hadoop_spark/version",

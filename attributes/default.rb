@@ -15,7 +15,7 @@ default.hadoop_spark.url                       = "#{node.download_url}/spark-#{n
 
 default.hadoop_spark.executor_memory           = "512m"
 default.hadoop_spark.driver_memory             = "1g"
-default.hadoop_spark.eventlog_enabled          = "false"
+default.hadoop_spark.eventlog_enabled          = "true"
 default.hadoop_spark.driver.maxResultSize      = "512m"
 
 default.hadoop_spark.master.port               = 7077
@@ -54,3 +54,4 @@ default.hadoop_spark.yarn.containerLauncherMaxThreads     = 25
 
 # Hash of environment variables
 default.hadoop_spark.yarn.appMasterEnv                    = {}
+default.hadoop_spark.systemd                              = "true"
