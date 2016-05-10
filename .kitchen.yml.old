@@ -29,7 +29,6 @@ platforms:
       - "recipe[ndb::install]"
       - "recipe[ndb::mgmd]"
       - "recipe[ndb::ndbd]"
-      - "recipe[ndb::mysqld]"
   - 
     attributes: 
       private_ips: 
@@ -82,7 +81,6 @@ suites:
         mysqld: 
           private_ips: 
             - "192.168.0.3"
-            - "192.168.0.2"
         ndbd: 
           private_ips: 
             - "192.168.0.2"
@@ -106,12 +104,6 @@ suites:
         use_hopsworks: "true"
         dir: "/tmp"
       hadoop_spark:
-        master:
-          private_ips: 
-            - "192.168.0.2"
-        slave:
-          private_ips: 
-            - "192.168.0.2"
         historyserver:
           private_ips: 
             - "192.168.0.3"
@@ -119,7 +111,7 @@ suites:
       hopsworks:
         default:
           private_ips: 
-            - "192.168.0.2"
+            - "192.168.0.3"
 
     name: default
     run_list: ~
