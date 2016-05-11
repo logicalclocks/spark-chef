@@ -56,3 +56,17 @@ attribute "hadoop_spark/version",
 attribute "hadoop_spark/hadoop/distribution",
 :display_name => "'hops' or 'apache_hadoop'",
 :type => 'string'
+
+attribute "hadoop_spark/history/fs/cleaner/enabled",
+:display_name => "'true' to enable cleanup of the historyservers logs",
+:type => 'string'
+
+attribute "hadoop_spark/history/fs/cleaner/interval",
+:display_name => "How often to run the cleanup of the historyservers logs (e.g., '1d' for once per day)",
+:type => 'string'
+
+attribute "hadoop_spark/history/fs/cleaner/maxAge",
+:display_name => "Age in days of the historyservers logs before they are removed (e.g., '7d' for 7 days)",
+:type => 'string'
+
+
