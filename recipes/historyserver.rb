@@ -55,21 +55,6 @@ if node.hadoop_spark.systemd == "true"
     notifies :start, resources(:service => service_name), :immediately
   end
 
-  directory "/etc/systemd/system/#{service_name}.service.d" do
-    owner "root"
-    group "root"
-    mode "755"
-    action :create
-    recursive true
-  end
-
-  template "/etc/systemd/system/#{service_name}.service.d/limits.conf" do
-    source "limits.conf.erb"
-    owner "root"
-    mode 0774
-    action :create
-  end 
-
   hadoop_spark_start "reload_spark_historyserver" do
     action :systemd_reload
   end  
