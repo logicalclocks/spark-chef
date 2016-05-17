@@ -14,6 +14,8 @@ spark.history.fs.logDirectory     hdfs://<%= @namenode_ip %>:<%= node.apache_had
 spark.history.fs.cleaner.enabled  <%= node.hadoop_spark.history.fs.cleaner.enabled %>
 spark.history.fs.cleaner.interval <%= node.hadoop_spark.history.fs.cleaner.interval %>
 spark.history.fs.cleaner.maxAge   <%= node.hadoop_spark.history.fs.cleaner.maxAge %>
+spark.eventLog.compress           true
+spark.yarn.historyServer.address <%= @historyserver_ip %>:18088
 
 
 # YARN settings
@@ -45,12 +47,9 @@ spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files
 spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEnv[env] -%>
 <% end -%>
 
-spark.yarn.historyServer.address <%= @historyserver_ip %>:18088
-
 
 #spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 #spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
-#spark.yarn.historyServer.address
 #spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
 #spark.yarn.driver.memoryOverhead	driverMemory * 0.07, with minimum of 384
 #spark.yarn.access.namenodes
