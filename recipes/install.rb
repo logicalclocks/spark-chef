@@ -61,7 +61,8 @@ bash 'extract_hadoop_spark' do
                 chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
                 touch #{spark_down}
                 chown #{node.hadoop_spark.user} #{node.hadoop_spark.dir}/.hadoop_spark.extracted_#{node.hadoop_spark.version}
-                chown #{node.hadoop_spark.user} touch #{spark_down}
+                chown #{node.hadoop_spark.user} 
+                touch #{spark_down}
         EOH
      not_if { ::File.exists?( spark_down ) }
 end
