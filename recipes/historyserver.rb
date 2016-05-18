@@ -69,8 +69,8 @@ else #sysv
 
   template "/etc/init.d/#{service_name}" do
     source "#{service_name}.erb"
-    owner node.hadoop_spark.yarn.user
-    group node.hadoop_spark.group
+    owner "root"
+    group "root"
     mode 0754
     notifies :enable, resources(:service => service_name)
     notifies :restart, resources(:service => service_name), :immediately
