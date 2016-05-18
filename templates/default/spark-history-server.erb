@@ -4,7 +4,7 @@
 #
 ### BEGIN INIT INFO
 # Provides:                     spark-history-server*
-# Required-Start:                 
+n# Required-Start:                 
 # Should-Start:                 
 # Required-Stop:                  
 # Default-Start:                2 3 4 5
@@ -22,7 +22,7 @@ RETVAL=0
 
 ulimit -n 65000
 
-EXEC_WITH_USER="su -c <%= node.hadoop_spark.user %>"
+EXEC_WITH_USER="su <%= node.hadoop_spark.user %> -c"
 
 start() {
   $EXEC_WITH_USER "$START_PROG"
