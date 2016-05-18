@@ -110,12 +110,12 @@ template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
 end
 
 
-eventlog_dir =
-  if node.hadoop_spark.key?('.eventlog.dir')
-    "#{node.hadoop_spark.eventlog.dir}"
-  else
-    "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
-  end
+eventlog_dir = "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
+#  if node.hadoop_spark.key?('.eventlog.dir')
+#    "#{node.hadoop_spark.eventlog.dir}"
+#  else
+#    "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
+#  end
 
 begin
   historyserver_ip = private_recipe_ip("hadoop_spark","historyserver")
