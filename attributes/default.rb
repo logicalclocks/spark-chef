@@ -5,7 +5,7 @@ include_attribute "hops"
 default.hadoop_spark.user                      = "spark"
 default.hadoop_spark.group                     = "#{node.apache_hadoop.group}"
 
-default.hadoop_spark.version                   = "1.5.2"
+default.hadoop_spark.version                   = "1.6.1"
 default.hadoop_spark.hadoop.version            = "2.4"
 default.scala.version 	                       = "2.10"
 default.hadoop_spark.dir                       = "/srv"
