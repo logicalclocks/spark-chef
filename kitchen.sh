@@ -10,6 +10,7 @@ skip_converge=0
 regex="test_src/services_spec.rb.(.+)"
 boxes="test_src/box_(.+)"
 
+rm nohup.out
 
 for box in `ls test_src/box_* | grep -v *[#~]`
 do
@@ -54,7 +55,7 @@ do
 	    if [[ $f =~ $regex && "$last_char" != "~" && "$last_char" != "#" ]] ; then
 		name="${BASH_REMATCH[1]}"
 		echo "Converging default-${name}"
-		kitchen converge default-${name}
+		kitchen converge default-${name} >> nohup.out
 	    fi
 	done
     fi
@@ -68,7 +69,7 @@ do
             name="${BASH_REMATCH[1]}"
             cp -f test_src/services_spec.rb.${name} test/integration/default/serverspec/localhost/services_spec.rb
             echo "Verifying ${name}"
-            kitchen verify default-${name}
+            kitchen verify default-${name} >> nohup.out
 	fi
     done
 
