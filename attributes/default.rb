@@ -1,6 +1,7 @@
 include_attribute "kagent"
 include_attribute "apache_hadoop"
 include_attribute "hops"
+include_attribute "hopsworks"
 
 default.hadoop_spark.user                      = "spark"
 default.hadoop_spark.group                     = "#{node.apache_hadoop.group}"
@@ -60,3 +61,9 @@ default.hadoop_spark.systemd                              = "true"
 default.hadoop_spark.history.fs.cleaner.enabled           = "true"
 default.hadoop_spark.history.fs.cleaner.interval          = "1d"
 default.hadoop_spark.history.fs.cleaner.maxAge            = "7d"
+
+default.hadoop_spark.ciphers 							  = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA"
+default.hadoop_spark.ssl_enabled          				  = "true"
+default.hadoop_spark.ssl.protocol 						  = "TLSv1,TLSv1.1,TLSv1.2"
+default.hadoop_spark.ssl.keystorepassword				  = "#{node.hopsworks.master.password}"
+default.hadoop_spark.ssl.truststorepassword				  = "#{node.hopsworks.master.password}"
