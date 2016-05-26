@@ -31,14 +31,14 @@ group node.hadoop_spark.group do
   append true
 end
 
-#case node.platform_family
-# when "debian"
-#  package "scala" do
-#    action :install
-#  end
-# when "redhat"
-#  include_recipe "scala"
-#end
+case node.platform_family
+ when "debian"
+  package "scala" do
+    action :install
+  end
+ when "redhat"
+  include_recipe "scala"
+end
 
 
 package_url = "#{node.hadoop_spark.url}"
@@ -89,7 +89,7 @@ if node.hadoop_spark.hadoop.distribution === "apache_hadoop"
  master_ip = private_recipe_ip("hadoop_spark","master")
  master_ip = "spark://#{master_ip}:#{node.hadoop_spark.master.port}"
 else
- master_ip = "yarn-client"
+ master_ip = "yarn"
 end
 
 begin
