@@ -31,14 +31,14 @@ group node.hadoop_spark.group do
   append true
 end
 
-case node.platform_family
- when "debian"
-  package "scala" do
-    action :install
-  end
- when "redhat"
-  include_recipe "scala"
-end
+#case node.platform_family
+# when "debian"
+#  package "scala" do
+#    action :install
+#  end
+# when "redhat"
+#  include_recipe "scala"
+#end
 
 
 package_url = "#{node.hadoop_spark.url}"
