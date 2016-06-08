@@ -40,7 +40,7 @@ spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %>
 spark.yarn.jar                             hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %><%= node.hadoop_spark.yarn.jar %> 
 spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
 spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archives %> 
-spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
+#spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
 # am.memory doesn't apply in cluster mode
 #spark.yarn.am.memory                       <%= node.hadoop_spark.yarn.am.memory %>
 <% for env in node.hadoop_spark.yarn.appMasterEnv.keys -%>
