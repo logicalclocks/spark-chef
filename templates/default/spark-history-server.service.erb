@@ -5,10 +5,10 @@ After = syslog.target network.target remote-fs.target
 [Service]
 User = <%= node.hadoop_spark.user %>
 
-PIDFile = /tmp/<%= node.hadoop_spark.user %>-spark-org.apache.spark.deploy.history.HistoryServer-1.pid
+PIDFile = /tmp/spark-<%= node.hadoop_spark.user %>-org.apache.spark.deploy.history.HistoryServer-1.pid
 ExecStart = <%= node.hadoop_spark.home %>/sbin/start-history-server.sh
 ExecStop = <%= node.hadoop_spark.home %>/sbin/stop-history-server.sh
-LimitNOFILE = 10000
+LimitNOFILE = 30000
 
 Type = forking
 
