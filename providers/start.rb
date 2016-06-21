@@ -5,7 +5,8 @@ action :start_master do
     group node.hadoop_spark.group
     cwd node.hadoop_spark.base_dir
     code <<-EOF
- #    . sbin/spark-config.sh
+     set -e
+     export SPARK_HOME=#{node.hadoop_spark.base_dir}
      ./sbin/start-master.sh
      if [ $? -ne 0 ] ; then
          ./sbin/stop-master.sh
@@ -23,7 +24,9 @@ action :start_worker do
     user node.hadoop_spark.user
     group node.hadoop_spark.group
     cwd node.hadoop_spark.base_dir
-    code <<-EOF
+    code <<-EOF 
+    set -e
+    export SPARK_HOME=#{node.hadoop_spark.base_dir}
     . sbin/spark-config.sh
 # Spark >1.4.x
     ./sbin/start-slave.sh #{new_resource.master_url}
