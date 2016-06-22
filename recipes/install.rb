@@ -43,7 +43,7 @@ end
 
 package_url = "#{node.hadoop_spark.url}"
 base_package_filename = File.basename(package_url)
-cached_package_filename = "/tmp/binary/#{base_package_filename}"
+cached_package_filename = "/tmp/#{base_package_filename}"
 
 remote_file cached_package_filename do
   source package_url
