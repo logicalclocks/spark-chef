@@ -14,6 +14,7 @@ if node.hadoop_spark.hadoop.distribution === "hops"
 end
 group node.hadoop_spark.group do
   action :create
+  not_if "getent group #{node.hadoop_spark.group}"
 end
 
 user node.hadoop_spark.user do
