@@ -79,8 +79,8 @@ else #sysv
 end
 
 
-if node.kagent.enabled == "true" 
-   kagent_config service_name do
+#if node.kagent.enabled == "true" 
+   kagent_config "sparkhistoryserver" do
      service service_name
      start_script "#{node.hadoop_spark.base_dir}/sbin/start-history-server.sh"
      stop_script "#{node.hadoop_spark.base_dir}/sbin/stop-history-server.sh"  
@@ -88,7 +88,7 @@ if node.kagent.enabled == "true"
      pid_file "/tmp/#{node.hadoop_spark.user}-spark-org.apache.spark.deploy.history.HistoryServer-1.pid"
      web_port 18080
    end
-end
+#end
 
 
 
