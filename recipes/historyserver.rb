@@ -54,7 +54,7 @@ if node.hadoop_spark.systemd == "true"
     notifies :start, resources(:service => service_name), :immediately
   end
 
-  hadoop_spark_start "reload_spark_historyserver" do
+  kagent_config "reload_spark_historyserver" do
     action :systemd_reload
   end  
 
