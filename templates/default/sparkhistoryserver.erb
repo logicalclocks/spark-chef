@@ -18,13 +18,12 @@
 START_PROG="<%= node.hadoop_spark.home %>/sbin/start-history-server.sh"  
 STOP_PROG="<%= node.hadoop_spark.home %>/sbin/stop-history-server.sh"  
 PID_FILE=/tmp/spark-<%= node.hadoop_spark.user %>-org.apache.spark.deploy.history.HistoryServer-1.pid
-RETVAL=0
 
-ulimit -n 65000
 
 EXEC_WITH_USER="su <%= node.hadoop_spark.user %> -c"
 
 start() {
+  ulimit -n 65000 2>&1 > /dev/null
   $EXEC_WITH_USER "$START_PROG"
   return $?
 }
@@ -41,12 +40,11 @@ restart() {
 }
 
 status() {
+  res=1
   if [ -f $PID_FILE ] ; then
      PID=`cat $PID_FILE`
      kill -0 $PID
      res=$?
-  else 
-     res=1
   fi
   if [ $res -eq 0 ] ; then
    echo "sparkhistoryserver($PID) is running"
@@ -86,4 +84,4 @@ case "$1" in
   esac
 
 
-exit $RETVAL
+exit $?
