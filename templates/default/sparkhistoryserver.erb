@@ -17,7 +17,7 @@
 
 START_PROG="<%= node.hadoop_spark.home %>/sbin/start-history-server.sh"  
 STOP_PROG="<%= node.hadoop_spark.home %>/sbin/stop-history-server.sh"  
-
+PID_FILE=/tmp/spark-<%= node.hadoop_spark.user %>-org.apache.spark.deploy.history.HistoryServer-1.pid
 RETVAL=0
 
 ulimit -n 65000
@@ -41,7 +41,6 @@ restart() {
 }
 
 status() {
-  PID_FILE=/tmp/spark-history-server.pid
   if [ -f $PID_FILE ] ; then
      PID=`cat $PID_FILE`
      kill -0 $PID
