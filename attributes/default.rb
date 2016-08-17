@@ -5,7 +5,7 @@ include_attribute "hops"
 default.hadoop_spark.user                      = "spark"
 default.hadoop_spark.group                     = "#{node.apache_hadoop.group}"
 
-default.hadoop_spark.version                   = "1.6.1"
+default.hadoop_spark.version                   = "2.0.0"
 default.hadoop_spark.hadoop.version            = "2.4"
 default.scala.version 	                       = "2.10"
 default.hadoop_spark.dir                       = "/srv"
@@ -43,7 +43,8 @@ default.hadoop_spark.yarn.scheduler.heartbeat.interval_ms = 5000
 default.hadoop_spark.yarn.queue                           = "default"
 # the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
-default.hadoop_spark.yarn.jar                             =  "/user/#{node.hadoop_spark.user}/spark.jar"
+default.hadoop_spark.yarn.archive                         =  "spark.zip"
+default.hadoop_spark.yarn.archive.hdfs                    =  "/user/#{node.hadoop_spark.user}/spark.zip"
 default.hadoop_spark.yarn.dist.archives                   = ""
 default.hadoop_spark.yarn.dist.files                      = ""
 default.hadoop_spark.yarn.am.memory                       = "512m"
