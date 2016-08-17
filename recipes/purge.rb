@@ -1,20 +1,38 @@
-bash 'kill_running_service_spark' do
+daemons = %w{Master Worker sparkhistoryserver}
+daemons.each { |d| 
+
+  bash 'kill_running_service_#{d}' do
     user "root"
     ignore_failure true
     code <<-EOF
-      pkillall -9 Master
-      pkillall -9 Worker
+      service stop #{d}
+      systemctl stop #{d}
+      pkill -9 #{d}
     EOF
-end
+  end
 
+  file "/etc/init.d/#{d}" do
+    action :delete
+    ignore_failure true
+  end
+  
+  file "/usr/lib/systemd/system/#{d}.service" do
+    action :delete
+    ignore_failure true
+  end
+  file "/lib/systemd/system/#{d}.service" do
+    action :delete
+    ignore_failure true
+  end
+}
 
-directory node[:spark][:home] do
+directory node[:hadoop_spark][:home] do
   recursive true
   action :delete
   ignore_failure true
 end
 
-link node[:spark][:base_dir] do
+link node[:hadoop_spark][:base_dir] do
   action :delete
   ignore_failure true
 end
