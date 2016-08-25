@@ -33,13 +33,6 @@ stop() {
   return $?
 }
 
-restart() {
-  stop
-  sleep 3
-  start
-  return $?
-}
-
 status() {
   res=1
   if [ -f $PID_FILE ] ; then
@@ -53,6 +46,16 @@ status() {
    echo "sparkhistoryserver is not running"
   fi
   return $res
+}
+
+restart() {
+  res=`status()`
+  if [ "$res" == "0" ] ; then
+    stop
+    sleep 3
+  fi
+  start
+  return $?
 }
 
 
