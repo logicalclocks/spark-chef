@@ -47,7 +47,7 @@ spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archi
 spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEnv[env] -%>
 <% end -%>
 
-
+#spark.yarn.access.namenodes  - these are kerberos enabled namenodes
 #spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 #spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
 #spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
