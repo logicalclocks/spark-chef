@@ -28,9 +28,6 @@ default.hadoop_spark.hadoop.distribution       = "apache_hadoop"
 
 default.hadoop_spark.master.public_key         = ""
 
-node.default.java.jdk_version                  = 7
-
-
 # Pick hadoop distribution. Options are 'hops' and 'hadoop'
 default.hadoop_spark.hadoop.distribution                  = "hops"
 default.hadoop_spark.master.public_key                    = ""
