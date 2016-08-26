@@ -81,10 +81,7 @@ end
 if node.kagent.enabled == "true" 
    kagent_config "sparkhistoryserver" do
      service service_name
-     start_script "#{node.hadoop_spark.base_dir}/sbin/start-history-server.sh"
-     stop_script "#{node.hadoop_spark.base_dir}/sbin/stop-history-server.sh"  
      log_file "#{node.hadoop_spark.base_dir}/historyserver.log"
-     pid_file "/tmp/spark-#{node.hadoop_spark.user}-org.apache.spark.deploy.history.HistoryServer-1.pid"
      web_port 18080
    end
 end
