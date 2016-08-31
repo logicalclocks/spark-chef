@@ -37,7 +37,7 @@ spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.fil
 spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
 spark.yarn.scheduler.heartbeat.interval-ms <%= node.hadoop_spark.yarn.scheduler.heartbeat.interval_ms %>
 spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %> 
-spark.yarn.archive                         hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/<%= node.hadoop_spark.yarn.archive.hdfs %>
+spark.yarn.archive                         hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/<%= node.hadoop_spark.yarn.archive_hdfs %>
 spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
 spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archives %> 
 #spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 

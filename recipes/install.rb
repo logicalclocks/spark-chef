@@ -62,14 +62,13 @@ spark_down = "#{node.hadoop_spark.dir}/.hadoop_spark.extracted_#{node.hadoop_spa
 bash 'extract_hadoop_spark' do
         user "root"
         code <<-EOH
+                set -e
                 tar -xf #{cached_package_filename} -C #{node.hadoop_spark.dir}
-                chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
-                touch #{spark_down}
-                chown #{node.hadoop_spark.user} #{node.hadoop_spark.dir}/.hadoop_spark.extracted_#{node.hadoop_spark.version}
-                chown #{node.hadoop_spark.user} 
-                cd #{node.hadoop_spark.dir}
+                cd #{node.hadoop_spark.home}
                 zip #{node.hadoop_spark.yarn.archive} jars/*
                 touch #{spark_down}
+                cd ..
+                chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
         EOH
      not_if { ::File.exists?( spark_down ) }
 end
@@ -140,13 +139,3 @@ template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
            })
 end
 
-file "#{node.hadoop_spark.home}/spark.jar" do
-  action :delete
-  force_unlink true  
-end
-
-link "#{node.hadoop_spark.home}/spark.jar" do
-  owner node.hadoop_spark.user
-  group node.hadoop_spark.group
-  to "#{node.hadoop_spark.home}/lib/spark-assembly-#{node.hadoop_spark.version}-hadoop#{node.apache_hadoop.version}.jar"
-end
