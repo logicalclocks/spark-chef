@@ -21,51 +21,49 @@ recipe           "yarn", "Install for yarn"
 recipe           "historyserver", "Installs/starts the Spark historyserver"
 
 attribute "java/jdk_version",
-:display_name =>  "Jdk version",
-:type => 'string'
+          :display_name =>  "Jdk version",
+          :type => 'string'
 
 attribute "hadoop_spark/user",
-:display_name => "Username to run spark master/worker as",
-:type => 'string'
+          :display_name => "Username to run spark master/worker as",
+          :type => 'string'
 
 attribute "hadoop_spark/group",
-:display_name => "Groupname to run spark master/worker as",
-:type => 'string'
+          :display_name => "Groupname to run spark master/worker as",
+          :type => 'string'
 
 attribute "hadoop_spark/executor_memory",
-:display_name => "Executor memory (e.g., 512m)",
-:type => 'string'
+          :display_name => "Executor memory (e.g., 512m)",
+          :type => 'string'
 
 attribute "hadoop_spark/driver_memory",
-:display_name => "Driver memory (e.g., 1g)",
-:type => 'string'
+          :display_name => "Driver memory (e.g., 1g)",
+          :type => 'string'
 
 attribute "hadoop_spark/eventlog_enabled",
-:display_name => "Eventlog enabled (true|false)",
-:type => 'string'
+          :display_name => "Eventlog enabled (true|false)",
+          :type => 'string'
 
 attribute "hadoop_spark/worker/cleanup/enabled",
-:display_name => "Spark standalone worker cleanup enabled (true|false)",
-:type => 'string'
+          :display_name => "Spark standalone worker cleanup enabled (true|false)",
+          :type => 'string'
 
 attribute "hadoop_spark/version",
-:display_name => "Spark version (e.g., 1.4.1 or 1.5.2 or 1.6.0)",
-:type => 'string'
+          :display_name => "Spark version (e.g., 1.4.1 or 1.5.2 or 1.6.0)",
+          :type => 'string'
 
 attribute "hadoop_spark/hadoop/distribution",
-:display_name => "'hops' or 'apache_hadoop'",
-:type => 'string'
+          :display_name => "'hops' or 'apache_hadoop'",
+          :type => 'string'
 
 attribute "hadoop_spark/history/fs/cleaner/enabled",
-:display_name => "'true' to enable cleanup of the historyservers logs",
-:type => 'string'
+          :display_name => "'true' to enable cleanup of the historyservers logs",
+          :type => 'string'
 
 attribute "hadoop_spark/history/fs/cleaner/interval",
-:display_name => "How often to run the cleanup of the historyservers logs (e.g., '1d' for once per day)",
-:type => 'string'
+          :display_name => "How often to run the cleanup of the historyservers logs (e.g., '1d' for once per day)",
+          :type => 'string'
 
 attribute "hadoop_spark/history/fs/cleaner/maxAge",
-:display_name => "Age in days of the historyservers logs before they are removed (e.g., '7d' for 7 days)",
-:type => 'string'
-
-
+          :display_name => "Age in days of the historyservers logs before they are removed (e.g., '7d' for 7 days)",
+          :type => 'string'
