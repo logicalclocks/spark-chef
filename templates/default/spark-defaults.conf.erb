@@ -37,10 +37,12 @@ spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.fil
 spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
 spark.yarn.scheduler.heartbeat.interval-ms <%= node.hadoop_spark.yarn.scheduler.heartbeat.interval_ms %>
 spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %> 
-spark.yarn.archive                         hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/<%= node.hadoop_spark.yarn.archive_hdfs %>
 spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
-spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archives %> 
-#spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
+# Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
+spark.yarn.dist.archives                   "hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>"
+# <%= node.hadoop_spark.yarn.dist.archives %> 
+spark.yarn.dist.jars                       <%= node.hadoop_spark.yarn.dist.jars %>
+spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
 # am.memory doesn't apply in cluster mode
 #spark.yarn.am.memory                       <%= node.hadoop_spark.yarn.am.memory %>
 <% for env in node.hadoop_spark.yarn.appMasterEnv.keys -%>
