@@ -77,12 +77,28 @@ bash 'extract_hadoop_spark' do
 end
 
 
-template"#{node.hadoop_spark.home}/conf/log4j.properties" do
+template"#{node.hadoop_spark.conf_dir}/log4j.properties" do
   source "log4j.properties.erb"
   owner node.hadoop_spark.user
   group node.hadoop_spark.group
   mode 0655
 end
+
+template"#{node.hadoop_spark.conf_dir}/yarnclient-driver-log4j.properties" do
+  source "yarnclient-driver-log4j.properties.erb"
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
+  mode 0655
+end
+
+template"#{node.hadoop_spark.conf_dir}/executor-log4j.properties" do
+  source "executor-log4j.properties.erb"
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
+  mode 0655
+end
+
+
 
 link node.hadoop_spark.base_dir do
   owner node.hadoop_spark.user

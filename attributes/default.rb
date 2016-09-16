@@ -11,6 +11,7 @@ default.scala.version 	                       = "2.10"
 default.hadoop_spark.dir                       = "/srv"
 default.hadoop_spark.base_dir                  = "#{node.hadoop_spark.dir}/spark"
 default.hadoop_spark.home                      = "#{node.hadoop_spark.dir}/spark-#{node.hadoop_spark.version}-bin-hadoop#{node.hadoop_spark.hadoop.version}"
+default.hadoop_spark.conf_dir                  = "#{node.hadoop_spark.base_dir}/conf"
 default.hadoop_spark.url                       = "#{node.download_url}/spark-#{node.hadoop_spark.version}-bin-hadoop#{node.hadoop_spark.hadoop.version}.tgz"
 
 default.hadoop_spark.executor_memory           = "512m"

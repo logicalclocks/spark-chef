@@ -32,6 +32,10 @@ spark.yarn.historyServer.address <%= @historyserver_ip %>:18088
 #spark.dynamicAllocation.minExecutors 1
 #spark.dynamicAllocation.maxExecutors
 #spark.dynamicAllocation.initialExecutors
+
+spark.executor.extraJavaOptions            -Dlog4j.configuration=<%= node.hadoop_spark.conf_dir %>/executor-log4j.properties -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -Djava.library.path=<%= node.apache_hadoop.base_dir %>/lib/native/
+spark.driver.extraJavaOptions              -Dlog4j.configuration=<%= node.hadoop_spark.conf_dir %>/yarnclient-driver-log4j.properties -Djava.library.path=<%= node.apache_hadoop.base_dir %>/lib/native/
+
 spark.yarn.am.waitTime                     <%= node.hadoop_spark.yarn.am.waitTime %>
 spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.file.replication %>
 spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
