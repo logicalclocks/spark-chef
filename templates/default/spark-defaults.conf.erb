@@ -45,7 +45,7 @@ spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerL
 # Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
 spark.yarn.dist.archives                   "hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>"
 # <%= node.hadoop_spark.yarn.dist.archives %> 
-#spark.yarn.dist.jars                       <%= node.hadoop_spark.yarn.dist.jars %>
+spark.yarn.dist.jars                       <%= node.hadoop_spark.yarn.dist.jars %>
 spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
 # am.memory doesn't apply in cluster mode
 #spark.yarn.am.memory                       <%= node.hadoop_spark.yarn.am.memory %>
