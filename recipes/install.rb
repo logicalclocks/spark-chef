@@ -65,10 +65,10 @@ bash 'extract_hadoop_spark' do
         user "root"
         code <<-EOH
                 set -e
+                rm -rf #{node.hadoop_spark.base_dir}
                 tar -xf #{cached_package_filename} -C #{node.hadoop_spark.dir}
                 cd #{node.hadoop_spark.home}
                 zip #{node.hadoop_spark.yarn.archive} jars/*
-
                 touch #{spark_down}
                 cd ..
                 chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
@@ -76,6 +76,11 @@ bash 'extract_hadoop_spark' do
      not_if { ::File.exists?( spark_down ) }
 end
 
+link node.hadoop_spark.base_dir do
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
+  to node.hadoop_spark.home
+end
 
 template"#{node.hadoop_spark.conf_dir}/log4j.properties" do
   source "log4j.properties.erb"
@@ -96,14 +101,6 @@ template"#{node.hadoop_spark.conf_dir}/executor-log4j.properties" do
   owner node.hadoop_spark.user
   group node.hadoop_spark.group
   mode 0655
-end
-
-
-
-link node.hadoop_spark.base_dir do
-  owner node.hadoop_spark.user
-  group node.hadoop_spark.group
-  to node.hadoop_spark.home
 end
 
 
