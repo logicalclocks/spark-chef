@@ -25,27 +25,27 @@ describe service('resourcemanager') do
   it { should be_running   }
 end
 
-describe command("/tmp/mysql-cluster/ndb/scripts/mysql-client.sh -e \"show databases\"") do
+describe command("/var/lib/mysql-cluster/ndb/scripts/mysql-client.sh -e \"show databases\"") do
   its (:stdout) { should match /mysql/ }
-end
-
-describe command("su hdfs -l -c \"/tmp/hadoop/bin/hdfs dfs -mkdir /hops\"") do
-  its(:exit_status) { should eq 0 }
-end
-
-describe command("su hdfs -l -c \"/tmp/hadoop/bin/hdfs dfs -ls /\"") do
-  its (:stdout) { should match /hops/ }
 end
 
 describe command("su hdfs -l -c \"echo 'test data' > /tmp/hopsie\"") do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("su hdfs -l -c \"/tmp/hadoop/bin/hdfs dfs -copyFromLocal /tmp/hopsie /hops\"") do
+describe command("su hdfs -l -c \"/srv/hadoop/bin/hdfs dfs -rm -f /hops\"") do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("su yarn -l -c \"/tmp/hadoop/bin/yarn jar /tmp/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.0.jar pi 1 1000 \"") do
+describe command("su hdfs -l -c \"/srv/hadoop/bin/hdfs dfs -copyFromLocal /tmp/hopsie /hops\"") do
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("su hdfs -l -c \"/srv/hadoop/bin/hdfs dfs -ls /\"") do
+  its (:stdout) { should match /hops/ }
+end
+
+describe command("su yarn -l -c \"/srv/hadoop/bin/yarn jar /srv/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.0.jar pi 1 1000 \"") do
   its (:stdout) { should match /Estimated value of Pi is/ }
 end
 
@@ -62,15 +62,19 @@ describe command("service nodemanager restart") do
 end
 
 describe command("su spark -l -c \"/srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode cluster --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.0.jar 100\"") do
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("su spark -l -c \"/srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode client --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.0.jar 100\"") do
   its (:stdout) { should match /Pi is roughly/ }
 end
 
-describe service('spark-history-server') do
+describe service('sparkhistoryserver') do
   it { should be_enabled   }
   it { should be_running   }
 end
 
-describe command("service spark-history-server restart") do
+describe command("service sparkhistoryserver restart") do
   its(:exit_status) { should eq 0 }
 end
 
