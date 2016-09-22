@@ -15,7 +15,7 @@ spark.history.fs.cleaner.enabled  <%= node.hadoop_spark.history.fs.cleaner.enabl
 spark.history.fs.cleaner.interval <%= node.hadoop_spark.history.fs.cleaner.interval %>
 spark.history.fs.cleaner.maxAge   <%= node.hadoop_spark.history.fs.cleaner.maxAge %>
 spark.eventLog.compress           true
-spark.yarn.historyServer.address <%= @historyserver_ip %>:18088
+spark.yarn.historyServer.address <%= @historyserver_ip %>:<%= node.hadoop_spark.historyServer.port %>
 
 
 # YARN settings
