@@ -22,6 +22,7 @@ default.hadoop_spark.master.port               = 7077
 
 default.hadoop_spark.worker.cleanup.enabled= true
 
+default.hadoop_spark.historyServer.port         = 18080
 
 # Pick hadoop distribution. Options are 'hops' and 'apache_hadoop'
 default.hadoop_spark.hadoop.distribution       = "apache_hadoop"
