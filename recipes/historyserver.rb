@@ -82,7 +82,7 @@ if node.kagent.enabled == "true"
    kagent_config "sparkhistoryserver" do
      service service_name
      log_file "#{node.hadoop_spark.base_dir}/historyserver.log"
-     web_port "#{node.hadoop_spark.historyServer.port}"
+     web_port "#{node.hadoop_spark.historyserver.port}"
    end
 end
 
