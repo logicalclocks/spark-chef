@@ -1,8 +1,23 @@
 # Set everything to be logged to the console
-log4j.rootCategory=ERROR, console
+log4j.rootCategory=ERROR, RFA
 log4j.appender.console=org.apache.log4j.ConsoleAppender
 log4j.appender.console.layout=org.apache.log4j.PatternLayout
 log4j.appender.console.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n
 
 # Ignore messages below warning level from Jetty, because it's a bit verbose
 log4j.logger.org.eclipse.jetty=WARN
+                                                                              
+# Rolling File Appender - cap space usage at 5gb.                             
+hadoop.log.maxfilesize=<%= node.hadoop_spark.log.maxfilesize %>
+hadoop.log.maxbackupindex=<%= node.hadoop_spark.log.maxbackupindex %>
+log4j.appender.RFA=org.apache.log4j.RollingFileAppender
+log4j.appender.RFA.File=<%= node.hadoop_spark.log.path %>
+#log4j.appender.RFA.File=/srv/spark/log/test.log
+log4j.appender.RFA.MaxFileSize=${hadoop.log.maxfilesize}
+log4j.appender.RFA.MaxBackupIndex=${hadoop.log.maxbackupindex}
+
+log4j.appender.RFA.layout=org.apache.log4j.PatternLayout
+
+# Pattern format: Date LogLevel LoggerName LogMessage                        
+log4j.appender.RFA.layout.ConversionPattern=%d{ISO8601} %p %c: %m%n
+
