@@ -58,3 +58,7 @@ default.hadoop_spark.systemd                              = "true"
 default.hadoop_spark.history.fs.cleaner.enabled           = "true"
 default.hadoop_spark.history.fs.cleaner.interval          = "1d"
 default.hadoop_spark.history.fs.cleaner.maxAge            = "7d"
+
+default.hadoop_spark.log.maxfilesize                      = "256MB"
+default.hadoop_spark.log.maxbackupindex                   = 10
+default.hadoop_spark.log.path                             = "#{node.hadoop_spark.dir}/spark/log/historyServer.log"
