@@ -117,7 +117,11 @@ end
 begin
   namenode_ip = private_recipe_ip("hops","nn")
 rescue
-  namenode_ip = my_private_ip()
+  begin
+    namenode_ip = private_recipe_ip("apache_hadoop","nn")
+  rescue
+    namenode_ip = my_private_ip()
+  end
 end
 
 template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
