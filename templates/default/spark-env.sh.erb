@@ -12,6 +12,12 @@ export SPARK_HOME=<%= node.hadoop_spark.base_dir %>
 # ./bin/run-example or ./bin.apache_hadoop.spark.submit
 export HADOOP_CONF_DIR=<%= node.apache_hadoop.conf_dir %>
 export SPARK_LOCAL_IP=<%= @private_ip %>
+
+# https://spark.apache.org/docs/latest/hadoop-provided.html
+# Need to tell spark where to find the hadoop jars
+export SPARK_DIST_CLASSPATH=$(<%= node.apache_hadoop.base_dir %>/bin/hadoop classpath)
+
+
 # export SPARK_PUBLIC_DNS, to set the public dns name of the driver program
 # export SPARK_CLASSPATH, default classpath entries to append
 
@@ -32,6 +38,9 @@ export SPARK_LOCAL_IP=<%= @private_ip %>
 # export SPARK_YARN_QUEUE, The.apache_hadoop.queue to use for allocation requests (Default: ‘default’)
 # export SPARK_YARN_DIST_FILES, Comma separated list of files to be distributed with the job.
 # export SPARK_YARN_DIST_ARCHIVES, Comma separated list of archives to be distributed with the job.
+
+
+
 
 # Options for the daemons used in the standalone deploy mode
 export SPARK_MASTER_IP=<%= @master_ip %>

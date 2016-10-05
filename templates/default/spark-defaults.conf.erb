@@ -32,14 +32,20 @@ spark.yarn.historyServer.address <%= @historyserver_ip %>:<%= node.hadoop_spark.
 #spark.dynamicAllocation.minExecutors 1
 #spark.dynamicAllocation.maxExecutors
 #spark.dynamicAllocation.initialExecutors
+
+spark.executor.extraJavaOptions            -Dlog4j.configuration=<%= node.hadoop_spark.conf_dir %>/executor-log4j.properties -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -Djava.library.path=<%= node.apache_hadoop.base_dir %>/lib/native/
+spark.driver.extraJavaOptions              -Dlog4j.configuration=<%= node.hadoop_spark.conf_dir %>/yarnclient-driver-log4j.properties -Djava.library.path=<%= node.apache_hadoop.base_dir %>/lib/native/
+
 spark.yarn.am.waitTime                     <%= node.hadoop_spark.yarn.am.waitTime %>
 spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.file.replication %>
 spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
 spark.yarn.scheduler.heartbeat.interval-ms <%= node.hadoop_spark.yarn.scheduler.heartbeat.interval_ms %>
 spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %> 
-spark.yarn.jar                             hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %><%= node.hadoop_spark.yarn.jar %> 
 spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
-spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archives %> 
+# Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
+#spark.yarn.dist.archives                   hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>
+# <%= node.hadoop_spark.yarn.dist.archives %> 
+#spark.yarn.jars                            <%= node.hadoop_spark.yarn.jars %>
 #spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
 # am.memory doesn't apply in cluster mode
 #spark.yarn.am.memory                       <%= node.hadoop_spark.yarn.am.memory %>
@@ -47,7 +53,7 @@ spark.yarn.dist.archives                   <%= node.hadoop_spark.yarn.dist.archi
 spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEnv[env] -%>
 <% end -%>
 
-
+#spark.yarn.access.namenodes  - these are kerberos enabled namenodes
 #spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 #spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
 #spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384

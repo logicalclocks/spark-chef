@@ -5,13 +5,13 @@ include_attribute "hops"
 default.hadoop_spark.user                      = "spark"
 default.hadoop_spark.group                     = "#{node.apache_hadoop.group}"
 
-default.hadoop_spark.version                   = "1.6.1"
-default.hadoop_spark.hadoop.version            = "2.4"
+default.hadoop_spark.version                   = "2.0.0"
 default.scala.version 	                       = "2.10"
 default.hadoop_spark.dir                       = "/srv"
 default.hadoop_spark.base_dir                  = "#{node.hadoop_spark.dir}/spark"
-default.hadoop_spark.home                      = "#{node.hadoop_spark.dir}/spark-#{node.hadoop_spark.version}-bin-hadoop#{node.hadoop_spark.hadoop.version}"
-default.hadoop_spark.url                       = "#{node.download_url}/spark-#{node.hadoop_spark.version}-bin-hadoop#{node.hadoop_spark.hadoop.version}.tgz"
+default.hadoop_spark.home                      = "#{node.hadoop_spark.dir}/spark-#{node.hadoop_spark.version}-bin-without-hadoop"
+default.hadoop_spark.conf_dir                  = "#{node.hadoop_spark.base_dir}/conf"
+default.hadoop_spark.url                       = "#{node.download_url}/spark-#{node.hadoop_spark.version}-bin-without-hadoop.tgz"
 
 default.hadoop_spark.executor_memory           = "512m"
 default.hadoop_spark.driver_memory             = "1g"
@@ -41,9 +41,13 @@ default.hadoop_spark.yarn.scheduler.heartbeat.interval_ms = 5000
 default.hadoop_spark.yarn.queue                           = "default"
 # the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
-default.hadoop_spark.yarn.jar                             =  "/user/#{node.hadoop_spark.user}/spark.jar"
+default.hadoop_spark.yarn.archive                         =  "spark-jars.zip"
+default.hadoop_spark.yarn.archive_hdfs                    =  "/user/#{node.hadoop_spark.user}/spark-jars.zip"
+# Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
 default.hadoop_spark.yarn.dist.archives                   = ""
 default.hadoop_spark.yarn.dist.files                      = ""
+#default.hadoop_spark.yarn.dist.jars                       = ""
+default.hadoop_spark.yarn.jars                            = "local://#{node.hadoop_spark.base_dir}/jars/*"
 default.hadoop_spark.yarn.am.memory                       = "512m"
 default.hadoop_spark.yarn.containerLauncherMaxThreads     = 25
 #default.spark.yarn.am.waitTime                     = "100s"
