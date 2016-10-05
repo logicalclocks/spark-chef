@@ -9,7 +9,7 @@ default.hadoop_spark.version                   = "2.0.0"
 default.scala.version 	                       = "2.10"
 default.hadoop_spark.dir                       = "/srv"
 default.hadoop_spark.base_dir                  = "#{node.hadoop_spark.dir}/spark"
-default.hadoop_spark.home                      = "#{node.hadoop_spark.dir}/spark-#{node.hadoop_spark.version}-bin-without"
+default.hadoop_spark.home                      = "#{node.hadoop_spark.dir}/spark-#{node.hadoop_spark.version}-bin-without-hadoop"
 default.hadoop_spark.conf_dir                  = "#{node.hadoop_spark.base_dir}/conf"
 default.hadoop_spark.url                       = "#{node.download_url}/spark-#{node.hadoop_spark.version}-bin-without-hadoop.tgz"
 
