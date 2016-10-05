@@ -68,7 +68,10 @@ bash 'extract_hadoop_spark' do
                 rm -rf #{node.hadoop_spark.base_dir}
                 tar -xf #{cached_package_filename} -C #{node.hadoop_spark.dir}
                 cd #{node.hadoop_spark.home}
-                zip -o #{node.hadoop_spark.yarn.archive} jars/*
+		cd jars
+                zip -o #{node.hadoop_spark.yarn.archive} *
+		cd ..
+		mv jars/#{node.hadoop_spark.yarn.archive} .
                 touch #{spark_down}
                 cd ..
                 chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
