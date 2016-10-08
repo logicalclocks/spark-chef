@@ -71,10 +71,10 @@ describe command("service sparkhistoryserver restart") do
 end
 
 
-describe command("su spark -l -c \"/srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode client --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.1.jar 100\"") do
+describe command("su spark -l -c \"HADOOP_CONF_DIR=/srv/hadoop/etc/hadoop /srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode client --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.1.jar 100\"") do
   its (:stdout) { should match /Pi is roughly/ }
 end
 
-describe command("su spark -l -c \"/srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode cluster --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.1.jar 100\"") do
+describe command("su spark -l -c \"HADOOP_CONF_DIR=/srv/hadoop/etc/hadoop /srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode cluster --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.1.jar 100\"") do
   its(:exit_status) { should eq 0 }
 end
