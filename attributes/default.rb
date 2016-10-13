@@ -44,6 +44,7 @@ default.hadoop_spark.yarn.queue                           = "default"
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
 default.hadoop_spark.yarn.archive                         =  "spark-jars.zip"
 default.hadoop_spark.yarn.archive_hdfs                    =  "/user/#{node.hadoop_spark.user}/spark-jars.zip"
+default.hadoop_spark.yarn.warehouse_hdfs                  = "/user/#{node.hadoop_spark.user}/spark-warehouse"
 # Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
 default.hadoop_spark.yarn.dist.archives                   = ""
 default.hadoop_spark.yarn.dist.files                      = ""
