@@ -35,6 +35,13 @@ apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/eventlog" do
   mode "1775"
 end
 
+apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/spark-warehouse" do
+  action :create_as_superuser
+  owner node.hadoop_spark.user
+  group node.apache_hadoop.group
+  mode "1775"
+end
+
 apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/share/lib" do
   action :create_as_superuser
   owner node.hadoop_spark.user
