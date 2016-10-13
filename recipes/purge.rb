@@ -38,3 +38,12 @@ link node[:hadoop_spark][:base_dir] do
 end
 
 
+package_url = "#{node.hadoop_spark.url}"
+base_package_filename = File.basename(package_url)
+cached_package_filename = "/tmp/#{base_package_filename}"
+
+file cached_package_filename do
+  action :delete
+  ignore_failure true
+end
+

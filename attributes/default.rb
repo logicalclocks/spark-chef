@@ -63,3 +63,14 @@ default.hadoop_spark.history.fs.cleaner.enabled           = "true"
 default.hadoop_spark.history.fs.cleaner.interval          = "1d"
 default.hadoop_spark.history.fs.cleaner.maxAge            = "7d"
 
+#
+# Parameters taken from here: http://www.slideshare.net/jcmia1/apache-spark-20-tuning-guide
+# 5g is a learned parameter from 1TB benchmarks
+#
+default.hadoop_spark.driver.maxResultSize                 = "5g"
+default.hadoop_spark.local.dir                            = "/tmp"
+default.hadoop_spark.daemon.memory                        = "4g"
+default.hadoop_spark.sql.broadcastTimeout                 = "1200"
+default.hadoop_spark.sql.networkTimeout                   = "700"
+
+

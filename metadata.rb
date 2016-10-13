@@ -74,4 +74,12 @@ attribute "hadoop_spark/history/fs/cleaner/maxAge",
           :description => "Age in days of the historyservers logs before they are removed (e.g., '7d' for 7 days)",
           :type => 'string'
 
+attribute "hadoop_spark/driver/maxResultSize",
+          :description => "Default '5g'. Change to '1g', '500m', etc",
+          :type => 'string'
+
+attribute "hadoop_spark/local/dir",
+          :description => "Default /tmp'. Change to: '/srv/disk1/tmp,/srv/disk2/tmp,/srv/disk3/tmp'",
+          :type => 'string'
+
 
