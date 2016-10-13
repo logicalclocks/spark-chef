@@ -50,6 +50,10 @@ attribute "hadoop_spark/eventlog_enabled",
           :description => "Eventlog enabled (true|false)",
           :type => 'string'
 
+attribute "hadoop_spark/streaming/stopGracefullyOnShutdown",
+          :description => "Shut down the StreamingContext gracefully on JVM shutdown rather than immediately (true|false)",
+          :type => 'string'
+
 attribute "hadoop_spark/worker/cleanup/enabled",
           :description => "Spark standalone worker cleanup enabled (true|false)",
           :type => 'string'
