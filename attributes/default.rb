@@ -18,7 +18,7 @@ default.hadoop_spark.driver_memory                        = "1g"
 default.hadoop_spark.eventlog_enabled                     = "true"
 default.hadoop_spark.driver.maxResultSize                 = "512m"
 default.hadoop_spark.io.compression.codec                 = "snappy"
-
+default.hadoop_spark.streaming.stopGracefullyOnShutdown   = "true"
 default.hadoop_spark.master.port                          = 7077
 
 default.hadoop_spark.worker.cleanup.enabled= true

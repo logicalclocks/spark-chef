@@ -8,6 +8,7 @@ spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.
 spark.serializer              org.apache.spark.serializer.KryoSerializer
 spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
 spark.io.compression.codec    <%= node.hadoop_spark.io.compression.codec %>
+spark.streaming.stopGracefullyOnShutdown <%= node.hadoop_spark.streaming.stopGracefullyOnShutdown %>
 
 # spark-history-server settings
 spark.history.fs.logDirectory     hdfs://<%= @namenode_ip %>:<%= node.apache_hadoop.nn.port %>/<%= @eventlog_dir %>
