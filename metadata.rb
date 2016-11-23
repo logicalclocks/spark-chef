@@ -88,6 +88,6 @@ attribute "hadoop_spark/local/dir",
 
 attribute "hadoop_spark/historyserver/private_ips",
           :description => "historyserver ip addr",
-          :type => 'string'
+          :type => 'array'
 
 
