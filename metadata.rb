@@ -86,4 +86,8 @@ attribute "hadoop_spark/local/dir",
           :description => "Default /tmp'. Change to: '/srv/disk1/tmp,/srv/disk2/tmp,/srv/disk3/tmp'",
           :type => 'string'
 
+attribute "hadoop_spark/historyserver/private_ips",
+          :description => "historyserver ip addr",
+          :type => 'string'
+
 
