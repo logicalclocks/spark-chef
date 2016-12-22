@@ -42,6 +42,15 @@ end
 #end
 
 
+directory node.hadoop_spark.dir  do
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
+  mode "755"
+  action :create
+  recursive true
+  not_if { File.directory?("#{node.hadoop_spark.dir}") }
+end
+
 package_url = "#{node.hadoop_spark.url}"
 base_package_filename = File.basename(package_url)
 cached_package_filename = "/tmp/#{base_package_filename}"
