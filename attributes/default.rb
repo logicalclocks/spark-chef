@@ -48,7 +48,8 @@ default.hadoop_spark.yarn.warehouse_hdfs                  = "/user/#{node.hadoop
 # Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
 default.hadoop_spark.yarn.dist.archives                   = ""
 default.hadoop_spark.yarn.dist.files                      = ""
-#default.hadoop_spark.yarn.dist.jars                       = ""
+#default.hadoop_spark.yarn.dist.jars                      = ""
+default.hadoop_spark.pyFiles                              = "local://#{node.hadoop_spark.base_dir}/python/lib/pyspark.zip"
 default.hadoop_spark.yarn.jars                            = "local://#{node.hadoop_spark.base_dir}/jars/*"
 default.hadoop_spark.yarn.am.memory                       = "512m"
 default.hadoop_spark.yarn.containerLauncherMaxThreads     = 25
