@@ -56,6 +56,7 @@ default.hadoop_spark.yarn.containerLauncherMaxThreads     = 25
 #default.spark.yarn.am.waitTime                           = "100s"
 #default.spark.yarn.max.executor.failures                 = 3
 #default.spark.yarn.historyServer.address
+default.hadoop_spark.yarn.am.attemptFailuresValidityInterval = 1h
 
 # Hash of environment variables
 default.hadoop_spark.yarn.appMasterEnv                    = {}

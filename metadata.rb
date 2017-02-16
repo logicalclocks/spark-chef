@@ -59,7 +59,7 @@ attribute "hadoop_spark/worker/cleanup/enabled",
           :type => 'string'
 
 attribute "hadoop_spark/version",
-          :description => "Spark version (e.g., 1.4.1 or 1.5.2 or 1.6.0)",
+          :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 2.1.0)",
           :type => 'string'
 
 attribute "hadoop_spark/hadoop/distribution",
@@ -76,6 +76,10 @@ attribute "hadoop_spark/history/fs/cleaner/interval",
 
 attribute "hadoop_spark/history/fs/cleaner/maxAge",
           :description => "Age in days of the historyservers logs before they are removed (e.g., '7d' for 7 days)",
+          :type => 'string'
+
+attribute "hadoop_spark/yarn/am/attemptFailuresValidityInterval",
+          :description => "Defines the validity interval for AM failure tracking. If the AM has been running for at least the defined interval, the AM failure count will be reset.",
           :type => 'string'
 
 attribute "hadoop_spark/driver/maxResultSize",
