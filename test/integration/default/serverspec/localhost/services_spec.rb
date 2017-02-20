@@ -33,19 +33,19 @@ describe command("su hdfs -l -c \"echo 'test data' > /tmp/hopsie\"") do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("su hdfs -l -c \"/srv/hadoop/bin/hdfs dfs -rm -f /hops\"") do
+describe command("su hdfs -l -c \"/srv/hops/hadoop/bin/hdfs dfs -rm -f /hops\"") do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("su hdfs -l -c \"/srv/hadoop/bin/hdfs dfs -copyFromLocal /tmp/hopsie /hops\"") do
+describe command("su hdfs -l -c \"/srv/hops/hadoop/bin/hdfs dfs -copyFromLocal /tmp/hopsie /hops\"") do
   its(:exit_status) { should eq 0 }
 end
 
-describe command("su hdfs -l -c \"/srv/hadoop/bin/hdfs dfs -ls /\"") do
+describe command("su hdfs -l -c \"/srv/hops/hadoop/bin/hdfs dfs -ls /\"") do
   its (:stdout) { should match /hops/ }
 end
 
-describe command("su yarn -l -c \"/srv/hadoop/bin/yarn jar /srv/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.0.jar pi 1 1000 \"") do
+describe command("su yarn -l -c \"/srv/hops/hadoop/bin/yarn jar /srv/hops/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.0.jar pi 1 1000 \"") do
   its (:stdout) { should match /Estimated value of Pi is/ }
 end
 
@@ -71,11 +71,11 @@ describe command("service sparkhistoryserver restart") do
 end
 
 
-describe command("su spark -l -c \"HADOOP_CONF_DIR=/srv/hadoop/etc/hadoop /srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode client --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.1.jar 100\"") do
+describe command("su spark -l -c \"HADOOP_CONF_DIR=/srv/hops/hadoop/etc/hadoop /srv/hops/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode client --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/hops/spark/examples/jars/spark-examples_2.11-2.1.0.jar 100\"") do
   its (:stdout) { should match /Pi is roughly/ }
 end
 
 # When you run in cluster-mode, spark-submit works ok, but doesn't return, so this fails
-describe command("su spark -l -c \"HADOOP_CONF_DIR=/srv/hadoop/etc/hadoop /srv/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode cluster --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/spark/examples/jars/spark-examples_2.11-2.0.1.jar 100\"") do
+describe command("su spark -l -c \"HADOOP_CONF_DIR=/srv/hops/hadoop/etc/hadoop /srv/hops/spark/bin/spark-submit --verbose --class org.apache.spark.examples.SparkPi --master yarn --deploy-mode cluster --driver-memory 512m --executor-memory 512m --queue default --num-executors 1 /srv/hops/spark/examples/jars/spark-examples_2.11-2.1.0.jar 100\"") do
   its(:exit_status) { should eq 0 }
 end
