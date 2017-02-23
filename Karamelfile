@@ -1,6 +1,6 @@
 dependencies: 
   - recipe: hadoop_spark::install
-    global:
+    local:
       - apache_hadoop::install
   - recipe: hadoop_spark::master
   - recipe: hadoop_spark::historyserver
