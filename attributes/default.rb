@@ -1,9 +1,8 @@
 include_attribute "kagent"
-include_attribute "apache_hadoop"
 include_attribute "hops"
 
 default.hadoop_spark.user                                 = "spark"
-default.hadoop_spark.group                                = "#{node.apache_hadoop.group}"
+default.hadoop_spark.group                                = "#{node.hops.group}"
 
 default.hadoop_spark.version                              = "2.1.0"
 default.scala.version 	                                  = "2.11"
