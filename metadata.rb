@@ -62,10 +62,6 @@ attribute "hadoop_spark/version",
           :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 2.1.0)",
           :type => 'string'
 
-attribute "hadoop_spark/hadoop/distribution",
-          :description => "'hops' or 'apache_hadoop'",
-          :type => 'string'
-
 attribute "hadoop_spark/history/fs/cleaner/enabled",
           :description => "'true' to enable cleanup of the historyservers logs",
           :type => 'string'

@@ -9,14 +9,6 @@
 
 include_recipe "java"
 
-if node.hadoop_spark.hadoop.distribution === "hops"
- include_recipe "hops::wrap"
-end
-# group node.hadoop_spark.group do
-#   action :create
-#   not_if "getent group #{node.hadoop_spark.group}"
-# end
-
 user node.hadoop_spark.user do
   home "/home/#{node.hadoop_spark.user}"
   action :create
@@ -31,16 +23,6 @@ group node.hadoop_spark.group do
    members ["#{node.hadoop_spark.user}"]
   append true
 end
-
-#case node.platform_family
-# when "debian"
-#  package "scala" do
-#    action :install
-#  end
-# when "redhat"
-#  include_recipe "scala"
-#end
-
 
 directory node.hadoop_spark.dir  do
   owner node.hadoop_spark.user
@@ -118,19 +100,13 @@ end
 
 my_ip = my_private_ip()
 
-
-if node.hadoop_spark.hadoop.distribution === "apache_hadoop"
- master_ip = private_recipe_ip("hadoop_spark","master")
- master_ip = "spark://#{master_ip}:#{node.hadoop_spark.master.port}"
-else
- master_ip = "yarn"
-end
+master_ip = "yarn"
 
 begin
   namenode_ip = private_recipe_ip("hops","nn")
 rescue
   begin
-    namenode_ip = private_recipe_ip("apache_hadoop","nn")
+    namenode_ip = private_recipe_ip("hops","nn")
   rescue
     namenode_ip = my_private_ip()
   end
@@ -148,7 +124,7 @@ template"#{node.hadoop_spark.home}/conf/spark-env.sh" do
 end
 
 
-eventlog_dir = "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
+eventlog_dir = "#{node.hops.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
 
 begin
   historyserver_ip = private_recipe_ip("hadoop_spark","historyserver")

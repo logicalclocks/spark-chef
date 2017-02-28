@@ -6,17 +6,17 @@ eventlog_dir =
   if node.hadoop_spark.key?('.eventlog.dir')
     "#{node.hadoop_spark.eventlog.dir}"
   else
-    "#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
+    "#{node.hops.hdfs.user_home}/#{node.hadoop_spark.user}/applicationHistory"
   end
 
-tmp_dirs   = ["#{node.apache_hadoop.hdfs.user_home}/#{node.hadoop_spark.user}", eventlog_dir ]
+tmp_dirs   = ["#{node.hops.hdfs.user_home}/#{node.hadoop_spark.user}", eventlog_dir ]
 for d in tmp_dirs
- apache_hadoop_hdfs_directory d do
+ hops_hdfs_directory d do
     action :create
     owner node.hadoop_spark.user
     group node.hadoop_spark.group
     mode "1777"
-    not_if ". #{node.apache_hadoop.home}/sbin/set-env.sh && #{node.apache_hadoop.home}/bin/hdfs dfs -test -d #{d}"
+    not_if ". #{node.hops.home}/sbin/set-env.sh && #{node.hops.home}/bin/hdfs dfs -test -d #{d}"
   end
 end
 
