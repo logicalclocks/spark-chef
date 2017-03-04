@@ -8,7 +8,6 @@ version          "0.1.3"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
 depends          "kagent"
-depends          "apache_hadoop"
 depends          "java"
 depends          "hops"
 depends          "magic_shell"
