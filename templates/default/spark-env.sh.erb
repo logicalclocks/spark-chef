@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # This file is sourced when running various Spark programs.
-# Copy it as.apache_hadoop.spark.env.sh and edit that to configure Spark for your site.
+# Copy it as.hops.spark.env.sh and edit that to configure Spark for your site.
 
 export SPARK_HOME=<%= node.hadoop_spark.base_dir %>
 #export SCALA_HOME=
@@ -9,13 +9,13 @@ export SPARK_HOME=<%= node.hadoop_spark.base_dir %>
 #export SPARK_JAR=
 
 # Options read when launching programs locally with
-# ./bin/run-example or ./bin.apache_hadoop.spark.submit
-export HADOOP_CONF_DIR=<%= node.apache_hadoop.conf_dir %>
+# ./bin/run-example or ./bin.hops.spark.submit
+export HADOOP_CONF_DIR=<%= node.hops.conf_dir %>
 export SPARK_LOCAL_IP=<%= @private_ip %>
 
 # https://spark.apache.org/docs/latest/hadoop-provided.html
 # Need to tell spark where to find the hadoop jars
-export SPARK_DIST_CLASSPATH=$(<%= node.apache_hadoop.base_dir %>/bin/hadoop classpath)
+export SPARK_DIST_CLASSPATH=$(<%= node.hops.base_dir %>/bin/hadoop classpath)
 
 export SPARK_DAEMON_MEMORY=<%= node.hadoop_spark.daemon.memory %>
 
@@ -36,7 +36,7 @@ export SPARK_DAEMON_MEMORY=<%= node.hadoop_spark.daemon.memory %>
 # export SPARK_EXECUTOR_MEMORY, Memory per Worker (e.g. 1000M, 2G) (Default: 1G)
 # export SPARK_DRIVER_MEMORY, Memory for Master (e.g. 1000M, 2G) (Default: 512 Mb)
 # export SPARK_YARN_APP_NAME, The name of your application (Default: Spark)
-# export SPARK_YARN_QUEUE, The.apache_hadoop.queue to use for allocation requests (Default: ‘default’)
+# export SPARK_YARN_QUEUE, The.hops.queue to use for allocation requests (Default: ‘default’)
 # export SPARK_YARN_DIST_FILES, Comma separated list of files to be distributed with the job.
 # export SPARK_YARN_DIST_ARCHIVES, Comma separated list of archives to be distributed with the job.
 
@@ -62,5 +62,5 @@ export SPARK_MASTER_PORT=<%= node.hadoop_spark.master.port %>
 # export SPARK_CONF_DIR      Alternate conf dir. (Default: ${SPARK_HOME}/conf)
 # export SPARK_LOG_DIR       Where log files are stored.  (Default: ${SPARK_HOME}/logs)
 # export SPARK_PID_DIR       Where the pid file is stored. (Default: /tmp)
-# export SPARK_IDENT_STRING  A string representing this instance of.apache_hadoop.spark. (Default: $USER)
+# export SPARK_IDENT_STRING  A string representing this instance of.hops.spark. (Default: $USER)
 # export SPARK_NICENESS      The scheduling priority for daemons. (Default: 0)

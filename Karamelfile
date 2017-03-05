@@ -5,11 +5,9 @@ dependencies:
   - recipe: hadoop_spark::master
   - recipe: hadoop_spark::historyserver
     global:
-      - apache_hadoop::dn
       - hops::dn
   - recipe: hadoop_spark::yarn
     global:
-      - apache_hadoop::dn
       - hops::dn
   - recipe: hadoop_spark::worker
     global:

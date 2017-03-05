@@ -1,9 +1,8 @@
 include_attribute "kagent"
-include_attribute "apache_hadoop"
 include_attribute "hops"
 
 default.hadoop_spark.user                                 = "spark"
-default.hadoop_spark.group                                = "#{node.apache_hadoop.group}"
+default.hadoop_spark.group                                = "#{node.hops.group}"
 
 default.hadoop_spark.version                              = "2.1.0"
 default.scala.version 	                                  = "2.11"
@@ -24,9 +23,6 @@ default.hadoop_spark.master.port                          = 7077
 default.hadoop_spark.worker.cleanup.enabled= true
 
 default.hadoop_spark.historyserver.port                   = 18080
-
-# Pick hadoop distribution. Options are 'hops' and 'apache_hadoop'
-default.hadoop_spark.hadoop.distribution                  = "hops"
 
 default.hadoop_spark.master.public_key                    = ""
 

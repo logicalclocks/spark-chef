@@ -8,7 +8,6 @@ version          "0.1.3"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
 depends          "kagent"
-depends          "apache_hadoop"
 depends          "java"
 depends          "hops"
 depends          "magic_shell"
@@ -60,10 +59,6 @@ attribute "hadoop_spark/worker/cleanup/enabled",
 
 attribute "hadoop_spark/version",
           :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 2.1.0)",
-          :type => 'string'
-
-attribute "hadoop_spark/hadoop/distribution",
-          :description => "'hops' or 'apache_hadoop'",
           :type => 'string'
 
 attribute "hadoop_spark/history/fs/cleaner/enabled",

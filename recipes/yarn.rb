@@ -5,54 +5,48 @@
 # Then the symbolic link may not be able to be created due to a lack of file privileges.
 # 
 
-home = node.apache_hadoop.hdfs.user_home
+home = node.hops.hdfs.user_home
 
-
-if node.hadoop_spark.hadoop.distribution === "hops"
-  include_recipe "hops::wrap"
-end
-
-
-apache_hadoop_hdfs_directory "#{home}" do
+hops_hdfs_directory "#{home}" do
   action :create_as_superuser
   owner node.hadoop_spark.user
-  group node.apache_hadoop.group
+  group node.hops.group
   mode "1777"
 end
 
 
-apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}" do
+hops_hdfs_directory "#{home}/#{node.hadoop_spark.user}" do
   action :create_as_superuser
   owner node.hadoop_spark.user
-  group node.apache_hadoop.group
+  group node.hops.group
   mode "1777"
 end
 
-apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/eventlog" do
+hops_hdfs_directory "#{home}/#{node.hadoop_spark.user}/eventlog" do
   action :create_as_superuser
   owner node.hadoop_spark.user
-  group node.apache_hadoop.group
+  group node.hops.group
   mode "1775"
 end
 
-apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/spark-warehouse" do
+hops_hdfs_directory "#{home}/#{node.hadoop_spark.user}/spark-warehouse" do
   action :create_as_superuser
   owner node.hadoop_spark.user
-  group node.apache_hadoop.group
+  group node.hops.group
   mode "1775"
 end
 
-apache_hadoop_hdfs_directory "#{home}/#{node.hadoop_spark.user}/share/lib" do
+hops_hdfs_directory "#{home}/#{node.hadoop_spark.user}/share/lib" do
   action :create_as_superuser
   owner node.hadoop_spark.user
-  group node.apache_hadoop.group
+  group node.hops.group
   mode "1775"
 end
 
-apache_hadoop_hdfs_directory "#{node.hadoop_spark.home}/#{node.hadoop_spark.yarn.archive}" do
+hops_hdfs_directory "#{node.hadoop_spark.home}/#{node.hadoop_spark.yarn.archive}" do
   action :put_as_superuser
   owner node.hadoop_spark.user
-  group node.apache_hadoop.group
+  group node.hops.group
   mode "1775"
   dest "#{node.hadoop_spark.yarn.archive_hdfs}"
 end
