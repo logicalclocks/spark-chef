@@ -6,7 +6,7 @@ default.hadoop_spark.group                                = "#{node.hops.group}"
 
 default.hadoop_spark.version                              = "2.1.0"
 default.scala.version 	                                  = "2.11"
-default.hadoop_spark.dir                                  = node.install.dir.empty? ? node.install.dir : "/srv"
+default.hadoop_spark.dir                                  = node.install.dir.empty? ? "/srv" : node.install.dir
 default.hadoop_spark.base_dir                             = "#{node.hadoop_spark.dir}/spark"
 default.hadoop_spark.home                                 = "#{node.hadoop_spark.dir}/spark-#{node.hadoop_spark.version}-bin-without-hadoop"
 default.hadoop_spark.conf_dir                             = "#{node.hadoop_spark.base_dir}/conf"
