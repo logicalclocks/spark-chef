@@ -9,8 +9,14 @@
 
 include_recipe "java"
 
+group node.hadoop_spark.group do
+  action :create
+  not_if "getent group #{node.hadoop_spark.group}"
+end
+
 user node.hadoop_spark.user do
   home "/home/#{node.hadoop_spark.user}"
+  gid node.hadoop_spark.group
   action :create
   system true
   shell "/bin/bash"
