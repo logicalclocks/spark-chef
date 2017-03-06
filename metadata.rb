@@ -37,6 +37,10 @@ attribute "hadoop_spark/group",
           :description => "Groupname to run spark master/worker as",
           :type => 'string'
 
+attribute "hadoop_spark/dir",
+          :description => "Installation dir for spark",
+          :type => 'string'
+
 attribute "hadoop_spark/executor_memory",
           :description => "Executor memory (e.g., 512m)",
           :type => 'string'
