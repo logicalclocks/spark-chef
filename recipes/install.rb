@@ -35,7 +35,6 @@ directory node.hadoop_spark.dir  do
   group node.hadoop_spark.group
   mode "755"
   action :create
-  recursive true
   not_if { File.directory?("#{node.hadoop_spark.dir}") }
 end
 
