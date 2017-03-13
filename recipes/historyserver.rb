@@ -16,7 +16,6 @@ for d in tmp_dirs
     owner node.hadoop_spark.user
     group node.hadoop_spark.group
     mode "1777"
-    not_if ". #{node.hops.home}/sbin/set-env.sh && #{node.hops.home}/bin/hdfs dfs -test -d #{d}"
   end
 end
 
