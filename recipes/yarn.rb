@@ -43,6 +43,15 @@ hops_hdfs_directory "#{home}/#{node.hadoop_spark.user}/share/lib" do
   mode "1775"
 end
 
+hops_hdfs_directory "#{home}/#{node.hadoop_spark.user}/python/lib" do
+  action :create_as_superuser
+  owner node.hadoop_spark.user
+  group node.hops.group
+  mode "1775"
+end
+
+
+
 hops_hdfs_directory "#{node.hadoop_spark.home}/#{node.hadoop_spark.yarn.archive}" do
   action :put_as_superuser
   owner node.hadoop_spark.user
