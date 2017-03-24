@@ -39,8 +39,12 @@ default.hadoop_spark.yarn.queue                           = "default"
 # the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
 default.hadoop_spark.yarn.archive                         =  "spark-jars.zip"
-default.hadoop_spark.yarn.archive_hdfs                    =  "/user/#{node.hadoop_spark.user}/spark-jars.zip"
-default.hadoop_spark.yarn.warehouse_hdfs                  = "/user/#{node.hadoop_spark.user}/spark-warehouse"
+default.hadoop_spark.yarn.pyspark_archive                 =  "pyspark.zip"
+default.hadoop_spark.yarn.py4j_archive                    =  "py4j-0.10.4-src.zip"
+default.hadoop_spark.yarn.archive_hdfs                    =  "/user/#{node.hadoop_spark.user}/#{hadoop_spark.yarn.archive}"
+default.hadoop_spark.yarn.warehouse_hdfs                  =  "/user/#{node.hadoop_spark.user}/spark-warehouse"
+default.hadoop_spark.yarn.pyspark_archive_hdfs            =  "/user/#{node.hadoop_spark.user}/#{hadoop_spark.yarn.pyspark_archive}"
+default.hadoop_spark.yarn.py4j_archive_hdfs               =  "/user/#{node.hadoop_spark.user}/#{hadoop_spark.yarn.py4j_archive}"
 # Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
 default.hadoop_spark.yarn.dist.archives                   = ""
 default.hadoop_spark.yarn.dist.files                      = ""

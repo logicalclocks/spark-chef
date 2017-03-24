@@ -51,3 +51,18 @@ hops_hdfs_directory "#{node.hadoop_spark.home}/#{node.hadoop_spark.yarn.archive}
   dest "#{node.hadoop_spark.yarn.archive_hdfs}"
 end
 
+hops_hdfs_directory "#{node.hadoop_spark.home}/#{node.hadoop_spark.yarn.pyspark_archive}" do
+  action :put_as_superuser
+  owner node.hadoop_spark.user
+  group node.hops.group
+  mode "1775"
+  dest "#{node.hadoop_spark.yarn.pyspark_archive_hdfs}"
+end
+
+hops_hdfs_directory "#{node.hadoop_spark.home}/#{node.hadoop_spark.yarn.py4j_archive}" do
+  action :put_as_superuser
+  owner node.hadoop_spark.user
+  group node.hops.group
+  mode "1775"
+  dest "#{node.hadoop_spark.yarn.py4j_archive_hdfs}"
+end
