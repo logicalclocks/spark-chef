@@ -45,9 +45,9 @@ spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %>
 spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
 # Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
 #spark.yarn.dist.archives                   hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>
-spark.yarn.archive                         hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>
+#spark.yarn.archive                         hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>
 # Files to place on the PYTHONPATH for Python apps. Launching Python applications through spark-submit is currently only supported for local files.
-spark.submit.pyFiles                       <%= node.hadoop_spark.pyFiles %>
+#spark.submit.pyFiles                       <%= node.hadoop_spark.pyFiles %>
 spark.sql.warehouse.dir                    hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %><%= node.hadoop_spark.yarn.warehouse_hdfs %>
 # <%= node.hadoop_spark.yarn.dist.archives %> 
 #spark.yarn.jars                            <%= node.hadoop_spark.yarn.jars %>
