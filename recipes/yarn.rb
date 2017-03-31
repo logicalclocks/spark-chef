@@ -67,18 +67,18 @@ hops_hdfs_directory "#{node.hadoop_spark.home}/python/lib/#{node.hadoop_spark.ya
   dest "#{node.hadoop_spark.yarn.py4j_archive_hdfs}"
 end
 
-hops_hdfs_directory "#{node.hadoop_spark.home}/python/lib/#{node.hadoop_spark.yarn.python_tensorflow_archive}" do
-  action :put_as_superuser
-  owner node.hadoop_spark.user
-  group node.hops.group
-  mode "1775"
-  dest "#{node.hadoop_spark.yarn.python_tensorflow_archive_hdfs}"
-end
+#hops_hdfs_directory "#{node.hadoop_spark.home}/python/lib/#{node.hadoop_spark.yarn.python_tensorflow_archive}" do
+#  action :put_as_superuser
+#  owner node.hadoop_spark.user
+#  group node.hops.group
+#  mode "1775"
+#  dest "#{node.hadoop_spark.yarn.python_tensorflow_archive_hdfs}"
+#end
 
-hops_hdfs_directory "#{node.hadoop_spark.home}/python/lib/#{node.hadoop_spark.yarn.tfspark_archive}" do
-  action :put_as_superuser
-  owner node.hadoop_spark.user
-  group node.hops.group
-  mode "1775"
-  dest "#{node.hadoop_spark.yarn.tfspark_archive_hdfs}"
-end
+#hops_hdfs_directory "#{node.hadoop_spark.home}/python/lib/#{node.hadoop_spark.yarn.tfspark_archive}" do
+#  action :put_as_superuser
+#  owner node.hadoop_spark.user
+#  group node.hops.group
+#  mode "1775"
+#  dest "#{node.hadoop_spark.yarn.tfspark_archive_hdfs}"
+#end
