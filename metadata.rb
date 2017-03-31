@@ -17,7 +17,8 @@ recipe           "install", "Installs Spark binaries"
 recipe           "master", "Starts a Spark master"
 #link:<a target='_blank' href='http://%host%:8081/'>Launch the WebUI for the Spark Slave %host%</a>
 recipe           "worker", "Starts a Spark worker"
-recipe           "yarn", "Install for yarn"
+recipe           "yarn", "Creates directories for yarn. Run on only one machine."
+recipe           "default", "Install spark binaries only."
 recipe           "libs", "Install spark jars to nodemanager hosts"
 recipe           "historyserver", "Installs/starts the Spark historyserver"
 
