@@ -82,3 +82,6 @@ default.hadoop_spark.sql.broadcastTimeout                 = "1200"
 default.hadoop_spark.sql.networkTimeout                   = "700"
 
 
+
+default.hadoop_spark.hops_util.url                    = "#{node.download_url}/hops-util-0.1.jar"
+default.hadoop_spark.hops_spark_kafka_example.url     = "#{node.download_url}/hops-spark-0.1.jar"
