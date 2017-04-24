@@ -146,7 +146,7 @@ hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/metrics.properties" do
   owner node["hadoop_spark"]["user"]
   group node["hops"]["group"]
   mode "1775"
-  dest "/user/" + node["glassfish"]["user"] + "/metrics.properties"
+  dest "/user/#{hopsworks_user}/metrics.properties"
 end	
 
 
