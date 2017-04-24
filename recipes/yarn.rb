@@ -99,8 +99,8 @@ end
 
 
 hopsworks_user="glassfish"
-if node.attribute('hopsworks') == true
-  if node['hopsworks'].attribute('user') == true
+if node.attribute?('hopsworks') == true
+  if node['hopsworks'].attribute?('user') == true
      hopsworks_user = node['hopsworks']['user']
   end
 end
@@ -118,9 +118,9 @@ end
 
 graphite_port=9999
 
-if node.attribute('influxdb') == true
-  if node['influxdb'].attribute('graphite') == true
-    if node['influxdb']['graphite'].attribute('port') == true
+if node.attribute?('influxdb') == true
+  if node['influxdb'].attribute?('graphite') == true
+    if node['influxdb']['graphite'].attribute?('port') == true
       graphite_port=node['influxdb']['graphite']['port']
     end
   end
