@@ -190,3 +190,13 @@ hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/#{hopsKafkaJar}" do
   dest "/user/#{hopsworks_user}/#{hopsKafkaJar}"
 end
 
+
+
+bash "jupyter-hdfscontents" do
+    user "root"
+    code <<-EOF
+    set -e
+    export HADOOP_HOME=#{node[:hops][:base_dir]}
+    pip install hdfscontents
+EOF
+end
