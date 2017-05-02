@@ -1,6 +1,7 @@
 dependencies: 
   - recipe: hadoop_spark::install
-    local:
+    global:
+      - kagent::install
       - hops::install
   - recipe: hadoop_spark::master
   - recipe: hadoop_spark::historyserver
