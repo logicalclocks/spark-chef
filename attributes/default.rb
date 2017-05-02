@@ -85,3 +85,10 @@ default.hadoop_spark.sql.networkTimeout                   = "700"
 
 default.hadoop_spark.hops_util.url                    = "#{node.download_url}/hops-util-0.1.jar"
 default.hadoop_spark.hops_spark_kafka_example.url     = "#{node.download_url}/hops-spark-0.1.jar"
+
+default.hadoop_spark.ciphers 							  = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA"
+default.hadoop_spark.ssl_enabled          				  = "true"
+default.hadoop_spark.ssl.protocol 						  = "TLSv1,TLSv1.1,TLSv1.2"
+default.hadoop_spark.ssl.keystorepassword				  = "#{node.hopsworks.master.password}"
+default.hadoop_spark.ssl.truststorepassword				  = "#{node.hopsworks.master.password}"
+
