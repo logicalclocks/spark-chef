@@ -118,7 +118,7 @@ end
 
 
 
-graphite_port=9999
+graphite_port=2003
 
 if node.attribute?('influxdb') == true
   if node['influxdb'].attribute?('graphite') == true
