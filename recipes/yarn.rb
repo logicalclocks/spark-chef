@@ -98,8 +98,9 @@ template "#{Chef::Config["file_cache_path"]}/log4j.properties" do
 end
 
 
-#hopsworks_user="glassfish"
+
 hopsworks_user=node["hops"]["hdfs"]["user"]
+hopsworks_group=node["hops"]["group"]
 
 if node.attribute?('hopsworks') == true
   if node['hopsworks'].attribute?('user') == true
@@ -177,7 +178,7 @@ hopsKafkaJar=File.basename(node["hadoop_spark"]["hops_spark_kafka_example"]["url
 remote_file "#{Chef::Config["file_cache_path"]}/#{hopsKafkaJar}" do
   source node["hadoop_spark"]["hops_spark_kafka_example"]["url"]
   owner hopsworks_user
-  group hopsworks_user
+  group node["hops"]["group"]
   mode "1775"
   action :create
 end
