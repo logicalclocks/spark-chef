@@ -107,7 +107,7 @@ if node.attribute?('hopsworks') == true
      hopsworks_user = node['hopsworks']['user']
   end
 end
-logs_dir="/user/#{hopsworks_user}"
+logs_dir="/user/#{node["hadoop_spark"]["user"]}"
 
 hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/log4j.properties" do
   action :put_as_superuser
@@ -149,7 +149,7 @@ hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/metrics.properties" do
   owner node["hadoop_spark"]["user"]
   group node["hops"]["group"]
   mode "1775"
-  dest "/user/#{hopsworks_user}/metrics.properties"
+  dest "/user/#{node["hadoop_spark"]["user"]}/metrics.properties"
 end	
 
 
@@ -167,10 +167,10 @@ end
 
 hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/hops-util-0.1.jar" do
   action :put_as_superuser
-  owner hopsworks_user
+  owner node["hadoop_spark"]["user"]
   group node["hops"]["group"]
   mode "1755"
-  dest "/user/#{hopsworks_user}/hops-util-0.1.jar"
+  dest "/user/#{node["hadoop_spark"]["user"]}/hops-util-0.1.jar"
 end
 
 hopsKafkaJar=File.basename(node["hadoop_spark"]["hops_spark_kafka_example"]["url"])
