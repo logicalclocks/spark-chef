@@ -191,3 +191,19 @@ hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/#{hopsKafkaJar}" do
   dest "/user/#{hopsworks_user}/#{hopsKafkaJar}"
 end
 
+
+#
+# Support Intel MKL library for matrix computations
+# https://blog.cloudera.com/blog/2017/02/accelerating-apache-spark-mllib-with-intel-math-kernel-library-intel-mkl/
+#
+case node.platform_family
+when "debian"
+
+  package "netlib-java" do
+    action :install
+  end
+
+when "rhel"
+
+  # TODO - add 'netlib-java'
+end
