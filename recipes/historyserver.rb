@@ -12,7 +12,7 @@ eventlog_dir =
 tmp_dirs   = ["#{node.hops.hdfs.user_home}/#{node.hadoop_spark.user}", eventlog_dir ]
 for d in tmp_dirs
  hops_hdfs_directory d do
-    action :create
+    action :create_as_superuser
     owner node.hadoop_spark.user
     group node.hadoop_spark.group
     mode "1777"
