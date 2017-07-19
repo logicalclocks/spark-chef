@@ -152,7 +152,7 @@ template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
            })
 end
 
-template"#{node.hadoop_spark.home}/conf/spark-blacklisted-propertes.txt" do
+template"#{node.hadoop_spark.home}/conf/spark-blacklisted-properties.txt" do
   source "spark-blacklisted-properties.txt.erb"
   owner node.hadoop_spark.user
   group node.hadoop_spark.group
