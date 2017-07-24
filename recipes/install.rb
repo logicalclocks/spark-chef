@@ -152,6 +152,13 @@ template"#{node.hadoop_spark.home}/conf/spark-defaults.conf" do
            })
 end
 
+template"#{node.hadoop_spark.home}/conf/spark-blacklisted-properties.txt" do
+  source "spark-blacklisted-properties.txt.erb"
+  owner node.hadoop_spark.user
+  group node.hadoop_spark.group
+  mode 0655
+end
+
 magic_shell_environment 'SPARK_HOME' do
   value node.hadoop_spark.base_dir
 end
