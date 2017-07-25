@@ -165,12 +165,12 @@ remote_file "#{Chef::Config["file_cache_path"]}/#{hopsUtil}" do
   action :create
 end
 
-hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/hops-util-0.1.jar" do
+hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/hops-util-#{node['hops']['util_version']}.jar" do
   action :put_as_superuser
   owner node["hadoop_spark"]["user"]
   group node["hops"]["group"]
   mode "1755"
-  dest "/user/#{node["hadoop_spark"]["user"]}/hops-util-0.1.jar"
+  dest "/user/#{node["hadoop_spark"]["user"]}/hops-util-#{node['hops']['util_version']}.jar"
 end
 
 hopsKafkaJar=File.basename(node["hadoop_spark"]["hops_spark_kafka_example"]["url"])
