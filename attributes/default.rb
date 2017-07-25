@@ -4,7 +4,7 @@ include_attribute "hops"
 default.hadoop_spark.user                                 = node.install.user.empty? ? "spark" : node.install.user
 default.hadoop_spark.group                                = node.install.user.empty? ? node.hops.group : node.install.user
 
-default.hadoop_spark.version                              = "2.1.1"
+default.hadoop_spark.version                              = "2.2.0"
 default.scala.version 	                                  = "2.11"
 default.hadoop_spark.dir                                  = node.install.dir.empty? ? "/srv" : node.install.dir
 default.hadoop_spark.base_dir                             = "#{node.hadoop_spark.dir}/spark"
@@ -83,8 +83,8 @@ default.hadoop_spark.sql.networkTimeout                   = "700"
 
 
 
-default.hadoop_spark.hops_util.url                    = "#{node.download_url}/hops-util-0.1.jar"
-default.hadoop_spark.hops_spark_kafka_example.url     = "#{node.download_url}/hops-spark-0.1.jar"
+default.hadoop_spark.hops_util.url                    = "#{node.download_url}/hops-util-#{node['hops']['util_version']}.jar"
+default.hadoop_spark.hops_spark_kafka_example.url     = "#{node.download_url}/hops-spark-#{node['hops']['util_version']}.jar"
 
 default.hadoop_spark.ciphers 							  = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA"
 default.hadoop_spark.ssl_enabled          				  = "true"
