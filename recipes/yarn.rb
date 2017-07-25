@@ -170,7 +170,7 @@ hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/hops-util-#{node['hops']
   owner node["hadoop_spark"]["user"]
   group node["hops"]["group"]
   mode "1755"
-  dest "/user/#{node["hadoop_spark"]["user"]}/hops-util-#{node['hops']['util_version']}.jar"
+  dest "/user/#{node["hadoop_spark"]["user"]}/hops-util.jar"
 end
 
 hopsKafkaJar=File.basename(node["hadoop_spark"]["hops_spark_kafka_example"]["url"])
@@ -188,7 +188,7 @@ hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/#{hopsKafkaJar}" do
   owner hopsworks_user
   group node["hops"]["group"]
   mode "1755"
-  dest "/user/#{hopsworks_user}/#{hopsKafkaJar}"
+  dest "/user/#{hopsworks_user}/hops-spark.jar"
 end
 
 
