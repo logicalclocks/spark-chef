@@ -1,8 +1,17 @@
-# Set everything to be logged to the console
-log4j.rootCategory=INFO, console
-log4j.appender.console=org.apache.log4j.ConsoleAppender
-log4j.appender.console.layout=org.apache.log4j.PatternLayout
-log4j.appender.console.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n
+#
+# Rolling File Appender - cap space usage at 5gb.
+#
+log4j.rootCategory=INFO, RFA
+spark.log.maxfilesize=256MB
+spark.log.maxbackupindex=10
+log4j.appender.RFA=org.apache.log4j.RollingFileAppender
+log4j.appender.RFA.File=<%= node.hadoop_spark.home %>/logs/sparkhistoryserver.log
+
+log4j.appender.RFA.MaxFileSize=${spark.log.maxfilesize}
+log4j.appender.RFA.MaxBackupIndex=${spark.log.maxbackupindex}
+
+log4j.appender.RFA.layout=org.apache.log4j.PatternLayout
+log4j.appender.RFA.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n
 
 # Ignore messages below warning level from Jetty, because it's a bit verbose
 log4j.logger.org.eclipse.jetty=WARN
