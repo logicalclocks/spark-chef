@@ -211,12 +211,10 @@ end
 
 jarFile="spark-#{node['hadoop_spark']['version']}-yarn-shuffle.jar"
 
-remote_file "Copy spark yarn shuffle jar file" do
-  path "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{jarFile}"
-  source "file:///#{node['hadoop_spark']['base_dir']}/yarn/#{jarFile}"
-  owner node['hops']['yarn']['user']
-  group node['hops']['group']
-  mode 0644
-  action :create_if_missing  
+
+link "#{node.hops.base_dir}/share/hadoop/yarn/lib/#{jarFile}" do
+  owner node["hops"]["yarn"]["user"]
+  group node["hops"]["group"]
+  to "#{node['hadoop_spark']['base_dir']}/yarn/#{jarFile}"
 end
 
