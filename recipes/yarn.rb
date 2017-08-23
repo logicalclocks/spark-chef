@@ -141,6 +141,7 @@ if my_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
 
+
   hopsUtil=File.basename(node["hops"]["hops_util"]["url"])
 
   remote_file "#{Chef::Config["file_cache_path"]}/#{hopsUtil}" do
@@ -158,6 +159,7 @@ if my_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     mode "1755"
     dest "/user/#{node["hadoop_spark"]["user"]}/#{hopsUtil}"
   end
+
 
   hopsKafkaJar=File.basename(node["hops"]["hops_spark_kafka_example"]["url"])
 
@@ -194,3 +196,14 @@ when "rhel"
 
   # TODO - add 'netlib-java'
 end
+
+
+jarFile="spark-#{node['hadoop_spark']['version']}-yarn-shuffle.jar"
+
+
+link "#{node.hops.base_dir}/share/hadoop/yarn/lib/#{jarFile}" do
+  owner node["hops"]["yarn"]["user"]
+  group node["hops"]["group"]
+  to "#{node['hadoop_spark']['base_dir']}/yarn/#{jarFile}"
+end
+

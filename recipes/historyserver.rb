@@ -53,7 +53,7 @@ if node.hadoop_spark.systemd == "true"
     notifies :start, resources(:service => service_name), :immediately
   end
 
-  kagent_config "reload_spark_historyserver" do
+  kagent_config service_name do
     action :systemd_reload
   end  
 
@@ -78,12 +78,10 @@ end
 
 
 if node.kagent.enabled == "true" 
-   kagent_config "sparkhistoryserver" do
+   kagent_config service_name do
      service service_name
-     log_file "#{node.hadoop_spark.base_dir}/historyserver.log"
+     log_file "#{node.hadoop_spark.base_dir}/logs/spark-#{node['hadoop_spark']['user']}-org.apache.spark.deploy.history.HistoryServer-1-#{node['hostname']}.out"
      web_port node.hadoop_spark.historyserver.port
    end
 end
-
-
 
