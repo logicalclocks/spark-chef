@@ -9,7 +9,7 @@ home = node.hops.hdfs.user_home
 private_ip=my_private_ip()
 
 # Only the first NN needs to create the directories
-if my_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
+if private_ip_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 
   hops_hdfs_directory "#{home}" do
     action :create_as_superuser
