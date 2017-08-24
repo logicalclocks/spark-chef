@@ -71,6 +71,7 @@ bash 'extract_hadoop_spark' do
                 touch #{spark_down}
                 cd ..
                 chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
+                chmod 750 #{node.hadoop_spark.home}
         EOH
      not_if { ::File.exists?( spark_down ) }
 end
