@@ -72,21 +72,6 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
 
-
-  # Add spark log4j.properties file to HDFS. Used by Logstash.
-
-  template "#{Chef::Config["file_cache_path"]}/log4j.properties" do
-    source "app.log4j.properties.erb"
-    owner node["hadoop_spark"]["user"]
-    mode 0750
-    action :create
-    variables({
-                :private_ip => private_ip
-              })
-  end
-
-
-
   hopsworks_user=node["hops"]["hdfs"]["user"]
   hopsworks_group=node["hops"]["group"]
 
@@ -95,52 +80,6 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
       hopsworks_user = node['hopsworks']['user']
     end
   end
-  logs_dir="/user/#{node["hadoop_spark"]["user"]}"
-
-  hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/log4j.properties" do
-    action :put_as_superuser
-    owner node["hadoop_spark"]["user"]
-    group node["hops"]["group"]
-    mode "1775"
-    dest "#{logs_dir}/log4j.properties"
-  end
-
-
-
-  graphite_port=2003
-
-  if node.attribute?('influxdb') == true
-    if node['influxdb'].attribute?('graphite') == true
-      if node['influxdb']['graphite'].attribute?('port') == true
-        graphite_port=node['influxdb']['graphite']['port']
-      end
-    end
-  end
-
-
-
-  # Add spark metrics.properties file to HDFS. Used by Grafana.
-
-  template "#{Chef::Config["file_cache_path"]}/metrics.properties" do
-    source "metrics.properties.erb"
-    owner hopsworks_user
-    mode 0750
-    action :create
-    variables({
-                :private_ip => private_ip,
-                :graphite_port => graphite_port
-              })
-  end
-
-  hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/metrics.properties" do
-    action :put_as_superuser
-    owner node["hadoop_spark"]["user"]
-    group node["hops"]["group"]
-    mode "1775"
-    dest "/user/#{node["hadoop_spark"]["user"]}/metrics.properties"
-  end
-
-
 
   hopsUtil=File.basename(node["hops"]["hops_util"]["url"])
 
