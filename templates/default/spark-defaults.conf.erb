@@ -70,14 +70,3 @@ spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEn
 spark.driver.maxResultSize               <%= node.hadoop_spark.driver.maxResultSize %>
 spark.local.dir                          <%= node.hadoop_spark.local.dir %>
 spark.sql.broadcastTimeout               <%= node.hadoop_spark.sql.broadcastTimeout %>
-
-# SSL Config
-# spark.ssl.enabled <%= node.hadoop_spark.ssl_enabled %>
-# spark.ssl.enabledAlgorithms <%= node.hadoop_spark.ciphers %>									
-# spark.ssl.keyPassword <%= node.hopsworks.master.password %> 
-# spark.ssl.keyStore "<%= node.kagent.keystore_dir %>/node_server_keystore.jks"
-# spark.ssl.keyStorePassword <%= node.hadoop_spark.ssl.keystorepassword %>
-# spark.ssl.protocol <%= node.hadoop_spark.ssl.protocol %>
-# spark.ssl.trustStore "<%= node.kagent.keystore_dir %>/node_server_truststore.jks"
-# spark.ssl.trustStorePassword <%= node.hadoop_spark.ssl.truststorepassword %>
-
