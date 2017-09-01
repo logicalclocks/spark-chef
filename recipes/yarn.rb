@@ -96,7 +96,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     owner node["hadoop_spark"]["user"]
     group node["hops"]["group"]
     mode "1755"
-    dest "/user/#{node["hadoop_spark"]["user"]}/#{node["hops"]["hopsutil_jar"]}"
+    dest "/user/#{node["hadoop_spark"]["user"]}/#{node["hops"]["hopsutil_jar"]}-#{node["hops"]["hopsutil_version"]}.jar"
   end
 
 
@@ -115,7 +115,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     owner hopsworks_user
     group node["hops"]["group"]
     mode "1755"
-    dest "/user/#{hopsworks_user}/#{node["hops"]["examples_jar"]}"
+    dest "/user/#{hopsworks_user}/#{node["hops"]["examples_jar"]}-#{node["hops"]["examples_version"]}.jar"
   end
 
 end
