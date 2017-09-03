@@ -146,3 +146,29 @@ link "#{node.hops.base_dir}/share/hadoop/yarn/lib/#{jarFile}" do
   to "#{node['hadoop_spark']['base_dir']}/yarn/#{jarFile}"
 end
 
+
+begin
+  influxdb_ip = private_recipe_ip("hopsmonitor","default")
+rescue 
+  Chef::Log.error "could not find the influxdb ip!"  
+end
+
+begin
+  influxdb_port = node['influxdb']['port']
+rescue
+  influxdb_port = 9999
+  Chef::Log.warn "could not find the influxdb port."  
+end
+
+
+template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
+  source "metrics.properties.erb"
+  owner node[:hadoop_spark][:user]
+  mode 0750
+  action :create
+  variables({
+              :influxdb_ip => influxdb_ip,
+              :influxdb_port => influxdb_port              
+            })
+end
+
