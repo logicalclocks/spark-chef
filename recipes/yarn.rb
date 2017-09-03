@@ -81,10 +81,10 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     end
   end
 
-  hopsUtil=File.basename(node["hops"]["hops_util"]["url"])
+  hopsUtil=File.basename(node["hops"]["hopsutil"]["url"])
 
   remote_file "#{Chef::Config["file_cache_path"]}/#{hopsUtil}" do
-    source node["hops"]["hops_util"]["url"]
+    source node["hops"]["hopsutil"]["url"]
     owner hopsworks_user
     group node["hops"]["group"]
     mode "1775"
@@ -96,7 +96,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     owner node["hadoop_spark"]["user"]
     group node["hops"]["group"]
     mode "1755"
-    dest "/user/#{node["hadoop_spark"]["user"]}/#{hopsUtil}"
+    dest "/user/#{node["hadoop_spark"]["user"]}/#{node["hops"]["hopsutil_jar"]}"
   end
 
 
@@ -115,7 +115,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     owner hopsworks_user
     group node["hops"]["group"]
     mode "1755"
-    dest "/user/#{hopsworks_user}/#{hopsKafkaJar}"
+    dest "/user/#{hopsworks_user}/#{node["hops"]["examples_jar"]}"
   end
 
 end
