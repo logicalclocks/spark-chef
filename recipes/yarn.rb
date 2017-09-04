@@ -164,6 +164,7 @@ end
 template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   source "metrics.properties.erb"
   owner node[:hadoop_spark][:user]
+  group node['hadoop_spark']['group']
   mode 0750
   action :create
   variables({
