@@ -198,7 +198,7 @@ end
     owner node.hadoop_spark.user
     group node.hops.group
     mode "1775"
-    dest "hdfs://#{node.hadoop_spark.user}/metrics.properties"
+    dest "/user/#{node.hadoop_spark.user}/metrics.properties"
   end
 
   hops_hdfs_directory "#{node.hadoop_spark.home}/conf/log4j.properties" do
@@ -206,6 +206,6 @@ end
     owner node.hadoop_spark.user
     group node.hops.group
     mode "1775"
-    dest "hdfs://#{node.hadoop_spark.user}/log4j.properties"
+    dest "/user/#{node.hadoop_spark.user}/log4j.properties"
   end
   
