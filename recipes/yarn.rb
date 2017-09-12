@@ -229,7 +229,7 @@ for f in files do
   remote_file "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{f}" do
     source "#{purl}/#{f}"
     owner node['hops']['yarn']['user']
-    group ['hadoop_spark']['group']  
+    group node['hadoop_spark']['group']  
     mode "0644"
     action :create_if_missing
   end
