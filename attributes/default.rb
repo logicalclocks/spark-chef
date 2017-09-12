@@ -12,6 +12,8 @@ default.hadoop_spark.home                                 = "#{node.hadoop_spark
 default.hadoop_spark.conf_dir                             = "#{node.hadoop_spark.base_dir}/conf"
 default.hadoop_spark.url                                  = "#{node.download_url}/spark-#{node.hadoop_spark.version}-bin-without-hadoop.tgz"
 
+default.hadoop_spark.parquet_url                          = "#{node.download_url}/parquet"
+
 default.hadoop_spark.executor_memory                      = "512m"
 default.hadoop_spark.driver_memory                        = "1g"
 default.hadoop_spark.eventlog_enabled                     = "true"

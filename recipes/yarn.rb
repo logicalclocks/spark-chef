@@ -219,4 +219,19 @@ bash 'install_pydoop' do
            pip install --upgrade pydoop
         EOH
 end
+
+purl=node['hadoop_spark']['parquet_url']
+
+files= %w{ parquet-encoding-1.9.0.jar parquet-common-1.9.0.jar parquet-hadoop-1.9.0.jar parquet-jackson-1.9.0.jar parquet-column-1.9.0.jar parquet-format-2.3.1.jar }
+
+for f in files do
+
+  remote_file "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{f}" do
+    source "#{purl}/#{f}"
+    owner node['hops']['yarn']['user']
+    group ['hadoop_spark']['group']  
+    mode "0644"
+    action :create_if_missing
+  end
   
+end
