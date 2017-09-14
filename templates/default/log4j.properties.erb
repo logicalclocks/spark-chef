@@ -5,7 +5,7 @@ log4j.rootCategory=INFO, RFA
 spark.log.maxfilesize=256MB
 spark.log.maxbackupindex=10
 log4j.appender.RFA=org.apache.log4j.RollingFileAppender
-log4j.appender.RFA.File=<%= node.hadoop_spark.home %>/logs/sparkhistoryserver.log
+log4j.appender.RFA.File=<%= node['hadoop_spark']['home'] %>/logs/sparkhistoryserver.log
 
 log4j.appender.RFA.MaxFileSize=${spark.log.maxfilesize}
 log4j.appender.RFA.MaxBackupIndex=${spark.log.maxbackupindex}

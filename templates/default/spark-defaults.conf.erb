@@ -1,30 +1,30 @@
-# https:/.hops.spark.apache.org/docs/1.2.0/running-on-yarn.html 
+# https:/.hops.spark.apache.org/docs/1.2.0/running-on-yarn.html
 
 spark.master                  <%= @master_ip %>
-spark.driver.memory           <%= node.hadoop_spark.driver_memory %>
-spark.executor.memory         <%= node.hadoop_spark.executor_memory %>
-spark.eventLog.enabled        <%= node.hadoop_spark.eventlog_enabled %>
-spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %>/<%= @eventlog_dir %>
+spark.driver.memory           <%= node['hadoop_spark']['driver_memory'] %>
+spark.executor.memory         <%= node['hadoop_spark']['executor_memory'] %>
+spark.eventLog.enabled        <%= node['hadoop_spark']['eventlog_enabled'] %>
+spark.eventLog.dir            hdfs://<%= @namenode_ip %>:<%= node['hops']['nn']['port'] %>/<%= @eventlog_dir %>
 spark.serializer              org.apache.spark.serializer.KryoSerializer
-spark.worker.cleanup.enabled  <%= node.hadoop_spark.worker.cleanup.enabled %>
-spark.io.compression.codec    <%= node.hadoop_spark.io.compression.codec %>
-spark.streaming.stopGracefullyOnShutdown <%= node.hadoop_spark.streaming.stopGracefullyOnShutdown %>
+spark.worker.cleanup.enabled  <%= node['hadoop_spark']['worker']['cleanup']['enabled'] %>
+spark.io.compression.codec    <%= node['hadoop_spark']['io']['compression']['codec'] %>
+spark.streaming.stopGracefullyOnShutdown <%= node['hadoop_spark']['streaming']['stopGracefullyOnShutdown'] %>
 
 # spark-history-server settings
-spark.history.fs.logDirectory     hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %>/<%= @eventlog_dir %>
-spark.history.fs.cleaner.enabled  <%= node.hadoop_spark.history.fs.cleaner.enabled %>
-spark.history.fs.cleaner.interval <%= node.hadoop_spark.history.fs.cleaner.interval %>
-spark.history.fs.cleaner.maxAge   <%= node.hadoop_spark.history.fs.cleaner.maxAge %>
+spark.history.fs.logDirectory     hdfs://<%= @namenode_ip %>:<%= node['hops']['nn']['port'] %>/<%= @eventlog_dir %>
+spark.history.fs.cleaner.enabled  <%= node['hadoop_spark']['history']['fs']['cleaner']['enabled'] %>
+spark.history.fs.cleaner.interval <%= node['hadoop_spark']['history']['fs']['cleaner']['interval'] %>
+spark.history.fs.cleaner.maxAge   <%= node['hadoop_spark']['history']['fs']['cleaner']['maxAge'] %>
 spark.eventLog.compress           true
-spark.yarn.historyServer.address <%= @historyserver_ip %>:<%= node.hadoop_spark.historyserver.port %>
+spark.yarn.historyServer.address <%= @historyserver_ip %>:<%= node['hadoop_spark']['historyserver']['port'] %>
 
 
 # YARN settings
 
-<% auth = if node[:hadoop_spark][:yarn][:support].eql? "true"
+<% auth = if node['hadoop_spark']['yarn']['support'].eql? "true"
                    "spark.authenticate = true"
                else
-                   "spark.authenticate.secret = #{node.hadoop_spark.authenticate.secret}"
+                   "spark.authenticate.secret = #{node['hadoop_spark']['authenticate']['secret']}"
                end
 -%>
 <%= auth  %>
@@ -34,28 +34,28 @@ spark.yarn.historyServer.address <%= @historyserver_ip %>:<%= node.hadoop_spark.
 #spark.dynamicAllocation.maxExecutors
 #spark.dynamicAllocation.initialExecutors
 
-#spark.executor.extraJavaOptions            -Dlog4j.configuration=<%= node.hadoop_spark.conf_dir %>/executor-log4j.properties -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -Djava.library.path=<%= node.hops.base_dir %>/lib/native/
-#spark.driver.extraJavaOptions              -Dlog4j.configuration=<%= node.hadoop_spark.conf_dir %>/yarnclient-driver-log4j.properties -Djava.library.path=<%= node.hops.base_dir %>/lib/native/
+#spark.executor.extraJavaOptions            -Dlog4j.configuration=<%= node['hadoop_spark']['conf_dir'] %>/executor-log4j.properties -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -Djava.library.path=<%= node['hops']['base_dir'] %>/lib/native/
+#spark.driver.extraJavaOptions              -Dlog4j.configuration=<%= node['hadoop_spark']['conf_dir'] %>/yarnclient-driver-log4j.properties -Djava.library.path=<%= node['hops']['base_dir'] %>/lib/native/
 
-spark.yarn.am.waitTime                     <%= node.hadoop_spark.yarn.am.waitTime %>
-spark.yarn.submit.file.replication         <%= node.hadoop_spark.yarn.submit.file.replication %>
-spark.yarn.preserve.staging.files          <%= node.hadoop_spark.yarn.preserve.staging.files %>
-spark.yarn.scheduler.heartbeat.interval-ms <%= node.hadoop_spark.yarn.scheduler.heartbeat.interval_ms %>
-spark.yarn.queue                           <%= node.hadoop_spark.yarn.queue %> 
-spark.yarn.containerLauncherMaxThreads     <%= node.hadoop_spark.yarn.containerLauncherMaxThreads %>
+spark.yarn.am.waitTime                     <%= node['hadoop_spark']['yarn']['am']['waitTime'] %>
+spark.yarn.submit.file.replication         <%= node['hadoop_spark']['yarn']['submit']['file']['replication'] %>
+spark.yarn.preserve.staging.files          <%= node['hadoop_spark']['yarn']['preserve']['staging']['files'] %>
+spark.yarn.scheduler.heartbeat.interval-ms <%= node['hadoop_spark']['yarn']['scheduler']['heartbeat']['interval_ms'] %>
+spark.yarn.queue                           <%= node['hadoop_spark']['yarn']['queue'] %>
+spark.yarn.containerLauncherMaxThreads     <%= node['hadoop_spark']['yarn']['containerLauncherMaxThreads'] %>
 # Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
-#spark.yarn.dist.archives                   hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>
-#spark.yarn.archive                         hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %><%= node.hadoop_spark.yarn.archive_hdfs %>
+#spark.yarn.dist.archives                   hdfs://<%= @namenode_ip %>:<%= node['hops']['nn']['port'] %><%= node['hadoop_spark']['yarn']['archive_hdfs'] %>
+#spark.yarn.archive                         hdfs://<%= @namenode_ip %>:<%= node['hops']['nn']['port'] %><%= node['hadoop_spark']['yarn']['archive_hdfs'] %>
 # Files to place on the PYTHONPATH for Python apps. Launching Python applications through spark-submit is currently only supported for local files.
-#spark.submit.pyFiles                       <%= node.hadoop_spark.pyFiles %>
-spark.sql.warehouse.dir                    hdfs://<%= @namenode_ip %>:<%= node.hops.nn.port %><%= node.hadoop_spark.yarn.warehouse_hdfs %>
-# <%= node.hadoop_spark.yarn.dist.archives %> 
-#spark.yarn.jars                            <%= node.hadoop_spark.yarn.jars %>
-#spark.yarn.dist.files                      <%= node.hadoop_spark.yarn.dist.files %> 
+#spark.submit.pyFiles                       <%= node['hadoop_spark']['pyFiles'] %>
+spark.sql.warehouse.dir                    hdfs://<%= @namenode_ip %>:<%= node['hops']['nn']['port'] %><%= node['hadoop_spark']['yarn']['warehouse_hdfs'] %>
+# <%= node['hadoop_spark']['yarn']['dist']['archives'] %>
+#spark.yarn.jars                            <%= node['hadoop_spark']['yarn']['jars'] %>
+#spark.yarn.dist.files                      <%= node['hadoop_spark']['yarn']['dist']['files'] %>
 # am.memory doesn't apply in cluster mode
-#spark.yarn.am.memory                       <%= node.hadoop_spark.yarn.am.memory %>
-<% for env in node.hadoop_spark.yarn.appMasterEnv.keys -%>
-spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEnv[env] -%>
+#spark.yarn.am.memory                       <%= node['hadoop_spark']['yarn']['am']['memory'] %>
+<% for env in node['hadoop_spark']['yarn']['appMasterEnv'].keys -%>
+spark.yarn.appMasterEnv.<% env -%>         <% node['hadoop_spark']['yarn']['appMasterEnv'][env] -%>
 <% end -%>
 
 #spark.yarn.access.namenodes  - these are kerberos enabled namenodes
@@ -67,6 +67,6 @@ spark.yarn.appMasterEnv.<% env -%>         <% node.hadoop_spark.yarn.appMasterEn
 #spark.yarn.containerLauncherMaxThreads	25
 #spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
-spark.driver.maxResultSize               <%= node.hadoop_spark.driver.maxResultSize %>
-spark.local.dir                          <%= node.hadoop_spark.local.dir %>
-spark.sql.broadcastTimeout               <%= node.hadoop_spark.sql.broadcastTimeout %>
+spark.driver.maxResultSize               <%= node['hadoop_spark']['driver']['maxResultSize'] %>
+spark.local.dir                          <%= node['hadoop_spark']['local']['dir'] %>
+spark.sql.broadcastTimeout               <%= node['hadoop_spark']['sql']['broadcastTimeout'] %>

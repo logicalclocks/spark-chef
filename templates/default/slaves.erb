@@ -1,3 +1,3 @@
-<% for slave in node.hadoop_spark.worker.private_ips -%>
+<% for slave in node['hadoop_spark']['worker']['private_ips'] -%>
 <%= slave %>
 <% end -%>
