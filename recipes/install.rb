@@ -72,6 +72,8 @@ bash 'extract_hadoop_spark' do
                 cd ..
                 chown -R #{node.hadoop_spark.user}:#{node.hadoop_spark.group} #{node.hadoop_spark.home}
                 chmod 750 #{node.hadoop_spark.home}
+                # make the logs dir writeable by the sparkhistoryserver (runs as user 'hdfs')
+                chmod 770 #{node.hadoop_spark.home}/logs
         EOH
      not_if { ::File.exists?( spark_down ) }
 end

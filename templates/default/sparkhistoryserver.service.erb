@@ -3,8 +3,8 @@ Description = Spark historyserver
 After = syslog.target network.target remote-fs.target
 
 [Service]
-User = <%= node.hadoop_spark.user %>
-PIDFile = /tmp/spark-<%= node.hadoop_spark.user %>-org.apache.spark.deploy.history.HistoryServer-1.pid
+User = <%= node.hops.hdfs.user %>
+PIDFile = /tmp/spark-<%= node.hops.hdfs.user %>-org.apache.spark.deploy.history.HistoryServer-1.pid
 ExecStart = <%= node.hadoop_spark.home %>/sbin/start-history-server.sh
 ExecStop = <%= node.hadoop_spark.home %>/sbin/stop-history-server.sh
 LimitNOFILE = 30000

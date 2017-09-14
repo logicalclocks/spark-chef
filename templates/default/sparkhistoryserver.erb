@@ -17,10 +17,10 @@
 
 START_PROG="<%= node.hadoop_spark.home %>/sbin/start-history-server.sh"  
 STOP_PROG="<%= node.hadoop_spark.home %>/sbin/stop-history-server.sh"  
-PID_FILE=/tmp/spark-<%= node.hadoop_spark.user %>-org.apache.spark.deploy.history.HistoryServer-1.pid
+PID_FILE=/tmp/spark-<%= node.hops.hdfs.user %>-org.apache.spark.deploy.history.HistoryServer-1.pid
 
 
-EXEC_WITH_USER="su <%= node.hadoop_spark.user %> -c"
+EXEC_WITH_USER="su <%= node.hops.hdfs.user %> -c"
 
 start() {
   ulimit -n 65000 2>&1 > /dev/null
