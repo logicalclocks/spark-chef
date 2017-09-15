@@ -9,8 +9,8 @@ log4j.appender.tcp=org.apache.log4j.net.SocketAppender
 log4j.appender.tcp.Port=3456
 log4j.appender.tcp.RemoteHost=<%= @logstash_ip %>
 log4j.appender.tcp.ReconnectionDelay=10000
-log4j.appender.tcp.Application=${env:_APP_ID}
-
+#log4j.appender.tcp.Application=${env:_APP_ID}
+log4j.appender.tcp.Application=${hopsworks.logstash.job.info}
 
 # Ignore messages below warning level from Jetty, because it's a bit verbose
 log4j.logger.org.eclipse.jetty=WARN
