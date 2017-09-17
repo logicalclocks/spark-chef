@@ -154,10 +154,10 @@ rescue
 end
 
 begin
-  influxdb_port = node['influxdb']['port']
+  graphite_port = node['influxdb']['graphite']['port']
 rescue
-  influxdb_port = 9999
-  Chef::Log.warn "could not find the influxdb port."  
+  graphite_port = 2003
+  Chef::Log.warn "could not find the influxdb/graphite connector port."  
 end
 
 
@@ -169,7 +169,7 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   action :create
   variables({
               :influxdb_ip => influxdb_ip,
-              :influxdb_port => influxdb_port              
+              :graphite_port => graphite_port              
             })
 end
 
