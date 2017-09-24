@@ -3,21 +3,21 @@
 # This file is sourced when running various Spark programs.
 # Copy it as.hops.spark.env.sh and edit that to configure Spark for your site.
 
-export SPARK_HOME=<%= node.hadoop_spark.base_dir %>
+export SPARK_HOME=<%= node['hadoop_spark']['base_dir'] %>
 #export SCALA_HOME=
 
 #export SPARK_JAR=
 
 # Options read when launching programs locally with
 # ./bin/run-example or ./bin.hops.spark.submit
-export HADOOP_CONF_DIR=<%= node.hops.conf_dir %>
+export HADOOP_CONF_DIR=<%= node['hops']['conf_dir'] %>
 export SPARK_LOCAL_IP=<%= @private_ip %>
 
 # https://spark.apache.org/docs/latest/hadoop-provided.html
 # Need to tell spark where to find the hadoop jars
-export SPARK_DIST_CLASSPATH=$(<%= node.hops.base_dir %>/bin/hadoop classpath)
+export SPARK_DIST_CLASSPATH=$(<%= node['hops']['base_dir'] %>/bin/hadoop classpath)
 
-export SPARK_DAEMON_MEMORY=<%= node.hadoop_spark.daemon.memory %>
+export SPARK_DAEMON_MEMORY=<%= node['hadoop_spark']['daemon']['memory'] %>
 
 # export SPARK_PUBLIC_DNS, to set the public dns name of the driver program
 # export SPARK_CLASSPATH, default classpath entries to append
@@ -45,7 +45,7 @@ export SPARK_DAEMON_MEMORY=<%= node.hadoop_spark.daemon.memory %>
 
 # Options for the daemons used in the standalone deploy mode
 export SPARK_MASTER_IP=<%= @master_ip %>
-export SPARK_MASTER_PORT=<%= node.hadoop_spark.master.port %>
+export SPARK_MASTER_PORT=<%= node['hadoop_spark']['master']['port'] %>
 #export SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
 # export SPARK_MASTER_OPTS, to set config properties only for the master (e.g. "-Dx=y")
 # export SPARK_WORKER_CORES

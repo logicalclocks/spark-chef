@@ -8,7 +8,7 @@ master_ip = private_recipe_ip("hadoop_spark","master")
 my_ip = my_private_ip()
 found_id = -1
 id = 1
-for worker in node.hadoop_spark.worker.private_ips
+for worker in node['hadoop_spark']['worker']['private_ips']
   if my_ip.eql? worker
     Chef::Log.info "Found matching IP address in the list of nodes: #{worker} . ID= #{id}"
     found_id = id
@@ -21,16 +21,16 @@ if found_id == -1
 end
 
 
-hadoop_spark_start "spark://#{master_ip}:#{node.hadoop_spark.master.port}" do
+hadoop_spark_start "spark://#{master_ip}:#{node['hadoop_spark']['master']['port']}" do
   worker_id found_id
   action :start_worker
 end
 
-homedir = node.hadoop_spark.user.eql?("root") ? "/root" : "/home/#{node.hadoop_spark.user}"
+homedir = node['hadoop_spark']['user'].eql?("root") ? "/root" : "/home/#{node['hadoop_spark']['user']}"
 
 kagent_keys "#{homedir}" do
-  cb_user "#{node.hadoop_spark.user}"
-  cb_group "#{node.hadoop_spark.group}"
+  cb_user "#{node['hadoop_spark']['user']}"
+  cb_group "#{node['hadoop_spark']['group']}"
   cb_name "hadoop_spark"
   cb_recipe "master"  
   action :get_publickey
