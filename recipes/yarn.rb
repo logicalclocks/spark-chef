@@ -85,7 +85,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
     source node['hops']['hopsutil']['url']
-    owner hopsworks_user
+    owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
     action :create
@@ -104,7 +104,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsKafkaJar}" do
     source node['hops']['hops_spark_kafka_example']['url']
-    owner hopsworks_user
+    owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
     action :create
