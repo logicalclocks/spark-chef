@@ -219,20 +219,3 @@ bash 'install_pydoop' do
            pip install --upgrade pydoop
         EOH
 end
-
-purl=node['hadoop_spark']['spark-sql-dependencies_url']
-# The following dependencies are required to run spark-sql with parquet and orc. We install them here so that users don't have to do it from their notebooks/jobs
-# https://mvnrepository.com/artifact/org.spark-project.hive/hive-exec/1.2.1.spark2
-files= %w{ parquet-encoding-1.9.0.jar parquet-common-1.9.0.jar parquet-hadoop-1.9.0.jar parquet-jackson-1.9.0.jar parquet-column-1.9.0.jar parquet-format-2.3.1.jar hive-exec-1.2.1.spark2.jar}
-
-for f in files do
-
-  remote_file "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{f}" do
-    source "#{purl}/#{f}"
-    owner node['hops']['yarn']['user']
-    group node['hadoop_spark']['group']  
-    mode "0644"
-    action :create_if_missing
-  end
-  
-end
