@@ -47,6 +47,29 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     mode "1775"
   end
 
+  # Package Spark jars
+  spark_packaged = "#{node['hadoop_spark']['home']}/.hadoop_spark.packaged_#{node['hadoop_spark']['version']}"
+
+  bash 'extract_hadoop_spark' do 
+        user "root"
+        code <<-EOH
+                set -e
+                cd #{node['hadoop_spark']['home']}/jars
+                zip -o #{node['hadoop_spark']['yarn']['archive']} *
+		cd ..
+                mv jars/#{node['hadoop_spark']['yarn']['archive']} .
+                mkdir #{node['hadoop_spark']['home']}/logs
+                touch #{spark_packaged}
+                cd ..
+                chown -R #{node['hadoop_spark']['user']}:#{node['hadoop_spark']['group']} #{node['hadoop_spark']['home']}
+                chmod 750 #{node['hadoop_spark']['home']}
+                # make the logs dir writeable by the sparkhistoryserver (runs as user 'hdfs')
+                chmod 770 #{node['hadoop_spark']['home']}/logs
+        EOH
+     not_if { ::File.exists?( spark_packaged ) }
+  end
+
+
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/#{node['hadoop_spark']['yarn']['archive']}" do
     action :put_as_superuser
     owner node['hadoop_spark']['user']

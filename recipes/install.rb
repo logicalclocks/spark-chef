@@ -82,34 +82,12 @@ for f in files do
 
   remote_file "#{node['hadoop_spark']['home']}/jars/#{f}" do
     source "#{purl}/#{f}"
-    owner node['hops']['yarn']['user']
+    owner node['hadoop_spark']['user']
     group node['hadoop_spark']['group']  
     mode "0644"
     action :create_if_missing
   end
   
-end
-
-# Package Spark jars
-spark_packaged = "#{node['hadoop_spark']['home']}/.hadoop_spark.packaged_#{node['hadoop_spark']['version']}"
-
-bash 'extract_hadoop_spark' do
-        user "root"
-        code <<-EOH
-                set -e
-                cd #{node['hadoop_spark']['home']}/jars
-                zip -o #{node['hadoop_spark']['yarn']['archive']} *
-		cd ..
-                mv jars/#{node['hadoop_spark']['yarn']['archive']} .
-                mkdir #{node['hadoop_spark']['home']}/logs
-                touch #{spark_packaged}
-                cd ..
-                chown -R #{node['hadoop_spark']['user']}:#{node['hadoop_spark']['group']} #{node['hadoop_spark']['home']}
-                chmod 750 #{node['hadoop_spark']['home']}
-                # make the logs dir writeable by the sparkhistoryserver (runs as user 'hdfs')
-                chmod 770 #{node['hadoop_spark']['home']}/logs
-        EOH
-     not_if { ::File.exists?( spark_packaged ) }
 end
 
 link node['hadoop_spark']['base_dir'] do
