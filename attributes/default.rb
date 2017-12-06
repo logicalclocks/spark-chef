@@ -90,3 +90,5 @@ default['hadoop_spark']['ssl']['protocol'] 						  = "TLSv1,TLSv1.1,TLSv1.2"
 default['hadoop_spark']['ssl']['keystorepassword']				  = "#{node['hopsworks']['master']['password']}"
 default['hadoop_spark']['ssl']['truststorepassword']				  = "#{node['hopsworks']['master']['password']}"
 
+default['hopsmonitor']['default']['private_ips']                                  = ['10.0.2.15']
+default['hopslog']['default']['private_ips']                                      = ['10.0.2.15']
