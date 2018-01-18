@@ -73,7 +73,7 @@ end
 
 if node['kagent']['enabled'] == "true"
    kagent_config service_name do
-     service service_name
+     service "HISTORY_SERVERS"
      log_file "#{node['hadoop_spark']['base_dir']}/logs/spark-#{node['hadoop_spark']['user']}-org.apache.spark.deploy.history.HistoryServer-1-#{node['hostname']}.out"
      web_port node['hadoop_spark']['historyserver']['port']
    end
