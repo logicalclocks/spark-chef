@@ -126,7 +126,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   hopsExamplesSparkJar=File.basename(node['hops']['hops_examples_spark']['url'])
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
-    source node['hops']['hops_spark_kafka_example']['url']
+    source node['hops']['hops_examples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
