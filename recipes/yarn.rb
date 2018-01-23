@@ -104,9 +104,9 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     end
   end
 
-  hopsUtil=File.basename(node['hops']['hopsutil']['url'])
+  hopsUtilJar=File.basename(node['hops']['hopsutil']['url'])
 
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
     source node['hops']['hopsutil']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -114,18 +114,18 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
     action :put_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{node['hops']['hopsutil_jar']}"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtilJar}"
   end
 
 
-  hopsKafkaJar=File.basename(node['hops']['hops_spark_kafka_example']['url'])
+  hopsExamplesSparkJar=File.basename(node['hops']['hops_examples_spark']['url'])
 
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsKafkaJar}" do
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
     source node['hops']['hops_spark_kafka_example']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -133,12 +133,12 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsKafkaJar}" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
     action :put_as_superuser
     owner hopsworks_user
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{hopsworks_user}/#{node['hops']['examples_jar']}"
+    dest "/user/#{hopsworks_user}/#{hopsExamplesSparkJar}"
   end
 
 end
