@@ -1,5 +1,6 @@
 include_attribute "kagent"
 include_attribute "hops"
+include_attribute "hopsmonitor"
 
 default['hadoop_spark']['user']                                 = node['install']['user'].empty? ? "spark" : node['install']['user']
 default['hadoop_spark']['group']                                = node['install']['user'].empty? ? node['hops']['group'] : node['install']['user']
