@@ -13,7 +13,8 @@ default['hadoop_spark']['home']                                 = "#{node['hadoo
 default['hadoop_spark']['conf_dir']                             = "#{node['hadoop_spark']['base_dir']}/conf"
 default['hadoop_spark']['url']                                  = "#{node['download_url']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop.tgz"
 
-default['hadoop_spark']['spark-sql-dependencies_url']           = "#{node['download_url']}/spark-sql-dependencies"
+default['hadoop_spark']['spark_sql_dependencies_url']           = "#{node['download_url']}/spark-sql-dependencies"
+default['hadoop_spark']['parquet_version']                      = "1.9.0"
 
 default['hadoop_spark']['executor_memory']                      = "512m"
 default['hadoop_spark']['driver_memory']                        = "1g"

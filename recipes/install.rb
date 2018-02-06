@@ -72,11 +72,11 @@ bash 'extract_hadoop_spark' do
 end
 
 #Copy SQL dependencies to SPARK_HOME/jars
-purl=node['hadoop_spark']['spark-sql-dependencies_url']
+purl=node['hadoop_spark']['spark_sql_dependencies_url']
 # The following dependencies are required to run spark-sql with parquet and orc. We install them here so that users don't have to do it from their notebooks/jobs
 # https://mvnrepository.com/artifact/org.spark-project.hive/hive-exec/1.2.1.spark2
 # http://central.maven.org/maven2/org/iq80/snappy/snappy/0.4/
-files= %w{ parquet-encoding-1.9.0.jar parquet-common-1.9.0.jar parquet-hadoop-1.9.0.jar parquet-jackson-1.9.0.jar parquet-column-1.9.0.jar parquet-format-2.3.1.jar hive-exec-1.2.1.spark2.jar spark-hive_2.11-2.2.0.jar snappy-0.4.jar}
+files= %w{ parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar parquet-common-#{node['hadoop_spark']['parquet_version']}.jar parquet-hadoop-#{node['hadoop_spark']['parquet_version']}.jar parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar parquet-column-#{node['hadoop_spark']['parquet_version']}.jar parquet-format-2.3.1.jar hive-exec-1.2.1.spark2.jar spark-hive_2.11-2.2.0.jar snappy-0.4.jar}
 
 for f in files do
 
