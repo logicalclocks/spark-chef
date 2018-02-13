@@ -50,7 +50,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   # Package Spark jars
   spark_packaged = "#{node['hadoop_spark']['home']}/.hadoop_spark.packaged_#{node['hadoop_spark']['version']}"
 
-  bash 'extract_hadoop_spark' do 
+  bash 'extract_hadoop_spark' do
         user "root"
         code <<-EOH
                 set -e
@@ -172,17 +172,9 @@ end
 
 begin
   influxdb_ip = private_recipe_ip("hopsmonitor","default")
-rescue 
-  Chef::Log.error "could not find the influxdb ip!"  
-end
-
-begin
-  graphite_port = node['influxdb']['graphite']['port']
 rescue
-  graphite_port = 2003
-  Chef::Log.warn "could not find the influxdb/graphite connector port."  
+  Chef::Log.error "could not find the influxdb ip!"
 end
-
 
 template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   source "metrics.properties.erb"
@@ -191,15 +183,21 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   mode 0750
   action :create
   variables({
-              :influxdb_ip => influxdb_ip,
-              :graphite_port => graphite_port              
-            })
+        :influxdb_ip => influxdb_ip
+  })
 end
 
+hops_hdfs_directory "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties"  do
+  action :put_as_superuser
+  owner node['hadoop_spark']['user']
+  group node['hadoop_spark']['group']
+  mode "1775"
+  dest "/user/#{node['hadoop_spark']['user']}/metrics.properties"
+end
 
 begin
   logstash_ip = private_recipe_ip("hopslog","default")
-rescue 
+rescue
   logstash_ip = node['hostname']
   Chef::Log.warn "could not find the Logstash ip!"
 end
@@ -210,10 +208,10 @@ template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
   mode 0650
-  variables({ 
+  variables({
         :logstash_ip => logstash_ip
            })
-  
+
 end
 
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/metrics.properties" do
@@ -231,7 +229,7 @@ end
     mode "1775"
     dest "/user/#{node['hops']['hdfs']['user']}/log4j.properties"
   end
-  
+
 
 bash 'install_pydoop' do
         user "root"

@@ -4,13 +4,14 @@ maintainer_email "jdowling@kth.se"
 license          "Apache v2"
 description      'Installs/Configures Spark'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.3.0"
+version          "0.4.0"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
 depends          "kagent"
 depends          "java"
 depends          "hops"
 depends          "magic_shell"
+depends          "hopsmonitor"
 
 recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
