@@ -142,7 +142,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
-  hops_hdfs_directory "#node['hopsworks']['domain_truststore_path']/#node['hopsworks']['domain_truststore_name']" do
+  hops_hdfs_directory "#{node['hopsworks']['domain_truststore_path']}/#{node['hopsworks']['domain_truststore_name']}" do
     action :put_as_superuser
     owner node['hops']['user']
     group node['hops']['group']
