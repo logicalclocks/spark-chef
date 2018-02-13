@@ -147,7 +147,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     owner node['hops']['user']
     group node['hops']['group']
     mode "0444"
-    dest "/user/#{node['hops']['user']}/#node['hopsworks']['domain_truststore_name']"
+    dest "/user/#{node['hops']['hdfs']['user']}/#{node['hopsworks']['domain_truststore_name']}"
   end
 
 end
