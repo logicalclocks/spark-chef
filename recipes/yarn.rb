@@ -141,40 +141,40 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     dest "/user/#{hopsworks_user}/#{hopsExamplesSparkJar}"
   end
 
-  if node.attribute?('hopsworks') == true
-     if node['hopsworks'].attribute?('domain_truststore_path') == false
-       raise "Error: the hopsworks chef attribute is not defined."
-     end
-     if node['hopsworks'].attribute?('domain_truststore_name') == false
-       raise "Error: the hopsworks chef attribute is not defined."
-     end
-  else
-       raise "Error: the hopsworks chef attribute is not defined."
-  end
+#  if node.attribute?('hopsworks') == true
+#     if node['hopsworks'].attribute?('domain_truststore_path') == false
+#       raise "Error: the hopsworks chef attribute is not defined."
+#     end
+#     if node['hopsworks'].attribute?('domain_truststore_name') == false
+#       raise "Error: the hopsworks chef attribute is not defined."
+#     end
+#  else
+#       raise "Error: the hopsworks chef attribute is not defined."
+#  end
 
-  bash 'materialize_truststore' do
-       user "root"
-       code <<-EOH
-         cp -f #{node['hopsworks']['domain_truststore_path']}/#{node['hopsworks']['domain_truststore_name']} /tmp
-         chmod 755 /tmp/#{node['hopsworks']['domain_truststore_name']}
-       EOH
- end
+#  bash 'materialize_truststore' do
+#       user "root"
+#       code <<-EOH
+#         cp -f #{node['hopsworks']['domain_truststore_path']}/#{node['hopsworks']['domain_truststore_name']} /tmp
+#         chmod 755 /tmp/#{node['hopsworks']['domain_truststore_name']}
+#       EOH
+# end
  
  #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
- hops_hdfs_directory "/tmp/#{node['hopsworks']['domain_truststore_name']}" do
-   action :put_as_superuser
-   owner node['hops']['hdfs']['user']
-   group node['hops']['group']
-   mode "0444"
-   dest "/user/#{node['hadoop_spark']['user']}/#{node['hopsworks']['domain_truststore_name']}"
- end
+# hops_hdfs_directory "/tmp/#{node['hopsworks']['domain_truststore_name']}" do
+#   action :put_as_superuser
+#   owner node['hops']['hdfs']['user']
+#   group node['hops']['group']
+#   mode "0444"
+#   dest "/user/#{node['hadoop_spark']['user']}/#{node['hopsworks']['domain_truststore_name']}"
+# end
 
- bash 'cleanup_truststore' do
-       user "root"
-       code <<-EOH
-         rm -f /tmp/#{node['hopsworks']['domain_truststore_name']}
-       EOH
- end
+# bash 'cleanup_truststore' do
+#       user "root"
+#       code <<-EOH
+#         rm -f /tmp/#{node['hopsworks']['domain_truststore_name']}
+#       EOH
+# end
 end
 
 #
