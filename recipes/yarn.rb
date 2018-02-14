@@ -135,7 +135,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 
   hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
     action :put_as_superuser
-    owner hopsworks_user
+    owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
     dest "/user/#{hopsworks_user}/#{hopsExamplesSparkJar}"
