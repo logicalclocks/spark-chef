@@ -163,7 +163,7 @@ end
  #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
  hops_hdfs_directory "/tmp/cacerts.jks" do
   action :put_as_superuser
-  owner node['hops']['hdfs']['user']
+  owner node['hadoop_spark']['user']
   group node['hops']['group']
   mode "0444"
   dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
