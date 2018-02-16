@@ -161,20 +161,20 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 end
  
  #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
-hops_hdfs_directory "/tmp/#{node['hopsworks']['domain_truststore_name']}" do
+ hops_hdfs_directory "/tmp/cacerts.jks" do
   action :put_as_superuser
   owner node['hops']['hdfs']['user']
   group node['hops']['group']
   mode "0444"
-  dest "/user/#{node['hadoop_spark']['user']}/#{node['hopsworks']['domain_truststore_name']}"
-end
+  dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
+ end
 
-bash 'cleanup_truststore' do
+ bash 'cleanup_truststore' do
       user "root"
       code <<-EOH
         rm -f /tmp/cacerts.jks
       EOH
-end
+ end
 end
 
 #
