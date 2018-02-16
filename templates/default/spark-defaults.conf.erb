@@ -68,5 +68,5 @@ spark.yarn.appMasterEnv.<% env -%>         <% node['hadoop_spark']['yarn']['appM
 #spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
 spark.driver.maxResultSize               <%= node['hadoop_spark']['driver']['maxResultSize'] %>
-spark.local.dir                          <%= node['hadoop_spark']['local']['dir'] %>
+#spark.local.dir                          <%= node['hadoop_spark']['local']['dir'] %>
 spark.sql.broadcastTimeout               <%= node['hadoop_spark']['sql']['broadcastTimeout'] %>
