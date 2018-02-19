@@ -173,6 +173,7 @@ end
       user "root"
       code <<-EOH
         rm -f /tmp/cacerts.jks
+	rm -f #{node['kagent']['certs_dir']}/cacerts.jks 
       EOH
  end
 end
