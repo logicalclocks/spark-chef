@@ -22,7 +22,7 @@ directory node['hadoop_spark']['local']['dir'] do
 end
 
 
-# Only the first NN needs to create the directories
+# Only the first of the spark::yarn hosts needs to run this code (not all of them)
 if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 
   hops_hdfs_directory "#{home}" do
@@ -83,9 +83,8 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
      not_if { ::File.exists?( spark_packaged ) }
   end
 
-
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/#{node['hadoop_spark']['yarn']['archive']}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
@@ -93,7 +92,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/python/lib/#{node['hadoop_spark']['yarn']['pyspark_archive']}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
@@ -101,13 +100,12 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/python/lib/#{node['hadoop_spark']['yarn']['py4j_archive']}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
     dest "#{node['hadoop_spark']['yarn']['py4j_archive_hdfs']}"
   end
-
 
   hopsworks_user=node['hops']['hdfs']['user']
   hopsworks_group=node['hops']['group']

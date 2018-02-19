@@ -80,7 +80,6 @@ files= "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar, parquet
 allFiles = files.split(/\s*,\s*/)
   
 for f in allFiles do
-
   remote_file "#{node['hadoop_spark']['home']}/jars/#{f}" do
     source "#{purl}/#{f}"
     owner node['hadoop_spark']['user']
@@ -88,7 +87,6 @@ for f in allFiles do
     mode "0644"
     action :create_if_missing
   end
-  
 end
 
 link node['hadoop_spark']['base_dir'] do

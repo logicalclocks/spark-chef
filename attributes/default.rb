@@ -53,14 +53,14 @@ default['hadoop_spark']['yarn']['py4j_archive_hdfs']               =  "/user/#{n
 default['hadoop_spark']['yarn']['python_tensorflow_archive_hdfs']  =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['python_tensorflow_archive']}"
 default['hadoop_spark']['yarn']['tfspark_archive_hdfs']            =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['tfspark_archive']}"
 # Use comma to separate multiple archives, and use # to create the symlink on YARN runtime working directory.
-default['hadoop_spark']['yarn']['dist']['archives']                   = ""
-default['hadoop_spark']['yarn']['dist']['files']                      = ""
-#default.hadoop_spark.yarn.dist.jars                      = ""
-default['hadoop_spark']['pyFiles']                                = "local://#{node['hadoop_spark']['base_dir']}/python/lib/pyspark.zip"
-default['hadoop_spark']['yarn']['jars']                           = "local://#{node['hadoop_spark']['base_dir']}/jars/*"
-default['hadoop_spark']['yarn']['am']['memory']                   = "512m"
-default['hadoop_spark']['yarn']['containerLauncherMaxThreads']    = 25
-default['hadoop_spark']['yarn']['private_ips']                    = []
+default['hadoop_spark']['yarn']['dist']['archives']                = ""
+default['hadoop_spark']['yarn']['dist']['files']                   = ""
+#default.hadoop_spark.yarn.dist.jars                                = ""
+default['hadoop_spark']['pyFiles']                                 = "local://#{node['hadoop_spark']['base_dir']}/python/lib/pyspark.zip"
+default['hadoop_spark']['yarn']['jars']                            = "local://#{node['hadoop_spark']['base_dir']}/jars/*"
+default['hadoop_spark']['yarn']['am']['memory']                    = "512m"
+default['hadoop_spark']['yarn']['containerLauncherMaxThreads']     = 25
+default['hadoop_spark']['yarn']['private_ips']                     = []
 #default.spark.yarn.am.waitTime                           = "100s"
 #default.spark.yarn.max.executor.failures                 = 3
 #default.spark.yarn.historyServer.address
@@ -68,12 +68,12 @@ default['hadoop_spark']['yarn']['am']['attemptFailuresValidityInterval'] = "1h"
 
 # Hash of environment variables
 default['hadoop_spark']['yarn']['appMasterEnv']                    = {}
-default['hadoop_spark']['systemd']                              = "true"
+default['hadoop_spark']['systemd']                                 = "true"
 
 
-default['hadoop_spark']['history']['fs']['cleaner']['enabled']           = "true"
-default['hadoop_spark']['history']['fs']['cleaner']['interval']          = "1d"
-default['hadoop_spark']['history']['fs']['cleaner']['maxAge']            = "7d"
+default['hadoop_spark']['history']['fs']['cleaner']['enabled']     = "true"
+default['hadoop_spark']['history']['fs']['cleaner']['interval']    = "1d"
+default['hadoop_spark']['history']['fs']['cleaner']['maxAge']      = "7d"
 
 #
 # Parameters taken from here: http://www.slideshare.net/jcmia1/apache-spark-20-tuning-guide
