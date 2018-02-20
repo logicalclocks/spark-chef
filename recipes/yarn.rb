@@ -8,7 +8,21 @@
 home = node['hops']['hdfs']['user_home']
 private_ip=my_private_ip()
 
-# Only the first NN needs to create the directories
+
+#
+# local directory logs
+#
+directory node['hadoop_spark']['local']['dir'] do
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "770"
+  action :create
+  recursive true
+  not_if { File.directory?("#{node['hadoop_spark']['local']['dir']}") }
+end
+
+
+# Only the first of the spark::yarn hosts needs to run this code (not all of them)
 if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 
   hops_hdfs_directory "#{home}" do
@@ -58,7 +72,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
                 zip -o #{node['hadoop_spark']['yarn']['archive']} *
 		cd ..
                 mv jars/#{node['hadoop_spark']['yarn']['archive']} .
-                mkdir #{node['hadoop_spark']['home']}/logs
+                mkdir -p #{node['hadoop_spark']['home']}/logs
                 touch #{spark_packaged}
                 cd ..
                 chown -R #{node['hadoop_spark']['user']}:#{node['hadoop_spark']['group']} #{node['hadoop_spark']['home']}
@@ -69,9 +83,8 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
      not_if { ::File.exists?( spark_packaged ) }
   end
 
-
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/#{node['hadoop_spark']['yarn']['archive']}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
@@ -79,7 +92,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/python/lib/#{node['hadoop_spark']['yarn']['pyspark_archive']}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
@@ -87,13 +100,12 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/python/lib/#{node['hadoop_spark']['yarn']['py4j_archive']}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
     dest "#{node['hadoop_spark']['yarn']['py4j_archive_hdfs']}"
   end
-
 
   hopsworks_user=node['hops']['hdfs']['user']
   hopsworks_group=node['hops']['group']
@@ -115,7 +127,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
@@ -134,7 +146,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
@@ -159,7 +171,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
         chmod 755 /tmp/cacerts.jks
       EOH
 end
- 
+
  #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
  hops_hdfs_directory "/tmp/cacerts.jks" do
   action :put_as_superuser
@@ -173,7 +185,7 @@ end
       user "root"
       code <<-EOH
         rm -f /tmp/cacerts.jks
-	rm -f #{node['kagent']['certs_dir']}/cacerts.jks 
+	rm -f #{node['kagent']['certs_dir']}/cacerts.jks
       EOH
  end
 end
@@ -223,7 +235,7 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
 end
 
 hops_hdfs_directory "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties"  do
-  action :put_as_superuser
+  action :replace_as_superuser
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
   mode "1775"
@@ -249,21 +261,21 @@ template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
 
 end
 
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/metrics.properties" do
-    action :put_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "/user/#{node['hops']['hdfs']['user']}/metrics.properties"
-  end
+hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/metrics.properties" do
+  action :replace_as_superuser
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "1775"
+  dest "/user/#{node['hops']['hdfs']['user']}/metrics.properties"
+end
 
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
-    action :put_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "/user/#{node['hops']['hdfs']['user']}/log4j.properties"
-  end
+hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
+  action :replace_as_superuser
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "1775"
+  dest "/user/#{node['hops']['hdfs']['user']}/log4j.properties"
+end
 
 
 bash 'install_pydoop' do
