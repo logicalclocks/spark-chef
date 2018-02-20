@@ -104,9 +104,9 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     end
   end
 
-  hopsUtil=File.basename(node['hops']['hopsutil']['url'])
+  hopsUtilJar=File.basename(node['hops']['hopsutil']['url'])
 
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
     source node['hops']['hopsutil']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -114,33 +114,68 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
     action :put_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{node['hops']['hopsutil_jar']}"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtilJar}"
   end
 
 
-  hopsKafkaJar=File.basename(node['hops']['hops_spark_kafka_example']['url'])
+  hopsExamplesSparkJar=File.basename(node['hops']['hops_examples_spark']['url'])
 
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsKafkaJar}" do
-    source node['hops']['hops_spark_kafka_example']['url']
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
+    source node['hops']['hops_examples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsKafkaJar}" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
     action :put_as_superuser
-    owner hopsworks_user
+    owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{hopsworks_user}/#{node['hops']['examples_jar']}"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSparkJar}"
   end
 
+#  if node.attribute?('hopsworks') == true
+#     if node['hopsworks'].attribute?('domain_truststore_path') == false
+#       raise "Error: the hopsworks chef attribute is not defined."
+#     end
+#     if node['hopsworks'].attribute?('domain_truststore_name') == false
+#       raise "Error: the hopsworks chef attribute is not defined."
+#     end
+#  else
+#       raise "Error: the hopsworks chef attribute is not defined."
+#  end
+
+ bash 'materialize_truststore' do
+      user "root"
+      code <<-EOH
+        cp -f #{node['kagent']['certs_dir']}/cacerts.jks /tmp
+        chmod 755 /tmp/cacerts.jks
+      EOH
+end
+ 
+ #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
+ hops_hdfs_directory "/tmp/cacerts.jks" do
+  action :put_as_superuser
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "0444"
+  dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
+ end
+
+ bash 'cleanup_truststore' do
+      user "root"
+      code <<-EOH
+        rm -f /tmp/cacerts.jks
+	rm -f #{node['kagent']['certs_dir']}/cacerts.jks 
+      EOH
+ end
 end
 
 #
