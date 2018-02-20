@@ -127,7 +127,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
@@ -146,7 +146,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
   end
 
   hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
-    action :put_as_superuser
+    action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
@@ -235,7 +235,7 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
 end
 
 hops_hdfs_directory "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties"  do
-  action :put_as_superuser
+  action :replace_as_superuser
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
   mode "1775"
@@ -261,21 +261,21 @@ template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
 
 end
 
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/metrics.properties" do
-    action :put_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "/user/#{node['hops']['hdfs']['user']}/metrics.properties"
-  end
+hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/metrics.properties" do
+  action :replace_as_superuser
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "1775"
+  dest "/user/#{node['hops']['hdfs']['user']}/metrics.properties"
+end
 
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
-    action :put_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "/user/#{node['hops']['hdfs']['user']}/log4j.properties"
-  end
+hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
+  action :replace_as_superuser
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "1775"
+  dest "/user/#{node['hops']['hdfs']['user']}/log4j.properties"
+end
 
 
 bash 'install_pydoop' do
