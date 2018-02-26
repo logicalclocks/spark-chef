@@ -188,6 +188,8 @@ end
         rm -f /tmp/cacerts.jks
 	rm -f #{node['kagent']['certs_dir']}/cacerts.jks
       EOH
+      only_if { ::File.exist?(/tmp/cacerts.jks) }
+      only_if { ::File.exist?(#{node['kagent']['certs_dir']}/cacerts.jks) }
  end
 end
 
