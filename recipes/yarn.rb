@@ -169,7 +169,8 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
       code <<-EOH
         cp -f #{node['kagent']['certs_dir']}/cacerts.jks /tmp
         chmod 755 /tmp/cacerts.jks
-      EOH
+        EOH
+      only_if { ::File.exist?(#{node['kagent']['certs_dir']}/cacerts.jks) }
 end
 
  #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
