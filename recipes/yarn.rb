@@ -165,7 +165,11 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 #  end
 
 
- if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
+ 
+
+end
+
+if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
 
    bash 'materialize_truststore' do
       user "root"
@@ -191,8 +195,6 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 	rm -f #{node['kagent']['certs_dir']}/cacerts.jks
       EOH
    end
- end
-
 end
 
 #
