@@ -164,33 +164,35 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 #       raise "Error: the hopsworks chef attribute is not defined."
 #  end
 
- bash 'materialize_truststore' do
+
+ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
+
+   bash 'materialize_truststore' do
       user "root"
       code <<-EOH
         cp -f #{node['kagent']['certs_dir']}/cacerts.jks /tmp
         chmod 755 /tmp/cacerts.jks
         EOH
-      only_if { ::File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks") }
-end
+   end
 
- #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
- hops_hdfs_directory "/tmp/cacerts.jks" do
-  action :put_as_superuser
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0444"
-  dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
- end
+   #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
+   hops_hdfs_directory "/tmp/cacerts.jks" do
+    action :put_as_superuser
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "0444"
+    dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
+   end
 
- bash 'cleanup_truststore' do
+   bash 'cleanup_truststore' do
       user "root"
       code <<-EOH
         rm -f /tmp/cacerts.jks
 	rm -f #{node['kagent']['certs_dir']}/cacerts.jks
       EOH
-      only_if { ::File.exist?("/tmp/cacerts.jks") }
-      only_if { ::File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks") }
+   end
  end
+
 end
 
 #
