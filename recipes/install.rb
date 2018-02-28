@@ -31,7 +31,7 @@ group node['hadoop_spark']['group'] do
 end
 
 directory node['hadoop_spark']['dir']  do
-  owner node['hadoop_spark']['user']
+  owner "root"
   group node['hadoop_spark']['group']
   mode "755"
   action :create
