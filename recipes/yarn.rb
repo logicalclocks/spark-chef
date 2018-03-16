@@ -273,13 +273,37 @@ link "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{jarFile}" do
 end
 
 
+bash 'install_pydoop' do
+        user "root"
+        code <<-EOH
+           set -e
+           export HADOOP_HOME=#{node['hops']['base_dir']}
+           export HADOOP_CONF_DIR=#{node['hops']['home']}/etc/hadoop
+           pip install --upgrade pydoop
+        EOH
+end
 
-# bash 'install_pydoop' do
-#         user "root"
-#         code <<-EOH
-#            set -e
-#            export HADOOP_HOME=#{node['hops']['base_dir']}
-#            export HADOOP_CONF_DIR=#{node['hops']['home']}/etc/hadoop
-#            pip install --upgrade pydoop
-#         EOH
-# end
+
+# Support for 'R'
+case node['platform_family']
+when "debian"
+ package "r-base" do
+  action :install
+ end
+
+when "rhel"
+  package "R" do
+    action :install
+  end
+  package "R-devel" do
+    action :install
+  end
+  package "libcurl-devel" do
+    action :install
+  end
+  package "openssl-devel" do
+    action :install
+  end
+end
+
+
