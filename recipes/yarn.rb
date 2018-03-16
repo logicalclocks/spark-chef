@@ -294,3 +294,27 @@ bash 'install_pydoop' do
            pip install --upgrade pydoop
         EOH
 end
+
+
+# Support for 'R'
+case node['platform_family']
+when "debian"
+ package "r-base" do
+  action :install
+ end
+
+when "rhel"
+  package "R" do
+    action :install
+  end
+  package "R-devel" do
+    action :install
+  end
+  package "libcurl-devel" do
+    action :install
+  end
+  package "openssl-devel" do
+    action :install
+  end
+end
+
