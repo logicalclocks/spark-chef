@@ -5,13 +5,13 @@ include_attribute "hopsmonitor"
 default['hadoop_spark']['user']                                 = node['install']['user'].empty? ? "spark" : node['install']['user']
 default['hadoop_spark']['group']                                = node['install']['user'].empty? ? node['hops']['group'] : node['install']['user']
 
-default['hadoop_spark']['version']                              = "2.2.0"
+default['hadoop_spark']['version']                              = "2.3.0"
 default['scala']['version'] 	                                = "2.11"
 default['hadoop_spark']['dir']                                  = node['install']['dir'].empty? ? "/srv/hops" : node['install']['dir']
 default['hadoop_spark']['base_dir']                             = "#{node['hadoop_spark']['dir']}/spark"
-default['hadoop_spark']['home']                                 = "#{node['hadoop_spark']['dir']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop"
+default['hadoop_spark']['home']                                 = "#{node['hadoop_spark']['dir']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop-with-hive-with-r"
 default['hadoop_spark']['conf_dir']                             = "#{node['hadoop_spark']['base_dir']}/conf"
-default['hadoop_spark']['url']                                  = "#{node['download_url']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop.tgz"
+default['hadoop_spark']['url']                                  = "#{node['download_url']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop-with-hive-with-r.tgz"
 
 default['hadoop_spark']['spark_sql_dependencies_url']           = "#{node['download_url']}/spark-sql-dependencies"
 default['hadoop_spark']['parquet_version']                      = "1.9.0"
@@ -34,16 +34,16 @@ default['hadoop_spark']['hadoop']['distribution']                  = "hops"
 default['hadoop_spark']['master']['public_key']                    = ""
 default['hadoop_spark']['yarn']['support']                         = "false"
 default['hadoop_spark']['authenticate']['secret']                  = ""
-default['hadoop_spark']['yarn']['am']['waitTime']                     = "100s"
-default['hadoop_spark']['yarn']['submit']['file']['replication']         = 3
-default['hadoop_spark']['yarn']['preserve']['staging']['files']          = "false"
+default['hadoop_spark']['yarn']['am']['waitTime']                  = "100s"
+default['hadoop_spark']['yarn']['submit']['file']['replication']   = 3
+default['hadoop_spark']['yarn']['preserve']['staging']['files']    = "false"
 default['hadoop_spark']['yarn']['scheduler']['heartbeat']['interval_ms'] = 5000
 default['hadoop_spark']['yarn']['queue']                           = "default"
 # the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
 default['hadoop_spark']['yarn']['archive']                         =  "spark-jars.zip"
 default['hadoop_spark']['yarn']['pyspark_archive']                 =  "pyspark.zip"
-default['hadoop_spark']['yarn']['py4j_archive']                    =  "py4j-0.10.4-src.zip"
+default['hadoop_spark']['yarn']['py4j_archive']                    =  "py4j-0.10.6-src.zip"
 default['hadoop_spark']['yarn']['archive_hdfs']                    =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['archive']}"
 default['hadoop_spark']['yarn']['warehouse_hdfs']                  =  "/user/#{node['hadoop_spark']['user']}/spark-warehouse"
 default['hadoop_spark']['yarn']['pyspark_archive_hdfs']            =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['pyspark_archive']}"
