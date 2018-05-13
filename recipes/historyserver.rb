@@ -47,6 +47,7 @@ if node['hadoop_spark']['systemd'] == "true"
     notifies :start, resources(:service => service_name), :immediately
   end
 
+  # restart if install or update
   kagent_config service_name do
     action :systemd_reload
   end
@@ -78,4 +79,5 @@ if node['kagent']['enabled'] == "true"
      web_port node['hadoop_spark']['historyserver']['port']
    end
 end
+
 
