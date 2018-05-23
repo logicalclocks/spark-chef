@@ -152,6 +152,7 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     end
   end
 
+  
   hopsUtilJar=File.basename(node['hops']['hopsutil']['url'])
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
@@ -215,37 +216,38 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     dest "/user/#{node['hops']['hdfs']['user']}/log4j.properties"
   end
   
-end
 
-if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
 
-  bash 'materialize_truststore' do
-    user "root"
-    code <<-EOH
+  if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
+
+    bash 'materialize_truststore' do
+      user "root"
+      code <<-EOH
         cp -f #{node['kagent']['certs_dir']}/cacerts.jks /tmp
         chmod 755 /tmp/cacerts.jks
         EOH
-  end
+    end
 
-  #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
-  hops_hdfs_directory "/tmp/cacerts.jks" do
-    action :put_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "0444"
-    dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
-  end
+    #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
+    hops_hdfs_directory "/tmp/cacerts.jks" do
+      action :put_as_superuser
+      owner node['hadoop_spark']['user']
+      group node['hops']['group']
+      mode "0444"
+      dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
+    end
 
-  bash 'cleanup_truststore' do
-    user "root"
-    code <<-EOH
+    bash 'cleanup_truststore' do
+      user "root"
+      code <<-EOH
         rm -f /tmp/cacerts.jks
 	rm -f #{node['kagent']['certs_dir']}/cacerts.jks
       EOH
+    end
+
   end
 
 end
-
 #
 # Support Intel MKL library for matrix computations
 # https://blog.cloudera.com/blog/2017/02/accelerating-apache-spark-mllib-with-intel-math-kernel-library-intel-mkl/
