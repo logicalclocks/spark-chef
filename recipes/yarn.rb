@@ -81,7 +81,9 @@ template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
 end
 
 # Only the first of the spark::yarn hosts needs to run this code (not all of them)
-if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
+#see HOPSWORKS-572 why the following if clause changed
+#if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
+if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
 
   hops_hdfs_directory "#{home}" do
     action :create_as_superuser
@@ -212,13 +214,9 @@ if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
-    dest "/user/#{node['hops']['hdfs']['user']}/log4j.properties"
+    dest "/user/#{node['hadoop_spark']['user']}/log4j.properties"
   end
   
-end
-
-if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
-
   bash 'materialize_truststore' do
     user "root"
     code <<-EOH
