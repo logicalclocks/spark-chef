@@ -154,10 +154,10 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     end
   end
 
-  hopsUtilJar=File.basename(node['hops']['hopsutil']['url'])
-  hopsUtilJar=File.basename(hopsUtilJar, ".jar")
-
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}.jar" do
+  hopsUtil=File.basename(node['hops']['hopsutil']['url'])
+  hopsUtil=File.basename(hopsUtil, ".jar")
+  hopsUtil="#{hopsUtil}-#{node['hops']['hopsutil_version']}.jar"
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
     source node['hops']['hopsutil']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -165,19 +165,19 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}.jar" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtilJar}-#{node['hops']['hopsutil_version']}.jar"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtil}"
   end
 
 
-  hopsExamplesSparkJar=File.basename(node['hops']['hopsexamples_spark']['url'])
-  hopsExamplesSparkJar=File.basename(hopsUtilJar, ".jar")
-  hopsExamplesSparkJar="#{hopsExamplesSparkJar}-#{node['hops']['hopsexamples_version']}.jar"
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
+  hopsExamplesSpark=File.basename(node['hops']['hops_examples_spark']['url'])
+  hopsExamplesSpark=File.basename(hopsExamplesSpark, ".jar")
+  hopsExamplesSpark="#{hopsExamplesSpark}-#{node['hops']['hops_examples_version']}.jar"
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     source node['hops']['hops_examples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -185,12 +185,12 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSparkJar}"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}"
   end
 
   
