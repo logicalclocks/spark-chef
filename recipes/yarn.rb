@@ -154,9 +154,10 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     end
   end
 
-  hopsUtilJar=File.basename(node['hops']['hopsutil']['url'])
-
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
+  hopsUtil=File.basename(node['hops']['hopsutil']['url'])
+  hopsUtil=File.basename(hopsUtil, ".jar")
+  hopsUtil="#{hopsUtil}-#{node['hops']['hopsutil_version']}.jar"
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
     source node['hops']['hopsutil']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -164,18 +165,19 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtilJar}" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtilJar}"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtil}"
   end
 
 
-  hopsExamplesSparkJar=File.basename(node['hops']['hops_examples_spark']['url'])
-
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
+  hopsExamplesSpark=File.basename(node['hops']['hops_examples_spark']['url'])
+  hopsExamplesSpark=File.basename(hopsExamplesSpark, ".jar")
+  hopsExamplesSpark="#{hopsExamplesSpark}-#{node['hops']['hops_examples_version']}.jar"
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     source node['hops']['hops_examples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -183,12 +185,12 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :create
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSparkJar}"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}"
   end
 
   
@@ -268,17 +270,6 @@ link "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{jarFile}" do
   owner node['hops']['yarn']['user']
   group node['hops']['group']
   to "#{node['hadoop_spark']['base_dir']}/yarn/#{jarFile}"
-end
-
-
-bash 'install_pydoop' do
-        user "root"
-        code <<-EOH
-           set -e
-           export HADOOP_HOME=#{node['hops']['base_dir']}
-           export HADOOP_CONF_DIR=#{node['hops']['home']}/etc/hadoop
-           pip install --upgrade pydoop
-        EOH
 end
 
 
