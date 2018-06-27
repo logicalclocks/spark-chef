@@ -174,11 +174,11 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
   end
 
 
-  hopsExamplesSpark=File.basename(node['hops']['hops_examples_spark']['url'])
+  hopsExamplesSpark=File.basename(node['hops']['hopsexamples_spark']['url'])
   hopsExamplesSpark=File.basename(hopsExamplesSpark, ".jar")
-  hopsExamplesSpark="#{hopsExamplesSpark}-#{node['hops']['hops_examples_version']}.jar"
+  hopsExamplesSpark="#{hopsExamplesSpark}-#{node['hops']['hopsexamples_version']}.jar"
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
-    source node['hops']['hops_examples_spark']['url']
+    source node['hops']['hopsexamples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
@@ -193,7 +193,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}"
   end
 
-  
+
   hops_hdfs_directory "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties"  do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
@@ -218,7 +218,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     mode "1775"
     dest "/user/#{node['hadoop_spark']['user']}/log4j.properties"
   end
-  
+
   bash 'materialize_truststore' do
     user "root"
     code <<-EOH
