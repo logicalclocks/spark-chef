@@ -155,8 +155,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
   end
 
   hopsUtil=File.basename(node['hops']['hopsutil']['url'])
-  hopsUtil=File.basename(hopsUtil, ".jar")
-  hopsUtil="#{hopsUtil}-#{node['hops']['hopsutil_version']}.jar"
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
     source node['hops']['hopsutil']['url']
     owner node['hadoop_spark']['user']
@@ -175,8 +173,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
 
 
   hopsExamplesSpark=File.basename(node['hops']['hopsexamples_spark']['url'])
-  hopsExamplesSpark=File.basename(hopsExamplesSpark, ".jar")
-  hopsExamplesSpark="#{hopsExamplesSpark}-#{node['hops']['hopsexamples_version']}.jar"
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     source node['hops']['hopsexamples_spark']['url']
     owner node['hadoop_spark']['user']
