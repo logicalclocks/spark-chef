@@ -173,10 +173,10 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
   end
 
 
-  hopsExamplesSparkJar=File.basename(node['hops']['hops_examples_spark']['url'])
+  hopsExamplesSparkJar=File.basename(node['hops']['hopsexamples_spark']['url'])
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSparkJar}" do
-    source node['hops']['hops_examples_spark']['url']
+    source node['hops']['hopsexamples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
