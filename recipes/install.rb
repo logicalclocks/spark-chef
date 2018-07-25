@@ -49,13 +49,9 @@ remote_file cached_package_filename do
   action :create_if_missing
 end
 
-
 package "zip" do
   action :install
 end
-
-
-
 
 spark_down = "#{node['hadoop_spark']['home']}/.hadoop_spark.extracted_#{node['hadoop_spark']['version']}"
 
@@ -66,6 +62,7 @@ bash 'extract_hadoop_spark' do
                 set -e
                 rm -rf #{node['hadoop_spark']['base_dir']}
                 tar -xf #{cached_package_filename} -C #{node['hadoop_spark']['dir']}
+                chown -R #{node['hadoop_spark']['user']}:#{node['hadoop_spark']['group']} #{node['hadoop_spark']['dir']}/spark*
                 touch #{spark_down}
         EOH
      not_if { ::File.exists?( spark_down ) }
