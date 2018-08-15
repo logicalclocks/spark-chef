@@ -57,6 +57,8 @@ rescue
   Chef::Log.warn "could not find the Logstash ip!"
 end
 
+logstash_port = "9600"
+
 
 template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   source "metrics.properties.erb"
@@ -75,7 +77,8 @@ template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
   group node['hadoop_spark']['group']
   mode 0650
   variables({
-              :logstash_ip => logstash_ip
+              :logstash_ip => logstash_ip,
+              :logstash_port => logstash_port
             })
 
 end
