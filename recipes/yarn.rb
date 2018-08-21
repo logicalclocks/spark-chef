@@ -50,13 +50,6 @@ begin
 rescue
   Chef::Log.error "could not find the influxdb ip!"
 end
-begin
-  logstash_ip = private_recipe_ip("hopslog","default")
-rescue
-  logstash_ip = node['hostname']
-  Chef::Log.warn "could not find the Logstash ip!"
-end
-
 
 template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   source "metrics.properties.erb"
@@ -74,10 +67,6 @@ template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
   mode 0650
-  variables({
-              :logstash_ip => logstash_ip
-            })
-
 end
 
 # Only the first of the spark::yarn hosts needs to run this code (not all of them)
