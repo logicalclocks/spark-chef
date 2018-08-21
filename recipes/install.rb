@@ -15,12 +15,10 @@ group node['hadoop_spark']['group'] do
 end
 
 user node['hadoop_spark']['user'] do
-  #home "/home/#{node['hadoop_spark']['user']}"
   gid node['hadoop_spark']['group']
   action :create
   system true
   shell "/bin/false"
-  #manage_home true
   not_if "getent passwd #{node['hadoop_spark']['user']}"
 end
 
