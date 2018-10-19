@@ -43,7 +43,7 @@ default['hadoop_spark']['yarn']['queue']                           = "default"
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
 default['hadoop_spark']['yarn']['archive']                         =  "spark-jars.zip"
 default['hadoop_spark']['yarn']['pyspark_archive']                 =  "pyspark.zip"
-default['hadoop_spark']['yarn']['py4j_archive']                    =  "py4j-0.10.6-src.zip"
+default['hadoop_spark']['yarn']['py4j_archive']                    =  "py4j-0.10.7-src.zip"
 default['hadoop_spark']['yarn']['archive_hdfs']                    =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['archive']}"
 default['hadoop_spark']['yarn']['warehouse_hdfs']                  =  "/user/#{node['hadoop_spark']['user']}/spark-warehouse"
 default['hadoop_spark']['yarn']['pyspark_archive_hdfs']            =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['pyspark_archive']}"
