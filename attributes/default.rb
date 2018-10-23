@@ -5,7 +5,7 @@ include_attribute "hopsmonitor"
 default['hadoop_spark']['user']                                 = node['install']['user'].empty? ? "spark" : node['install']['user']
 default['hadoop_spark']['group']                                = node['install']['user'].empty? ? node['hops']['group'] : node['install']['user']
 
-default['hadoop_spark']['version']                              = "2.3.0"
+default['hadoop_spark']['version']                              = "2.3.2"
 default['scala']['version'] 	                                = "2.11"
 default['hadoop_spark']['dir']                                  = node['install']['dir'].empty? ? "/srv/hops" : node['install']['dir']
 default['hadoop_spark']['base_dir']                             = "#{node['hadoop_spark']['dir']}/spark"
@@ -43,7 +43,7 @@ default['hadoop_spark']['yarn']['queue']                           = "default"
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
 default['hadoop_spark']['yarn']['archive']                         =  "spark-jars.zip"
 default['hadoop_spark']['yarn']['pyspark_archive']                 =  "pyspark.zip"
-default['hadoop_spark']['yarn']['py4j_archive']                    =  "py4j-0.10.6-src.zip"
+default['hadoop_spark']['yarn']['py4j_archive']                    =  "py4j-0.10.7-src.zip"
 default['hadoop_spark']['yarn']['archive_hdfs']                    =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['archive']}"
 default['hadoop_spark']['yarn']['warehouse_hdfs']                  =  "/user/#{node['hadoop_spark']['user']}/spark-warehouse"
 default['hadoop_spark']['yarn']['pyspark_archive_hdfs']            =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['pyspark_archive']}"
