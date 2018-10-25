@@ -91,3 +91,8 @@ default['hopsmonitor']['default']['private_ips']                  = ['10.0.2.15'
 default['hopslog']['default']['private_ips']                      = ['10.0.2.15']
 default['hopsworks']['domain_truststore_path']                    = "#{node['hopsworks']['domain_truststore_path']}"
 default['hopsworks']['domain_truststore']                         = "#{node['hopsworks']['domain_truststore']}"
+
+# Hive config
+default['hive2']['metastore']['port']                             = "9083"
+default['hive2']['hopsfs_dir']                                    = "/apps/hive"
+default['hive2']['scratch_dir']                                   = "/tmp/hive"

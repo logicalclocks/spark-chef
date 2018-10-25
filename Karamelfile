@@ -9,6 +9,7 @@ dependencies:
       - hops::dn
   - recipe: hadoop_spark::yarn
     global:
+      - hadoop_spark::install
       - hops::dn
   - recipe: hadoop_spark::worker
     global:

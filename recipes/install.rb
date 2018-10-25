@@ -171,3 +171,22 @@ end
 magic_shell_environment 'SPARK_HOME' do
   value node['hadoop_spark']['base_dir']
 end
+
+nn_endpoint = private_recipe_ip("hops", "nn") + ":#{node['hops']['nn']['port']}"
+begin
+  metastore_ip = private_recipe_ip("hive2", "metastore")
+rescue
+  metastore_ip = private_recipe_ip("hive2", "default")
+  Chef::Log.warn "Using default ip for metastore (metastore service not defined in cluster definition (yml) file."
+end
+
+template "#{node['hadoop_spark']['home']}/conf/hive-site.xml" do
+  source "hive-site.xml.erb"
+  owner node['hadoop_spark']['user']
+  group node['hadoop_spark']['group']
+  mode 0655
+  variables({
+                :nn_endpoint => nn_endpoint,
+                :metastore_ip => metastore_ip
+            })
+end
