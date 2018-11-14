@@ -221,6 +221,15 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
   end
 
+  #copy hive-site.xml to hdfs so that node-managers can download it to containers for running hive-jobs/notebooks
+  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/hive-site.xml" do
+    action :replace_as_superuser
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1775"
+    dest "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
+  end
+
   bash 'cleanup_truststore' do
     user "root"
     code <<-EOH

@@ -12,6 +12,7 @@ depends          "java"
 depends          "hops"
 depends          "magic_shell"
 depends          "hopsmonitor"
+depends          'hive2'
 
 recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
