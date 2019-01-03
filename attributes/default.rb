@@ -68,7 +68,7 @@ default['hadoop_spark']['yarn']['appMasterEnv']                    = {}
 default['hadoop_spark']['systemd']                                 = "true"
 
 
-default['hadoop_spark']['history']['fs']['cleaner']['enabled']     =  "true"
+default['hadoop_spark']['history']['fs']['cleaner']['enabled']     = "true"
 default['hadoop_spark']['history']['fs']['cleaner']['interval']    = "1d"
 default['hadoop_spark']['history']['fs']['cleaner']['maxAge']      = "7d"
 
