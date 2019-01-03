@@ -68,7 +68,7 @@ default['hadoop_spark']['yarn']['appMasterEnv']                    = {}
 default['hadoop_spark']['systemd']                                 = "true"
 
 
-default['hadoop_spark']['history']['fs']['cleaner']['enabled']     = "true"
+default['hadoop_spark']['history']['fs']['cleaner']['enabled']     =  "true"
 default['hadoop_spark']['history']['fs']['cleaner']['interval']    = "1d"
 default['hadoop_spark']['history']['fs']['cleaner']['maxAge']      = "7d"
 
@@ -92,3 +92,9 @@ default['hopsmonitor']['default']['private_ips']                  = ['10.0.2.15'
 default['hopslog']['default']['private_ips']                      = ['10.0.2.15']
 default['hopsworks']['domain_truststore_path']                    = "#{node['hopsworks']['domain_truststore_path']}"
 default['hopsworks']['domain_truststore']                         = "#{node['hopsworks']['domain_truststore']}"
+
+#
+# Tensorflow-Spark Connector (Featurestore dependency)
+#
+default['hadoop_spark']['tf_spark_connector_version']                            = "2.11-1.12.0"
+default['hadoop_spark']['tf_spark_connector']['url']                     = "#{node['download_url']}/spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar"

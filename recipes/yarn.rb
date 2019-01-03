@@ -160,7 +160,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtil}"
   end
   
-  spark_tf_connector=File.basename(node['hops']['tf_spark_connector']['url'])
+  spark_tf_connector=File.basename(node['hadoop_spark']['tf_spark_connector']['url'])
   remote_file "#{Chef::Config['file_cache_path']}/#{spark_tf_connector}" do
     source node['hops']['tf_spark_connector']['url']
     owner node['hadoop_spark']['user']
