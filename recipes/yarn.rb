@@ -143,9 +143,9 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     end
   end
 
-  hopsUtil=File.basename(node['hops']['hopsutil']['url'])
+  hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
-    source node['hops']['hopsutil']['url']
+    source node['hadoop_spark']['hopsutil']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
@@ -177,9 +177,9 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "/user/#{node['hadoop_spark']['user']}/#{spark_tf_connector}"
   end
 
-  hopsExamplesSpark=File.basename(node['hops']['hopsexamples_spark']['url'])
+  hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
-    source node['hops']['hopsexamples_spark']['url']
+    source node['hadoop_spark']['hopsexamples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
@@ -194,6 +194,22 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}"
   end
 
+  hopsExamplesFeaturestore=File.basename(node['hadoop_spark']['hopsexamples_featurestore']['url'])
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestore}" do
+    source node['hadoop_spark']['hopsexamples_featurestore']['url']
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1775"
+    action :create
+  end
+
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestore}" do
+    action :replace_as_superuser
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1755"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestore}"
+  end
 
   hops_hdfs_directory "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties"  do
     action :replace_as_superuser

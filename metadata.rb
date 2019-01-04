@@ -103,3 +103,39 @@ attribute "hopsmonitor/default/private_ips",
 attribute "hopslog/default/private_ips",
           :description => "elk services ip",
           :type => "string"
+
+attribute "hadoop_spark/tf_spark_connector_version",
+          :description => "the version of the tf-spark-connector .jar",
+          :type => "string"
+
+attribute "hadoop_spark/tf_spark_connector/url",
+          :description => "the url for downloading the tf-spark-connector .jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsutil_version",
+          :description => "the version of the hops-library .jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsutil/url",
+          :description => "the url for dowloading the hopsutil .jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsexamples_version",
+          :description => "the version of the hops-examples artifacts",
+          :type => "string"
+
+attribute "hadoop_spark/hopsexamples_spark/url",
+          :description => "the url for dowloading the hopsexamples_spark jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsexamples_hive/url",
+          :description => "the url for dowloading the hopsexamples_hive jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsexamples_flink/url",
+          :description => "the url for dowloading the hopsexamples_flink jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsexamples_featurestore/url",
+          :description => "the url for dowloading the hopsexamples_featurestore jar",
+          :type => "string"
