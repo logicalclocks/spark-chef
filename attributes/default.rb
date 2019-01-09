@@ -103,7 +103,7 @@ default['hadoop_spark']['tf_spark_connector']['url']                     = "#{no
 # Hops API jar
 #
 default['hadoop_spark']['hopsutil_version']                    = node['install']['version']
-default['hadoop_spark']['hopsutil']['url']                     = "#{node['download_url']}/hopsutil/#{node['hops']['hopsutil_version']}/hops-util-#{node['hops']['hopsutil_version']}.jar"
+default['hadoop_spark']['hopsutil']['url']                     = "#{node['download_url']}/hopsutil/#{node['hadoop_spark']['hopsutil_version']}/hops-util-#{node['hadoop_spark']['hopsutil_version']}.jar"
 
 #
 # Hops Examples Spark Job/Notebook Dependency Jars
