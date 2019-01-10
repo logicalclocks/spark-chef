@@ -24,14 +24,6 @@ recipe           "default", "Install spark binaries only."
 recipe           "libs", "Install spark jars to nodemanager hosts"
 recipe           "historyserver", "Installs/starts the Spark historyserver"
 
-attribute "java/jdk_version",
-          :description =>  "Jdk version",
-          :type => 'string'
-
-attribute "java/install_flavor",
-          :description =>  "Oracle (default) or openjdk",
-          :type => 'string'
-
 attribute "hadoop_spark/user",
           :description => "Username to run spark master/worker as",
           :type => 'string'
