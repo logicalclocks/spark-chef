@@ -6,7 +6,7 @@ include_attribute "hive2"
 default['hadoop_spark']['user']                                 = node['install']['user'].empty? ? "spark" : node['install']['user']
 default['hadoop_spark']['group']                                = node['install']['user'].empty? ? node['hops']['group'] : node['install']['user']
 
-default['hadoop_spark']['version']                              = "2.3.2"
+default['hadoop_spark']['version']                              = "2.4.0"
 default['scala']['version'] 	                                = "2.11"
 default['hadoop_spark']['dir']                                  = node['install']['dir'].empty? ? "/srv/hops" : node['install']['dir']
 default['hadoop_spark']['base_dir']                             = "#{node['hadoop_spark']['dir']}/spark"
@@ -15,8 +15,8 @@ default['hadoop_spark']['conf_dir']                             = "#{node['hadoo
 default['hadoop_spark']['url']                                  = "#{node['download_url']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop-with-hive-with-r.tgz"
 
 default['hadoop_spark']['spark_sql_dependencies_url']           = "#{node['download_url']}/spark-sql-dependencies"
-default['hadoop_spark']['parquet_version']                      = "1.9.0"
-
+default['hadoop_spark']['parquet_version']                      = "1.10.0"
+default['hadoop_spark']['parquet_format_version']               = "2.6.0"
 default['hadoop_spark']['executor_memory']                      = "512m"
 default['hadoop_spark']['driver_memory']                        = "1g"
 default['hadoop_spark']['eventlog_enabled']                     = "true"
@@ -98,6 +98,7 @@ default['hopsworks']['domain_truststore']                         = "#{node['hop
 #
 default['hadoop_spark']['tf_spark_connector_version']                            = "2.11-1.12.0"
 default['hadoop_spark']['tf_spark_connector']['url']                     = "#{node['download_url']}/spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar"
+<<<<<<< HEAD
 
 #
 # Hops API jar

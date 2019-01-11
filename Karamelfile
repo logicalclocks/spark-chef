@@ -4,12 +4,12 @@ dependencies:
       - kagent::install
       - hops::install
   - recipe: hadoop_spark::master
-  - recipe: hadoop_spark::historyserver
-    global:
-      - hops::dn
   - recipe: hadoop_spark::yarn
     global:
       - hops::dn
+  - recipe: hadoop_spark::historyserver
+    global:
+      - hadoop_spark::yarn
   - recipe: hadoop_spark::worker
     global:
       - hadoop_spark::master
