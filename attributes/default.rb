@@ -82,11 +82,11 @@ default['hadoop_spark']['daemon']['memory']                       = "4g"
 default['hadoop_spark']['sql']['broadcastTimeout']                = "1200"
 default['hadoop_spark']['sql']['networkTimeout']                  = "700"
 
-default['hadoop_spark']['ciphers'] 		      		                  = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA"
-default['hadoop_spark']['ssl_enabled']          		              = "true"
-default['hadoop_spark']['ssl']['protocol'] 			                  = "TLSv1,TLSv1.1,TLSv1.2"
-default['hadoop_spark']['ssl']['keystorepassword']		            = "#{node['hopsworks']['master']['password']}"
-default['hadoop_spark']['ssl']['truststorepassword']		          = "#{node['hopsworks']['master']['password']}"
+default['hadoop_spark']['ciphers'] 		      		  = "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA,TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA"
+default['hadoop_spark']['ssl_enabled']          		  = "true"
+default['hadoop_spark']['ssl']['protocol'] 			  = "TLSv1,TLSv1.1,TLSv1.2"
+default['hadoop_spark']['ssl']['keystorepassword']		  = "#{node['hopsworks']['master']['password']}"
+default['hadoop_spark']['ssl']['truststorepassword']		  = "#{node['hopsworks']['master']['password']}"
 
 default['hopsmonitor']['default']['private_ips']                  = ['10.0.2.15']
 default['hopslog']['default']['private_ips']                      = ['10.0.2.15']
@@ -98,7 +98,6 @@ default['hopsworks']['domain_truststore']                         = "#{node['hop
 #
 default['hadoop_spark']['tf_spark_connector_version']                            = "2.11-1.12.0"
 default['hadoop_spark']['tf_spark_connector']['url']                     = "#{node['download_url']}/spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar"
-<<<<<<< HEAD
 
 #
 # Hops API jar
