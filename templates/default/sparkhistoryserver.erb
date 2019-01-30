@@ -15,8 +15,8 @@
 
 # Variables
 
-START_PROG="<%= node['hadoop_spark']['home'] %>/sbin/start-history-server.sh"  
-STOP_PROG="<%= node['hadoop_spark']['home'] %>/sbin/stop-history-server.sh"  
+START_PROG="<%= node['hadoop_spark']['base_dir'] %>/sbin/start-history-server.sh"  
+STOP_PROG="<%= node['hadoop_spark']['base_dir'] %>/sbin/stop-history-server.sh"  
 PID_FILE=/tmp/spark-<%= node['hops']['hdfs']['user'] %>-org.apache.spark.deploy.history.HistoryServer-1.pid
 
 
