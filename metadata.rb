@@ -139,3 +139,7 @@ attribute "hadoop_spark/hopsexamples_flink/url",
 attribute "hadoop_spark/hopsexamples_featurestore/url",
           :description => "the url for dowloading the hopsexamples_featurestore jar",
           :type => "string"
+
+attribute "hadoop_spark/spark_avro_package_version",
+          :description => "the version of the spark-avro package",
+          :type => "string"

@@ -113,3 +113,8 @@ default['hadoop_spark']['hopsexamples_spark']['url']          = "#{node['downloa
 default['hadoop_spark']['hopsexamples_hive']['url']           = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-hive-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 default['hadoop_spark']['hopsexamples_flink']['url']          = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-flink-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 default['hadoop_spark']['hopsexamples_featurestore']['url']   = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-featurestore-#{node['hadoop_spark']['hopsexamples_version']}.jar"
+
+#
+# Spark-avro data source package (Featurestore dependency)
+#
+default['hadoop_spark']['spark_avro_package_version']                            = "2.11:2.4.0"
