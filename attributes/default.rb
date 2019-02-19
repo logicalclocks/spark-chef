@@ -111,5 +111,5 @@ default['hadoop_spark']['hopsexamples_featurestore']['url']   = "#{node['downloa
 #
 # Featurestore dependencies
 #
-default['hadoop_spark']['spark_avro_version']                            = "2.11:2.4.0"
+default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.0"
 default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"
