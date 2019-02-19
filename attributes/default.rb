@@ -94,12 +94,6 @@ default['hopsworks']['domain_truststore_path']                    = "#{node['hop
 default['hopsworks']['domain_truststore']                         = "#{node['hopsworks']['domain_truststore']}"
 
 #
-# Tensorflow-Spark Connector (Featurestore dependency)
-#
-default['hadoop_spark']['tf_spark_connector_version']                            = "2.11-1.12.0"
-default['hadoop_spark']['tf_spark_connector']['url']                     = "#{node['download_url']}/spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar"
-
-#
 # Hops API jar
 #
 default['hadoop_spark']['hopsutil_version']                    = node['install']['version']
@@ -115,7 +109,7 @@ default['hadoop_spark']['hopsexamples_flink']['url']          = "#{node['downloa
 default['hadoop_spark']['hopsexamples_featurestore']['url']   = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-featurestore-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 
 #
-# Spark-avro data source package (Featurestore dependency)
+# Featurestore dependencies
 #
 default['hadoop_spark']['spark_avro_version']                            = "2.11:2.4.0"
-default['hadoop_spark']['spark_avro']['url']                     = "#{node['download_url']}/spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar"
+default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"

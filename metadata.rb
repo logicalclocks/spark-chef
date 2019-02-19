@@ -108,10 +108,6 @@ attribute "hadoop_spark/tf_spark_connector_version",
           :description => "the version of the tf-spark-connector .jar",
           :type => "string"
 
-attribute "hadoop_spark/tf_spark_connector/url",
-          :description => "the url for downloading the tf-spark-connector .jar",
-          :type => "string"
-
 attribute "hadoop_spark/hopsutil_version",
           :description => "the version of the hops-library .jar",
           :type => "string"
@@ -142,8 +138,4 @@ attribute "hadoop_spark/hopsexamples_featurestore/url",
 
 attribute "hadoop_spark/spark_avro_version",
           :description => "the version of the spark-avro jar",
-          :type => "string"
-
-attribute "hadoop_spark/spark_avro/url",
-          :description => "the url for downloading the spark-avro.jar",
           :type => "string"
