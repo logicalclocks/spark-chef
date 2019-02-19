@@ -140,6 +140,10 @@ attribute "hadoop_spark/hopsexamples_featurestore/url",
           :description => "the url for dowloading the hopsexamples_featurestore jar",
           :type => "string"
 
-attribute "hadoop_spark/spark_avro_package_version",
-          :description => "the version of the spark-avro package",
+attribute "hadoop_spark/spark_avro_version",
+          :description => "the version of the spark-avro jar",
+          :type => "string"
+
+attribute "hadoop_spark/spark_avro/url",
+          :description => "the url for downloading the spark-avro.jar",
           :type => "string"

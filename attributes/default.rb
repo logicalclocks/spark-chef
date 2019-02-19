@@ -117,4 +117,5 @@ default['hadoop_spark']['hopsexamples_featurestore']['url']   = "#{node['downloa
 #
 # Spark-avro data source package (Featurestore dependency)
 #
-default['hadoop_spark']['spark_avro_package_version']                            = "2.11:2.4.0"
+default['hadoop_spark']['spark_avro_version']                            = "2.11:2.4.0"
+default['hadoop_spark']['spark_avro']['url']                     = "#{node['download_url']}/spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar"
