@@ -50,7 +50,7 @@ spark.yarn.containerLauncherMaxThreads     <%= node['hadoop_spark']['yarn']['con
 #spark.submit.pyFiles                       <%= node['hadoop_spark']['pyFiles'] %>
 spark.sql.warehouse.dir                    hdfs://<%= @namenode_ip %>:<%= node['hops']['nn']['port'] %><%= node['hadoop_spark']['yarn']['warehouse_hdfs'] %>
 # <%= node['hadoop_spark']['yarn']['dist']['archives'] %>
-#spark.yarn.jars                            <%= node['hadoop_spark']['yarn']['jars'] %>
+spark.yarn.jars                            <%= node['hadoop_spark']['yarn']['jars'] %>
 #spark.yarn.dist.files                      <%= node['hadoop_spark']['yarn']['dist']['files'] %>
 # am.memory doesn't apply in cluster mode
 #spark.yarn.am.memory                       <%= node['hadoop_spark']['yarn']['am']['memory'] %>
