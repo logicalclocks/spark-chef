@@ -21,6 +21,10 @@ when "ubuntu"
  end
 end
 
+deps = ""
+if exists_local("hops", "namenode") 
+  deps = "namenode.service"
+end  
 service_name="sparkhistoryserver"
 
 if node['hadoop_spark']['systemd'] == "true"
@@ -43,6 +47,9 @@ if node['hadoop_spark']['systemd'] == "true"
     owner "root"
     group "root"
     mode 0754
+    variables({
+                :deps => deps
+    })
     notifies :enable, resources(:service => service_name)
     notifies :start, resources(:service => service_name), :immediately
   end
