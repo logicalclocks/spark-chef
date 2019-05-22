@@ -22,7 +22,7 @@ when "ubuntu"
 end
 
 deps = ""
-if exists_local("hops", "namenode") 
+if exists_local("hops", "nn") 
   deps = "namenode.service"
 end  
 service_name="sparkhistoryserver"
