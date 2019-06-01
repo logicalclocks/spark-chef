@@ -90,8 +90,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
   end
 
   bash "set_userspark_storage_type" do
-    user node['hadoop_spark']['user']
-    group node['hops']['group']
+    user node['hops']['hdfs']['user']  
     code <<-EOH
       #{node['hops']['bin_dir']}/hdfs storagepolicies -setStoragePolicy -path #{home}/#{node['hadoop_spark']['user']} -policy DB
     EOH
