@@ -89,6 +89,15 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     mode "1777"
   end
 
+  bash "set_userspark_storage_type" do
+    user node['hops']['hdfs']['user']  
+    group node['hops']['group'] 
+    code <<-EOH
+      #{node['hops']['bin_dir']}/hdfs storagepolicies -setStoragePolicy -path #{home}/#{node['hadoop_spark']['user']} -policy DB
+    EOH
+    action :run
+  end
+
   hops_hdfs_directory "#{home}/#{node['hadoop_spark']['user']}/eventlog" do
     action :create_as_superuser
     owner node['hadoop_spark']['user']
