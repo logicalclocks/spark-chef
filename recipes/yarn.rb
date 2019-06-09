@@ -9,7 +9,7 @@ home = node['hops']['hdfs']['user_home']
 private_ip=my_private_ip()
 
 if node['install']['localhost'].casecmp?("true")
-   node.override['hadoop_spark']['hopsutil']['url'] = "http://snurran.sics.se/hops/hopsutil/#{node['install']['version']}-insecure/hops-util-#{node['install']['version']}.jar"
+   node.override['hadoop_spark']['hopsutil']['url'] = "#{node['download_url']}/hopsutil/#{node['install']['version']}-insecure/hops-util-#{node['install']['version']}.jar"
 end  
 
 
