@@ -8,6 +8,11 @@
 home = node['hops']['hdfs']['user_home']
 private_ip=my_private_ip()
 
+if node['install']['localhost'].casecmp?("true")
+   node.override['hadoop_spark']['hopsutil']['url'] = "http://snurran.sics.se/hops/hopsutil/#{node['install']['version']}-insecure/hops-util-#{node['install']['version']}.jar"
+end  
+
+
 
 #
 # local directory logs
@@ -151,6 +156,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
       hopsworks_user = node['hopsworks']['user']
     end
   end
+
 
   hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
