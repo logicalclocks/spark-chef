@@ -128,10 +128,14 @@ attribute "hadoop_spark/hopsexamples_hive/url",
           :description => "the url for dowloading the hopsexamples_hive jar",
           :type => "string"
 
-attribute "hadoop_spark/hopsexamples_featurestore/url",
-          :description => "the url for dowloading the hopsexamples_featurestore jar",
+attribute "hadoop_spark/hopsexamples_featurestore_tour/url",
+          :description => "the url for dowloading the hopsexamples_featurestore_tour jar",
           :type => "string"
 
 attribute "hadoop_spark/spark_avro_version",
           :description => "the version of the spark-avro jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsexamples_featurestore_util/url",
+          :description => "the url for dowloading the hopsexamples_featurestore_util jar",
           :type => "string"
