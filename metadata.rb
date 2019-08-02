@@ -136,6 +136,7 @@ attribute "hadoop_spark/spark_avro_version",
           :description => "the version of the spark-avro jar",
           :type => "string"
 
+
 attribute "hadoop_spark/hopsexamples_featurestore_util/url",
           :description => "the url for dowloading the hopsexamples_featurestore_util jar",
           :type => "string"
@@ -148,3 +149,6 @@ attribute "hadoop_spark/databricks_delta_version",
           :description => "the version of the databricks delta jar",
           :type => "string"
 
+attribute "hadoop_spark/url",
+          :description => "the url for downloading the spark tgz",
+          :type => "string"
