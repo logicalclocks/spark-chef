@@ -66,6 +66,21 @@ bash 'extract_hadoop_spark' do
      not_if { ::File.exists?( spark_down ) }
 end
 
+bash 'link_jars' do
+        user "root"
+        code <<-EOH
+                set -e
+                rm -f #{node['hadoop_spark']['home']}/python/lib/py4j-src.zip
+                ln -s #{node['hadoop_spark']['home']}/python/lib/py4j-*-src.zip #{node['hadoop_spark']['home']}/python/lib/py4j-src.zip
+                rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo.jar
+                ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo.jar
+                rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-core.jar
+                ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-core-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-core.jar
+                rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms.jar
+                ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms.jar
+        EOH
+end
+
 #Copy SQL dependencies to SPARK_HOME/jars
 purl=node['hadoop_spark']['spark_sql_dependencies_url']
 # The following dependencies are required to run spark-sql with parquet and orc. We install them here so that users don't have to do it from their notebooks/jobs
