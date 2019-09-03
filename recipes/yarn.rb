@@ -69,6 +69,15 @@ template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
   mode 0650
 end
 
+hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
+remote_file "#{node['hadoop_spark']['home']}/jars/#{hopsUtil}" do
+  source node['hadoop_spark']['hopsutil']['url']
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "1775"
+  action :create
+end
+
 # Only the first of the spark::yarn hosts needs to run this code (not all of them)
 #see HOPSWORKS-572 why the following if clause changed
 #if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
@@ -127,22 +136,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "#{node['hadoop_spark']['yarn']['archive_hdfs']}"
   end
 
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/python/lib/#{node['hadoop_spark']['yarn']['pyspark_archive']}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "#{node['hadoop_spark']['yarn']['pyspark_archive_hdfs']}"
-  end
-
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/python/lib/#{node['hadoop_spark']['yarn']['py4j_archive']}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "#{node['hadoop_spark']['yarn']['py4j_archive_hdfs']}"
-  end
-
   hopsworks_user=node['hops']['hdfs']['user']
   hopsworks_group=node['hops']['group']
 
@@ -150,23 +143,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     if node['hopsworks'].attribute?('user') == true
       hopsworks_user = node['hopsworks']['user']
     end
-  end
-
-  hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
-    source node['hadoop_spark']['hopsutil']['url']
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    action :create
-  end
-
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsUtil}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsUtil}"
   end
 
   hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
