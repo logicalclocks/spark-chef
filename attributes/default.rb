@@ -114,3 +114,13 @@ default['hadoop_spark']['hopsexamples_featurestore_util_py']['url']   = "#{node[
 #
 default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.0"
 default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"
+
+#
+# Hudi Dependencies
+#
+default['hadoop_spark']['databricks_spark_avro_version']                          = "2.11-4.0.0"
+
+#
+# Delta
+#
+default['hadoop_spark']['databricks_delta_version']                          = "2.11-0.3.0"
