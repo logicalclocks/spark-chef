@@ -100,6 +100,12 @@ default['hadoop_spark']['hopsutil_version']                    = node['install']
 default['hadoop_spark']['hopsutil']['url']                     = "#{node['download_url']}/hopsutil/#{node['hadoop_spark']['hopsutil_version']}/hops-util-#{node['hadoop_spark']['hopsutil_version']}.jar"
 
 #
+# Hops Deequ wrapper
+#
+default['hadoop_spark']['hops_verification']['version']        = node['install']['version']
+default['hadoop_spark']['hops_verification']['url']            = "#{node['download_url']}/hops-verification/hops-verification-assembly-#{node['hadoop_spark']['hops_verification']['version']}.jar"
+
+#
 # Hops Examples Spark Job/Notebook Dependency Jars
 #
 default['hadoop_spark']['hopsexamples_version']                = node['install']['version']
