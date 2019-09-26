@@ -12,6 +12,7 @@ include_recipe "java"
 group node['hadoop_spark']['group'] do
   action :create
   not_if "getent group #{node['hadoop_spark']['group']}"
+  not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
 
 user node['hadoop_spark']['user'] do
@@ -20,12 +21,14 @@ user node['hadoop_spark']['user'] do
   system true
   shell "/bin/false"
   not_if "getent passwd #{node['hadoop_spark']['user']}"
+  not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
 
 group node['hadoop_spark']['group'] do
   action :modify
-   members ["#{node['hadoop_spark']['user']}"]
+  members ["#{node['hadoop_spark']['user']}"]
   append true
+  not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
 
 directory node['hadoop_spark']['dir']  do
