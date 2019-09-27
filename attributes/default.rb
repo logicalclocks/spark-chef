@@ -17,6 +17,7 @@ default['hadoop_spark']['url']                                  = "#{node['downl
 default['hadoop_spark']['spark_sql_dependencies_url']           = "#{node['download_url']}/spark-sql-dependencies"
 default['hadoop_spark']['parquet_version']                      = "1.10.0"
 default['hadoop_spark']['parquet_format_version']               = "2.6.0"
+default['hadoop_spark']['redshift_jdbc_version']                = "1.2.34.1058"
 default['hadoop_spark']['executor_memory']                      = "512m"
 default['hadoop_spark']['driver_memory']                        = "1g"
 default['hadoop_spark']['eventlog_enabled']                     = "true"
