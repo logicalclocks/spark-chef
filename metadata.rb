@@ -137,8 +137,12 @@ attribute "hadoop_spark/spark_avro_version",
           :type => "string"
 
 
-attribute "hadoop_spark/hopsexamples_featurestore_util/url",
-          :description => "the url for dowloading the hopsexamples_featurestore_util jar",
+attribute "hadoop_spark/hopsexamples_featurestore_util4j/url",
+          :description => "the url for dowloading the hopsexamples_featurestore_util4j jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsexamples_featurestore_util_py/url",
+          :description => "the url for dowloading the hopsexamples_featurestore_util_py python file",
           :type => "string"
 
 attribute "hadoop_spark/databricks_spark_avro_version",
