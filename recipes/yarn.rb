@@ -302,19 +302,8 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
   end
 
-end
-
-  bash 'cleanup_truststores' do
-  user "root"
-  code <<-EOH
-        rm -f /tmp/cacerts.jks
-	      rm -f #{node['kagent']['certs_dir']}/cacerts.jks
-        rm -f /tmp/cacerts.pem
-      EOH
-  end
-
   if node['install']['enterprise']['install'].casecmp? "true"
-    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['hopsworks']['version']}/ft_import.py"
+    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_import.py"
     remote_file "#{Chef::Config['file_cache_path']}/ft_import.py" do
       user node['hadoop_spark']['user']
       node['hadoop_spark']['group']
@@ -333,7 +322,7 @@ end
       dest "/user/#{node['hadoop_spark']['user']}/ft_import.py"
     end
 
-    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['hopsworks']['version']}/ft_trainingdataset_job.py"
+    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_trainingdataset_job.py"
     remote_file "#{Chef::Config['file_cache_path']}/ft_trainingdataset_job.py" do
       user node['hadoop_spark']['user']
       node['hadoop_spark']['group']
@@ -351,7 +340,17 @@ end
       mode "1775"
       dest "/user/#{node['hadoop_spark']['user']}/ft_trainingdataset_job.py"
     end
+
+    bash 'cleanup_truststores' do
+    user "root"
+    code <<-EOH
+          rm -f /tmp/cacerts.jks
+	       rm -f #{node['kagent']['certs_dir']}/cacerts.jks
+          rm -f /tmp/cacerts.pem
+        EOH
+    end
   end
+end
 
 #
 # Support Intel MKL library for matrix computations
