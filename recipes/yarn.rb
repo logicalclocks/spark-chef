@@ -67,7 +67,7 @@ remote_file "#{node['hadoop_spark']['home']}/jars/#{hopsUtil}" do
   source node['hadoop_spark']['hopsutil']['url']
   owner node['hadoop_spark']['user']
   group node['hops']['group']
-  mode "1775"
+  mode "1755"
   action :create
 end
 
@@ -143,7 +143,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source node['hadoop_spark']['hops_verification']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "0775"
+    mode "0755"
     action :create
   end
 
@@ -160,7 +160,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source node['hadoop_spark']['hopsexamples_spark']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "1775"
+    mode "1755"
     action :create
   end
 
@@ -177,7 +177,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source node['hadoop_spark']['hopsexamples_featurestore_tour']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "1775"
+    mode "1755"
     action :create
   end
 
@@ -194,7 +194,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source node['hadoop_spark']['hopsexamples_featurestore_util4j']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "1775"
+    mode "1755"
     action :create
   end
 
@@ -211,7 +211,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source node['hadoop_spark']['hopsexamples_featurestore_util_py']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "1775"
+    mode "1755"
     action :create
   end
 
@@ -227,7 +227,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hadoop_spark']['group']
-    mode "1775"
+    mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/metrics.properties"
   end
 
@@ -236,7 +236,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "1775"
+    mode "1755"
     dest "/user/#{node['hops']['hdfs']['user']}/metrics.properties"
   end
 
@@ -244,7 +244,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "1775"
+    mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/log4j.properties"
   end
 
@@ -298,7 +298,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
-    mode "1775"
+    mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
   end
 
