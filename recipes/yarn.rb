@@ -260,7 +260,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
         cp -f #{node['kagent']['certs_dir']}/cacerts.jks /tmp
         chmod 755 /tmp/cacerts.jks
         keytool -importkeystore -srckeystore /tmp/cacerts.jks -destkeystore /tmp/cacerts.p12 -srcstoretype jks -deststoretype pkcs12 -noprompt -srcstorepass #{encyption_password} -deststorepass #{encyption_password} 
-        openssl pkcs12 -in /tmp/cacerts.p12 -out /tmp/#{cacerts_pem_filename} -passin pass:#{encyption_password}
+        openssl pkcs12 -in /tmp/cacerts.p12 -nokeys -out /tmp/#{cacerts_pem_filename} -passin pass:#{encyption_password}
         chmod 444 /tmp/#{cacerts_pem_filename}
     EOH
   end
@@ -345,7 +345,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     user "root"
     code <<-EOH
           rm -f /tmp/cacerts.jks
-	       rm -f #{node['kagent']['certs_dir']}/cacerts.jks
+	        rm -f #{node['kagent']['certs_dir']}/cacerts.jks
           rm -f /tmp/cacerts.pem
         EOH
     end
