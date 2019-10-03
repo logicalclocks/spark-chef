@@ -253,15 +253,17 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     encyption_password = node['hopsworks']['master']['password']
   end
 
-  cacerts_pem_filename = "cacerts.pem"
+  keystore_pem_filename = "keystore.pem"
   bash 'materialize_truststore and convert to pem' do
     user "root"
     code <<-EOH
         cp -f #{node['kagent']['certs_dir']}/cacerts.jks /tmp
+        cp -f #{node['kagent']['certs_dir']}/keystore.jks /tmp
         chmod 755 /tmp/cacerts.jks
-        keytool -importkeystore -srckeystore /tmp/cacerts.jks -destkeystore /tmp/cacerts.p12 -srcstoretype jks -deststoretype pkcs12 -noprompt -srcstorepass #{encyption_password} -deststorepass #{encyption_password} 
-        openssl pkcs12 -in /tmp/cacerts.p12 -nokeys -out /tmp/#{cacerts_pem_filename} -passin pass:#{encyption_password}
-        chmod 444 /tmp/#{cacerts_pem_filename}
+        chmod 755 /tmp/keystore.jks
+        keytool -importkeystore -srckeystore /tmp/keystore.jks -destkeystore /tmp/keystore.p12 -srcstoretype jks -deststoretype pkcs12 -noprompt -srcstorepass #{encyption_password} -deststorepass #{encyption_password} 
+        openssl pkcs12 -in /tmp/keystore.p12 -nokeys -out /tmp/#{keystore_pem_filename} -passin pass:#{encyption_password}
+        chmod 444 /tmp/#{keystore_pem_filename}
     EOH
   end
 
@@ -275,7 +277,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
   end
 
   #Copy glassfish truststore (PEM) to hdfs under hdfs user so that hops-util-py can make https requests to Hopsworks
-  hops_hdfs_directory "/tmp/cacerts.pem" do
+  hops_hdfs_directory "/tmp/#{keystore_pem_filename}" do
     action :put_as_superuser
     owner node['hadoop_spark']['user']
     group node['hops']['group']
@@ -287,9 +289,10 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     user "root"
     code <<-EOH
         rm -f /tmp/cacerts.jks
-        rm -f /tmp/#{cacerts_pem_filename}
+        rm -f /tmp/#{keystore_pem_filename}
         rm -f /tmp/cacerts.p12
 	      rm -f #{node['kagent']['certs_dir']}/cacerts.jks
+        rm -f #{node['kagent']['certs_dir']}/keystore.jks
     EOH
   end
 
