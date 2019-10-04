@@ -282,7 +282,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "0444"
-    dest "/user/#{node['hadoop_spark']['user']}/cacerts.pem"
+    dest "/user/#{node['hadoop_spark']['user']}/#{keystore_pem_filename}"
   end
 
   bash 'cleanup_truststores' do
