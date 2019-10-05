@@ -5,7 +5,7 @@ metadata
 
 cookbook 'java'
 
-cookbook 'kagent', github: "logicalclocks/kagent-chef", branch: "master"
-cookbook 'ndb', github: "logicalclocks/ndb-chef", branch: "master"
-cookbook 'hops', github: "logicalclocks/hops-hadoop-chef", branch: "master"
-cookbook 'hopsmonitor', github: "logicalclocks/hopsmonitor-chef", branch: "master"
+cookbook 'kagent', github: "logicalclocks/kagent-chef", branch: "1.0"
+cookbook 'ndb', github: "logicalclocks/ndb-chef", branch: "1.0"
+cookbook 'hops', github: "logicalclocks/hops-hadoop-chef", branch: "1.0"
+cookbook 'hopsmonitor', github: "logicalclocks/hopsmonitor-chef", branch: "1.0"
