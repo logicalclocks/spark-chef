@@ -102,6 +102,15 @@ for f in allFiles do
   end
 end
 
+# Download MySQL Driver for Online featurestore
+remote_file "#{node['hadoop_spark']['home']}/jars/#{f}" do
+  source node['hadoop_spark']['mysql_driver']
+  owner node['hadoop_spark']['user']
+  group node['hadoop_spark']['group']
+  mode "0644"
+  action :create_if_missing
+end
+
 link node['hadoop_spark']['base_dir'] do
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
