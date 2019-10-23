@@ -341,6 +341,25 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
       dest "/user/#{node['hadoop_spark']['user']}/ft_trainingdataset_job.py"
     end
 
+    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_trainingdataset_sql_job.py"
+    remote_file "#{Chef::Config['file_cache_path']}/ft_trainingdataset_sql_job.py" do
+      user node['hadoop_spark']['user']
+      node['hadoop_spark']['group']
+      source source
+      headers get_ee_basic_auth_header()
+      sensitive true
+      mode 0555
+      action :create_if_missing
+    end
+
+    hops_hdfs_directory "#{Chef::Config['file_cache_path']}/ft_trainingdataset_sql_job.py" do
+      action :replace_as_superuser
+      owner node['hadoop_spark']['user']
+      group node['hops']['group']
+      mode "1775"
+      dest "/user/#{node['hadoop_spark']['user']}/ft_trainingdataset_sql_job.py"
+    end
+
     bash 'cleanup_truststores' do
     user "root"
     code <<-EOH
