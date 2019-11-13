@@ -6,7 +6,7 @@
 <configuration>
   <property>
     <name>hive.metastore.warehouse.dir</name>
-    <value>hdfs://<%= @nn_endpoint %><%= node['hive2']['hopsfs_dir'] %>/warehouse</value>
+    <value>hopsfs://<%= @nn_endpoint %><%= node['hive2']['hopsfs_dir'] %>/warehouse</value>
     <description>location of default database for the warehouse</description>
   </property>
   <property>
