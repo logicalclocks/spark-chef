@@ -101,7 +101,7 @@ end
 directory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do 
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
-  mode "0644"
+  mode "0755"
   action :create
 end
 
