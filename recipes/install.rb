@@ -84,6 +84,12 @@ bash 'link_jars' do
         EOH
 end
 
+link node['hadoop_spark']['base_dir'] do
+  owner node['hadoop_spark']['user']
+  group node['hadoop_spark']['group']
+  to node['hadoop_spark']['home']
+end
+
 #Copy SQL dependencies to SPARK_HOME/jars
 purl=node['hadoop_spark']['spark_sql_dependencies_url']
 # The following dependencies are required to run spark-sql with parquet and orc. We install them here so that users don't have to do it from their notebooks/jobs
@@ -167,11 +173,6 @@ remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hopsUtil}" do
   action :create
 end
 
-link node['hadoop_spark']['base_dir'] do
-  owner node['hadoop_spark']['user']
-  group node['hadoop_spark']['group']
-  to node['hadoop_spark']['home']
-end
 
 template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
   source "app.log4j.properties.erb"
