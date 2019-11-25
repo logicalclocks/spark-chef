@@ -77,14 +77,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     mode "1775"
   end
 
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/#{node['hadoop_spark']['yarn']['archive']}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "#{node['hadoop_spark']['yarn']['archive_hdfs']}"
-  end
-
   hopsworks_user=node['hops']['hdfs']['user']
   hopsworks_group=node['hops']['group']
 
