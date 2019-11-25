@@ -123,7 +123,8 @@ default['hadoop_spark']['mysql_driver']                                  = "#{no
 #
 # Hudi Dependencies
 #
-default['hadoop_spark']['databricks_spark_avro_version']                          = "2.11-4.0.0"
+default['hadoop_spark']['databricks_spark_avro_version']                 = "2.11-4.0.0"
+default['hadoop_spark']['hudi_bundle_url']                               = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-spark-bundle-#{node['hive2']['hudi_version']}.jar"
 
 #
 # Delta

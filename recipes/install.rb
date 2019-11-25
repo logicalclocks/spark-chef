@@ -98,7 +98,7 @@ directory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do
   only_if { ::Dir.exist?("#{node['hadoop_spark']['home']}/hopsworks-jars/") }
 end
 
-diectory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do 
+directory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do 
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
   mode "0644"
@@ -117,17 +117,15 @@ sql_dep = [
   "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-common-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-hadoop-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar,",
+  "parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-format-#{node['hadoop_spark']['parquet_format_version']}.jar",
-  "spark-hive_#{node['scala']['version']}-#{node['hadoop_spark']['version']}.jar",
-  "snappy-0.4.jar,",
-  "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar,",
+  "snappy-0.4.jar",
+  "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
   "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
-  "hudi-spark-bundle-#{node['hive2']['hudi_version']}.jar",
   "spark-avro_#{node['hadoop_spark']['databricks_spark_avro_version']}.jar",
   "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar"
 ]
@@ -139,6 +137,15 @@ for f in sql_dep do
     mode "0644"
     action :create_if_missing
   end
+end
+
+hudi_bundle =File.basename(node['hadoop_spark']['hudi_bundle_url'])
+remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{hudi_bundle}" do
+  source node['hadoop_spark']['hudi_bundle_url']
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "0644"
+  action :create
 end
 
 # Download MySQL Driver for Online featurestore
