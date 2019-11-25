@@ -89,11 +89,50 @@ purl=node['hadoop_spark']['spark_sql_dependencies_url']
 # The following dependencies are required to run spark-sql with parquet and orc. We install them here so that users don't have to do it from their notebooks/jobs
 # https://mvnrepository.com/artifact/org.spark-project.hive/hive-exec/1.2.1.spark2
 # http://central.maven.org/maven2/org/iq80/snappy/snappy/0.4/
-files= "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar, parquet-common-#{node['hadoop_spark']['parquet_version']}.jar, parquet-hadoop-#{node['hadoop_spark']['parquet_version']}.jar, parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar, parquet-column-#{node['hadoop_spark']['parquet_version']}.jar, parquet-format-#{node['hadoop_spark']['parquet_format_version']}.jar, spark-hive_#{node['scala']['version']}-#{node['hadoop_spark']['version']}.jar,snappy-0.4.jar, spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar, spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar, hudi-client-#{node['hive2']['hudi_version']}.jar, hudi-hive-bundle-#{node['hive2']['hudi_version']}.jar, hudi-utilities-#{node['hive2']['hudi_version']}.jar, hudi-common-#{node['hive2']['hudi_version']}.jar, hudi-spark-#{node['hive2']['hudi_version']}.jar, spark-avro_#{node['hadoop_spark']['databricks_spark_avro_version']}.jar, delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar"
-allFiles = files.split(/\s*,\s*/)
 
-for f in allFiles do
-  remote_file "#{node['hadoop_spark']['home']}/jars/#{f}" do
+# To make sure that all the custom jars that do not come with the Spark distribution are correctly updated
+# during installation/upgrades, we create a separate directory which is cleaned up every time we run this recipe.
+directory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do 
+  recursive true
+  action :delete
+  only_if { ::Dir.exist?("#{node['hadoop_spark']['home']}/hopsworks-jars/") }
+end
+
+diectory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do 
+  owner node['hadoop_spark']['user']
+  group node['hadoop_spark']['group']
+  mode "0644"
+  action :create
+end
+
+# We create a symlink from within spark/jars that points to spark/hopsworks-jars so that all the custom libraries 
+# are transparently available to the spark applications without the need of fixing the classpaths.
+link "#{node['hadoop_spark']['home']}/jars/hopsworks-jars" do
+  to "#{node['hadoop_spark']['home']}/hopsworks-jars"
+  link_type :symbolic
+end
+
+sql_dep = [
+  "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-common-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-hadoop-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar,",
+  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
+  "parquet-format-#{node['hadoop_spark']['parquet_format_version']}.jar",
+  "spark-hive_#{node['scala']['version']}-#{node['hadoop_spark']['version']}.jar",
+  "snappy-0.4.jar,",
+  "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar,",
+  "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
+  "hudi-spark-bundle-#{node['hive2']['hudi_version']}.jar",
+  "spark-avro_#{node['hadoop_spark']['databricks_spark_avro_version']}.jar",
+  "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar"
+]
+for f in sql_dep do
+  remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{f}" do
     source "#{purl}/#{f}"
     owner node['hadoop_spark']['user']
     group node['hadoop_spark']['group']
@@ -103,12 +142,22 @@ for f in allFiles do
 end
 
 # Download MySQL Driver for Online featurestore
-remote_file "#{node['hadoop_spark']['home']}/jars/#{f}" do
+mysql_driver=File.basename(node['hadoop_spark']['mysql_driver'])
+remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{mysql_driver}" do
   source node['hadoop_spark']['mysql_driver']
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
   mode "0644"
   action :create_if_missing
+end
+
+hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
+remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{hopsUtil}" do
+  source node['hadoop_spark']['hopsutil']['url']
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "0644"
+  action :create
 end
 
 link node['hadoop_spark']['base_dir'] do
@@ -118,10 +167,10 @@ link node['hadoop_spark']['base_dir'] do
 end
 
 template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
-  source "log4j.properties.erb"
+  source "app.log4j.properties.erb"
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
-  mode 0655
+  mode 0650
 end
 
 template"#{node['hadoop_spark']['conf_dir']}/yarnclient-driver-log4j.properties" do

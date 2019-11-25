@@ -42,7 +42,6 @@ default['hadoop_spark']['yarn']['scheduler']['heartbeat']['interval_ms'] = 5000
 default['hadoop_spark']['yarn']['queue']                           = "default"
 # the Spark jar can  be in a world-readable location on HDFS. This allows YARN to cache it on nodes so that it doesn't need to be distributed each time an application runs.
 # The path given is the full hdfs path, without the protocol prefix ( hdfs://)
-default['hadoop_spark']['yarn']['archive']                         =  "spark-jars.zip"
 default['hadoop_spark']['yarn']['pyspark_archive']                 =  "pyspark.zip"
 default['hadoop_spark']['yarn']['py4j_archive']                    =  "py4j-0.10.7-src.zip"
 default['hadoop_spark']['yarn']['archive_hdfs']                    =  "/user/#{node['hadoop_spark']['user']}/#{node['hadoop_spark']['yarn']['archive']}"
@@ -77,7 +76,6 @@ default['hadoop_spark']['history']['fs']['cleaner']['maxAge']      = "7d"
 # 5g is a learned parameter from 1TB benchmarks
 #
 default['hadoop_spark']['driver']['maxResultSize']                = "5g"
-default['hadoop_spark']['local']['dir']                           = "/tmp" # node['hops']['data_dir'] + "/tmp"
 default['hadoop_spark']['daemon']['memory']                       = "4g"
 default['hadoop_spark']['sql']['broadcastTimeout']                = "1200"
 default['hadoop_spark']['sql']['networkTimeout']                  = "700"
