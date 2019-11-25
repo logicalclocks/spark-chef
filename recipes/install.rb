@@ -92,13 +92,13 @@ purl=node['hadoop_spark']['spark_sql_dependencies_url']
 
 # To make sure that all the custom jars that do not come with the Spark distribution are correctly updated
 # during installation/upgrades, we create a separate directory which is cleaned up every time we run this recipe.
-directory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do 
+directory node['hadoop_spark']['hopsworks_jars'] do
   recursive true
   action :delete
-  only_if { ::Dir.exist?("#{node['hadoop_spark']['home']}/hopsworks-jars/") }
+  only_if { ::Dir.exist?(node['hadoop_spark']['hopsworks_jars']) }
 end
 
-directory "#{node['hadoop_spark']['home']}/hopsworks-jars/" do 
+directory node['hadoop_spark']['hopsworks_jars'] do
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
   mode "0755"
@@ -108,7 +108,7 @@ end
 # We create a symlink from within spark/jars that points to spark/hopsworks-jars so that all the custom libraries 
 # are transparently available to the spark applications without the need of fixing the classpaths.
 link "#{node['hadoop_spark']['home']}/jars/hopsworks-jars" do
-  to "#{node['hadoop_spark']['home']}/hopsworks-jars"
+  to node['hadoop_spark']['hopsworks_jars']
   link_type :symbolic
 end
 
@@ -130,7 +130,7 @@ sql_dep = [
   "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar"
 ]
 for f in sql_dep do
-  remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{f}" do
+  remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do
     source "#{purl}/#{f}"
     owner node['hadoop_spark']['user']
     group node['hadoop_spark']['group']
@@ -140,7 +140,7 @@ for f in sql_dep do
 end
 
 hudi_bundle =File.basename(node['hadoop_spark']['hudi_bundle_url'])
-remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{hudi_bundle}" do
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hudi_bundle}" do
   source node['hadoop_spark']['hudi_bundle_url']
   owner node['hadoop_spark']['user']
   group node['hops']['group']
@@ -150,7 +150,7 @@ end
 
 # Download MySQL Driver for Online featurestore
 mysql_driver=File.basename(node['hadoop_spark']['mysql_driver'])
-remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{mysql_driver}" do
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{mysql_driver}" do
   source node['hadoop_spark']['mysql_driver']
   owner node['hadoop_spark']['user']
   group node['hadoop_spark']['group']
@@ -159,7 +159,7 @@ remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{mysql_driver}" do
 end
 
 hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
-remote_file "#{node['hadoop_spark']['home']}/hopsworks-jars/#{hopsUtil}" do
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hopsUtil}" do
   source node['hadoop_spark']['hopsutil']['url']
   owner node['hadoop_spark']['user']
   group node['hops']['group']
