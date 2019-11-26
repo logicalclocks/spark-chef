@@ -15,7 +15,7 @@ export SPARK_LOCAL_IP=<%= @private_ip %>
 
 # https://spark.apache.org/docs/latest/hadoop-provided.html
 # Need to tell spark where to find the hadoop jars
-export SPARK_DIST_CLASSPATH=$(<%= node['hops']['base_dir'] %>/bin/hadoop classpath)
+export SPARK_DIST_CLASSPATH=$(<%= node['hops']['base_dir'] %>/bin/hadoop classpath):<%= node['hadoop_spark']['hopsworks_jars'] %>/*
 
 export SPARK_DAEMON_MEMORY=<%= node['hadoop_spark']['daemon']['memory'] %>
 

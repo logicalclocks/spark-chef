@@ -1,42 +1,13 @@
 home = node['hops']['hdfs']['user_home']
 private_ip=my_private_ip()
 
-
-#
-# local directory logs
-#
-directory node['hadoop_spark']['local']['dir'] do
+# Create logs dir.
+directory "#{node['hadoop_spark']['home']}/logs" do  
   owner node['hadoop_spark']['user']
-  group node['hops']['group']
+  group node['hadoop_spark']['group']
   mode "770"
   action :create
-  recursive true
-  not_if { File.directory?("#{node['hadoop_spark']['local']['dir']}") }
 end
-
-# Package Spark jars
-spark_packaged = "#{node['hadoop_spark']['home']}/.hadoop_spark.packaged_#{node['hadoop_spark']['version']}"
-
-bash 'extract_hadoop_spark' do
-  user "root"
-  code <<-EOH
-                set -e
-                cd #{node['hadoop_spark']['home']}/jars
-                zip -o #{node['hadoop_spark']['yarn']['archive']} *
-		cd ..
-                mv jars/#{node['hadoop_spark']['yarn']['archive']} .
-                mkdir -p #{node['hadoop_spark']['home']}/logs
-                touch #{spark_packaged}
-                cd ..
-                chown -R #{node['hadoop_spark']['user']}:#{node['hadoop_spark']['group']} #{node['hadoop_spark']['home']}
-                chmod 750 #{node['hadoop_spark']['home']}
-                # make the logs dir writeable by the sparkhistoryserver (runs as user 'hdfs')
-                chmod 770 #{node['hadoop_spark']['home']}/logs
-        EOH
-  not_if { ::File.exists?( spark_packaged ) }
-end
-
-
 
 begin
   influxdb_ip = private_recipe_ip("hopsmonitor","default")
@@ -52,24 +23,9 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   action :create
   variables({
               :influxdb_ip => influxdb_ip
-            })
+  })
 end
 
-template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
-  source "app.log4j.properties.erb"
-  owner node['hadoop_spark']['user']
-  group node['hadoop_spark']['group']
-  mode 0650
-end
-
-hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
-remote_file "#{node['hadoop_spark']['home']}/jars/#{hopsUtil}" do
-  source node['hadoop_spark']['hopsutil']['url']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "1755"
-  action :create
-end
 
 # Only the first of the spark::yarn hosts needs to run this code (not all of them)
 #see HOPSWORKS-572 why the following if clause changed
@@ -119,14 +75,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1775"
-  end
-
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/#{node['hadoop_spark']['yarn']['archive']}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-    dest "#{node['hadoop_spark']['yarn']['archive_hdfs']}"
   end
 
   hopsworks_user=node['hops']['hdfs']['user']
