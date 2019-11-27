@@ -64,6 +64,7 @@ bash 'extract_hadoop_spark' do
                 rm -rf #{node['hadoop_spark']['base_dir']}
                 tar -xf #{cached_package_filename} -C #{node['hadoop_spark']['dir']}
                 chown -R #{node['hadoop_spark']['user']}:#{node['hadoop_spark']['group']} #{node['hadoop_spark']['dir']}/spark*
+                chmod -R 755 #{node['hadoop_spark']['dir']}/spark*
                 touch #{spark_down}
         EOH
      not_if { ::File.exists?( spark_down ) }
