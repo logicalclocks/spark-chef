@@ -174,6 +174,14 @@ remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hopsUtil}" do
   action :create
 end
 
+elastic_connector=File.basename(node['hadoop_spark']['elastic_connector']['url'])
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{elastic_connector}" do
+  source node['hadoop_spark']['elastic_connector']['url']
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "0644"
+  action :create
+end
 
 template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
   source "app.log4j.properties.erb"
