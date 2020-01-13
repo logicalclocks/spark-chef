@@ -95,7 +95,7 @@ default['hopsworks']['domain_truststore']                         = "#{node['hop
 #
 # Hops API jar
 #
-default['hadoop_spark']['hopsutil_version']                    = node['install']['version']
+default['hadoop_spark']['hopsutil_version']                    = "1.1.1" 
 default['hadoop_spark']['hopsutil']['url']                     = "#{node['download_url']}/hopsutil/#{node['hadoop_spark']['hopsutil_version']}/hops-util-#{node['hadoop_spark']['hopsutil_version']}.jar"
 
 #
