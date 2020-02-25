@@ -4,7 +4,7 @@ private_ip=my_private_ip()
 # Create logs dir.
 directory "#{node['hadoop_spark']['home']}/logs" do  
   owner node['hadoop_spark']['user']
-  group node['hadoop_spark']['group']
+  group node['hops']['group']
   mode "770"
   action :create
 end
@@ -18,7 +18,7 @@ end
 template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   source "metrics.properties.erb"
   owner node['hadoop_spark']['user']
-  group node['hadoop_spark']['group']
+  group node['hops']['group']
   mode 0750
   action :create
   variables({
@@ -78,7 +78,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
   end
 
   hopsworks_user=node['hops']['hdfs']['user']
-  hopsworks_group=node['hops']['group']
 
   if node.attribute?('hopsworks') == true
     if node['hopsworks'].attribute?('user') == true
@@ -174,7 +173,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
   hops_hdfs_directory "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties"  do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
-    group node['hadoop_spark']['group']
+    group node['hops']['group']
     mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/metrics.properties"
   end
@@ -254,7 +253,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_import.py"
     remote_file "#{Chef::Config['file_cache_path']}/ft_import.py" do
       user node['hadoop_spark']['user']
-      node['hadoop_spark']['group']
+      node['hops']['group']
       source source
       headers get_ee_basic_auth_header()
       sensitive true
@@ -273,7 +272,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_trainingdataset_job.py"
     remote_file "#{Chef::Config['file_cache_path']}/ft_trainingdataset_job.py" do
       user node['hadoop_spark']['user']
-      node['hadoop_spark']['group']
+      node['hops']['group']
       source source
       headers get_ee_basic_auth_header()
       sensitive true
@@ -292,7 +291,7 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_trainingdataset_sql_job.py"
     remote_file "#{Chef::Config['file_cache_path']}/ft_trainingdataset_sql_job.py" do
       user node['hadoop_spark']['user']
-      node['hadoop_spark']['group']
+      node['hops']['group']
       source source
       headers get_ee_basic_auth_header()
       sensitive true
