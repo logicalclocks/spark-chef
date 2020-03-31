@@ -7,12 +7,8 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.2.0"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
-depends          "kagent"
-depends          "java"
-depends          "hops"
-depends          "magic_shell"
-depends          "hopsmonitor"
-depends          'hive2'
+depends 'java', '~> 7.0.0'
+depends 'magic_shell', '~> 1.0.0'
 
 recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
