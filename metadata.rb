@@ -9,6 +9,12 @@ source_url       "https://github.com/hopshadoop/spark-chef"
 
 depends 'java', '~> 7.0.0'
 depends 'magic_shell', '~> 1.0.0'
+depends 'conda'
+depends 'kagent'
+depends 'ndb'
+depends 'hops'
+depends 'hive2'
+depends 'hopsmonitor'
 
 recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
