@@ -119,6 +119,7 @@ default['hadoop_spark']['hopsexamples_featurestore_util_py']['url']   = "#{node[
 #
 default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.0"
 default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"
+default['hadoop_spark']['spark_tfrecord_version']                        = "2.11-0.1.1"
 default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-5.1.29-bin.jar"
 
 #
