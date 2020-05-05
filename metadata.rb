@@ -106,6 +106,10 @@ attribute "hadoop_spark/tf_spark_connector_version",
           :description => "the version of the tf-spark-connector .jar",
           :type => "string"
 
+attribute "hadoop_spark/spark_tfrecord_version",
+          :description => "the version of the spark-tfrecord library .jar",
+          :type => "string"
+
 attribute "hadoop_spark/hopsutil_version",
           :description => "the version of the hops-library .jar",
           :type => "string"
