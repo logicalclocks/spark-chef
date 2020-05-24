@@ -30,7 +30,7 @@ end
 # Only the first of the spark::yarn hosts needs to run this code (not all of them)
 #see HOPSWORKS-572 why the following if clause changed
 #if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
-if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
+if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
 
   hops_hdfs_directory "#{home}" do
     action :create_as_superuser
@@ -195,51 +195,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
     dest "/user/#{node['hadoop_spark']['user']}/log4j.properties"
   end
 
-  encyption_password = "adminpw"
-  if node.attribute?('hopsworks') && node['hopsworks'].attribute?('master') && node['hopsworks']['master'].attribute?('password')
-    encyption_password = node['hopsworks']['master']['password']
-  end
-
-  cacerts_pem_filename = "cacerts.pem"
-  bash 'materialize_truststore and convert to pem' do
-    user "root"
-    code <<-EOH
-        cp -f #{node['kagent']['certs_dir']}/cacerts.jks /tmp
-        chmod 755 /tmp/cacerts.jks
-        keytool -importkeystore -srckeystore /tmp/cacerts.jks -destkeystore /tmp/cacerts.p12 -srcstoretype jks -deststoretype pkcs12 -noprompt -srcstorepass #{encyption_password} -deststorepass #{encyption_password} 
-        openssl pkcs12 -in /tmp/cacerts.p12 -out /tmp/#{cacerts_pem_filename} -passin pass:#{encyption_password}
-        chmod 444 /tmp/#{cacerts_pem_filename}
-    EOH
-  end
-
-  #Copy glassfish truststore to hdfs under hdfs user so that HopsUtil can make https requests to HopsWorks
-  hops_hdfs_directory "/tmp/cacerts.jks" do
-    action :put_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "0444"
-    dest "/user/#{node['hadoop_spark']['user']}/cacerts.jks"
-  end
-
-  #Copy glassfish truststore (PEM) to hdfs under hdfs user so that hops-util-py can make https requests to Hopsworks
-  hops_hdfs_directory "/tmp/cacerts.pem" do
-    action :put_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "0444"
-    dest "/user/#{node['hadoop_spark']['user']}/cacerts.pem"
-  end
-
-  bash 'cleanup_truststores' do
-    user "root"
-    code <<-EOH
-        rm -f /tmp/cacerts.jks
-        rm -f /tmp/#{cacerts_pem_filename}
-        rm -f /tmp/cacerts.p12
-	      rm -f #{node['kagent']['certs_dir']}/cacerts.jks
-    EOH
-  end
-
   #copy hive-site.xml to hdfs so that node-managers can download it to containers for running hive-jobs/notebooks
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/hive-site.xml" do
     action :replace_as_superuser
@@ -306,15 +261,6 @@ if (File.exist?("#{node['kagent']['certs_dir']}/cacerts.jks"))
       mode "1775"
       dest "/user/#{node['hadoop_spark']['user']}/ft_trainingdataset_sql_job.py"
     end
-
-    bash 'cleanup_truststores' do
-    user "root"
-    code <<-EOH
-          rm -f /tmp/cacerts.jks
-	       rm -f #{node['kagent']['certs_dir']}/cacerts.jks
-          rm -f /tmp/cacerts.pem
-        EOH
-    end
   end
 end
 
@@ -366,5 +312,3 @@ when "rhel"
     action :install
   end
 end
-
-

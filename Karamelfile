@@ -10,7 +10,3 @@ dependencies:
   - recipe: hadoop_spark::historyserver
     global:
       - hadoop_spark::yarn
-  - recipe: hadoop_spark::certs
-    global:
-      - hadoop_spark::yarn
-
