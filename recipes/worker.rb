@@ -30,7 +30,7 @@ homedir = node['hadoop_spark']['user'].eql?("root") ? "/root" : "/home/#{node['h
 
 kagent_keys "#{homedir}" do
   cb_user "#{node['hadoop_spark']['user']}"
-  cb_group "#{node['hadoop_spark']['group']}"
+  cb_group "#{node['hops']['group']}"
   cb_name "hadoop_spark"
   cb_recipe "master"  
   action :get_publickey

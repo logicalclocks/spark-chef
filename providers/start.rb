@@ -2,7 +2,7 @@ action :start_master do
 
   bash "start-master" do
     user node['hadoop_spark']['user']
-    group node['hadoop_spark']['group']
+    group node['hops']['group']
     cwd node['hadoop_spark']['base_dir']
     code <<-EOF
      set -e
@@ -22,7 +22,7 @@ action :start_worker do
 
   bash "start-worker" do
     user node['hadoop_spark']['user']
-    group node['hadoop_spark']['group']
+    group node['hops']['group']
     cwd node['hadoop_spark']['base_dir']
     code <<-EOF 
     set -e

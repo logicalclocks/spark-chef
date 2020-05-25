@@ -30,10 +30,6 @@ attribute "hadoop_spark/user",
           :description => "Username to run spark master/worker as",
           :type => 'string'
 
-attribute "hadoop_spark/group",
-          :description => "Groupname to run spark master/worker as",
-          :type => 'string'
-
 attribute "hadoop_spark/dir",
           :description => "Installation dir for spark",
           :type => 'string'

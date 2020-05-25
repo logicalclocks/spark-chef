@@ -8,7 +8,7 @@ for d in tmp_dirs
  hops_hdfs_directory d do
     action :create_as_superuser
     owner node['hadoop_spark']['user']
-    group node['hadoop_spark']['group']
+    group node['hops']['group']
     mode "1777"
   end
 end

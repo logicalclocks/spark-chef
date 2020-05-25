@@ -6,7 +6,7 @@ end
 template"#{node['hadoop_spark']['home']}/conf/slaves" do
   source "slaves.erb"
   owner node['hadoop_spark']['user']
-  group node['hadoop_spark']['group']
+  group node['hops']['group']
   mode 0655
 end
 
@@ -15,13 +15,13 @@ homedir = node['hadoop_spark']['user'].eql?("root") ? "/root" : "/home/#{node['h
 
 kagent_keys "#{homedir}" do
   cb_user node['hadoop_spark']['user']
-  cb_group node['hadoop_spark']['group']
+  cb_group node['hops']['group']
   action :generate  
 end  
 
 kagent_keys "#{homedir}" do
   cb_user node['hadoop_spark']['user']
-  cb_group node['hadoop_spark']['group']
+  cb_group node['hops']['group']
   cb_name "hadoop_spark"
   cb_recipe "master"  
   action :return_publickey
