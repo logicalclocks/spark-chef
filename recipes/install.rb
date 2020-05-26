@@ -205,21 +205,8 @@ template"#{node['hadoop_spark']['conf_dir']}/executor-log4j.properties" do
   mode 0655
 end
 
-
 my_ip = my_private_ip()
-
 master_ip = "yarn"
-
-begin
-  namenode_ip = private_recipe_ip("hops","nn")
-rescue
-  begin
-    namenode_ip = private_recipe_ip("hops","nn")
-  rescue
-    namenode_ip = my_private_ip()
-  end
-end
-
 template"#{node['hadoop_spark']['home']}/conf/spark-env.sh" do
   source "spark-env.sh.erb"
   owner node['hadoop_spark']['user']
@@ -228,31 +215,7 @@ template"#{node['hadoop_spark']['home']}/conf/spark-env.sh" do
   variables({
         :master_ip => master_ip,
         :private_ip => my_ip
-           })
-end
-
-
-eventlog_dir = "#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}/applicationHistory"
-
-begin
-  historyserver_ip = private_recipe_ip("hadoop_spark","historyserver")
-rescue
-  historyserver_ip = my_private_ip()
-end
-
-template"#{node['hadoop_spark']['home']}/conf/spark-defaults.conf" do
-  source "spark-defaults.conf.erb"
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode 0655
-  variables({
-        :private_ip => my_ip,
-        :master_ip => master_ip,
-        :namenode_ip => namenode_ip,
-        :yarn => node['hadoop_spark']['yarn']['support'],
-        :eventlog_dir => eventlog_dir,
-        :historyserver_ip => historyserver_ip
-           })
+  })
 end
 
 template"#{node['hadoop_spark']['home']}/conf/spark-blacklisted-properties.txt" do
@@ -264,23 +227,4 @@ end
 
 magic_shell_environment 'SPARK_HOME' do
   value node['hadoop_spark']['base_dir']
-end
-
-nn_endpoint = private_recipe_ip("hops", "nn") + ":#{node['hops']['nn']['port']}"
-begin
-  metastore_ip = private_recipe_ip("hive2", "metastore")
-rescue
-  metastore_ip = private_recipe_ip("hive2", "default")
-  Chef::Log.warn "Using default ip for metastore (metastore service not defined in cluster definition (yml) file."
-end
-
-template "#{node['hadoop_spark']['home']}/conf/hive-site.xml" do
-  source "hive-site.xml.erb"
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode 0655
-  variables({
-                :nn_endpoint => nn_endpoint,
-                :metastore_ip => metastore_ip
-            })
 end
