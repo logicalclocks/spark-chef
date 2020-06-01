@@ -2,7 +2,7 @@ home = node['hops']['hdfs']['user_home']
 private_ip=my_private_ip()
 
 # Create logs dir.
-directory "#{node['hadoop_spark']['home']}/logs" do  
+directory "#{node['hadoop_spark']['home']}/logs" do
   owner node['hadoop_spark']['user']
   group node['hops']['group']
   mode "770"
@@ -16,7 +16,7 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   mode 0750
   action :create
   variables({
-              :influxdb_ip => consul_helper.get_service_fqdn("graphite.influxdb") 
+              :influxdb_endpoint => consul_helper.get_service_fqdn("graphite.influxdb")
   })
 end
 
@@ -44,7 +44,7 @@ template"#{node['hadoop_spark']['home']}/conf/spark-defaults.conf" do
   variables({
                 :nn_endpoint => nn_endpoint,
                 :eventlog_dir => eventlog_dir,
-                :historyserver_endpoint => historyserver_endpoint 
+                :historyserver_endpoint => historyserver_endpoint
            })
 end
 
@@ -70,8 +70,8 @@ if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
   end
 
   bash "set_userspark_storage_type" do
-    user node['hops']['hdfs']['user']  
-    group node['hops']['group'] 
+    user node['hops']['hdfs']['user']
+    group node['hops']['group']
     code <<-EOH
       #{node['hops']['bin_dir']}/hdfs storagepolicies -setStoragePolicy -path #{home}/#{node['hadoop_spark']['user']} -policy DB
     EOH
@@ -123,7 +123,7 @@ if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
     dest "/user/#{node['hadoop_spark']['user']}/#{hopsVerification}"
     action :replace_as_superuser
   end
-  
+
   hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     source node['hadoop_spark']['hopsexamples_spark']['url']
