@@ -11,7 +11,7 @@
   </property>
   <property>
     <name>hive.metastore.uris</name>
-    <value>thrift://<%= @metastore_ip %>:<%= node['hive2']['metastore']['port'] %></value>
+    <value>thrift://<%= @metastore_endpoint %></value>
     <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
   </property>
 </configuration>
