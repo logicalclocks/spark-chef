@@ -1,4 +1,3 @@
-Chef::Recipe.send(:include, Hops::Helpers)
 
 eventlog_dir = "#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}/applicationHistory"
 tmp_dirs   = ["#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}", eventlog_dir ]
