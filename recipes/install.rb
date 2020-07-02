@@ -205,17 +205,11 @@ template"#{node['hadoop_spark']['conf_dir']}/executor-log4j.properties" do
   mode 0655
 end
 
-my_ip = my_private_ip()
-master_ip = "yarn"
 template"#{node['hadoop_spark']['home']}/conf/spark-env.sh" do
   source "spark-env.sh.erb"
   owner node['hadoop_spark']['user']
   group node['hops']['group']
   mode 0655
-  variables({
-        :master_ip => master_ip,
-        :private_ip => my_ip
-  })
 end
 
 template"#{node['hadoop_spark']['home']}/conf/spark-blacklisted-properties.txt" do

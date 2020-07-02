@@ -11,7 +11,7 @@ export SPARK_HOME=<%= node['hadoop_spark']['base_dir'] %>
 # Options read when launching programs locally with
 # ./bin/run-example or ./bin.hops.spark.submit
 export HADOOP_CONF_DIR=<%= node['hops']['conf_dir'] %>
-export SPARK_LOCAL_IP=<%= @private_ip %>
+export SPARK_LOCAL_IP=0.0.0.0
 
 # https://spark.apache.org/docs/latest/hadoop-provided.html
 # Need to tell spark where to find the hadoop jars
@@ -44,7 +44,7 @@ export SPARK_DAEMON_MEMORY=<%= node['hadoop_spark']['daemon']['memory'] %>
 
 
 # Options for the daemons used in the standalone deploy mode
-export SPARK_MASTER_IP=<%= @master_ip %>
+export SPARK_MASTER_IP=yarn
 export SPARK_MASTER_PORT=<%= node['hadoop_spark']['master']['port'] %>
 #export SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
 # export SPARK_MASTER_OPTS, to set config properties only for the master (e.g. "-Dx=y")
