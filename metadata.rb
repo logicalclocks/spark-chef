@@ -150,3 +150,13 @@ attribute "hadoop_spark/databricks_delta_version",
 attribute "hadoop_spark/url",
           :description => "the url for downloading the spark tgz",
           :type => "string"
+
+attribute "hadoop_spark/hsfs/version",
+          :description => "Version of the HSFS library",
+          :type => "string"
+
+attribute "hadoop_spark/hsfs/url",
+          :description => "URL from where to download the HSFS library",
+          :type => "string"
+
+
