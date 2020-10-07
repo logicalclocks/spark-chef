@@ -13,6 +13,7 @@ ExecStop = <%= node['hadoop_spark']['base_dir'] %>/sbin/stop-history-server.sh
 LimitNOFILE = 50000
 Type = forking
 Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy = multi-user.target
