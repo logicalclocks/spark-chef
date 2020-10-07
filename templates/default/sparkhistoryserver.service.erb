@@ -1,6 +1,8 @@
 [Unit]
 Description = Spark historyserver
 After = syslog.target network.target remote-fs.target <%= @deps %>
+StartLimitIntervalSec=30
+StartLimitBurst=20
 
 [Service]
 User = <%= node['hops']['hdfs']['user'] %>
@@ -10,6 +12,7 @@ ExecStart = <%= node['hadoop_spark']['base_dir'] %>/sbin/start-history-server.sh
 ExecStop = <%= node['hadoop_spark']['base_dir'] %>/sbin/stop-history-server.sh
 LimitNOFILE = 50000
 Type = forking
+Restart=on-failure
 
 [Install]
 WantedBy = multi-user.target
