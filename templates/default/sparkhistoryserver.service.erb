@@ -1,8 +1,8 @@
 [Unit]
 Description = Spark historyserver
 After = syslog.target network.target remote-fs.target <%= @deps %>
-StartLimitIntervalSec=30
-StartLimitBurst=20
+StartLimitIntervalSec=80
+StartLimitBurst=10
 
 [Service]
 User = <%= node['hops']['hdfs']['user'] %>
