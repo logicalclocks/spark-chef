@@ -105,7 +105,7 @@ default['hadoop_spark']['hops_verification']['url']            = "#{node['downlo
 #
 # Hops Examples Spark Job/Notebook Dependency Jars
 #
-default['hadoop_spark']['hopsexamples_version']                     = node['install']['version']
+default['hadoop_spark']['hopsexamples_version']                     = "1.4.1"
 default['hadoop_spark']['hopsexamples_spark']['url']                = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-spark-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 default['hadoop_spark']['hopsexamples_hive']['url']                 = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-hive-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 default['hadoop_spark']['hopsexamples_featurestore_tour']['url']    = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-featurestore-tour-#{node['hadoop_spark']['hopsexamples_version']}.jar"
@@ -136,5 +136,5 @@ default['hadoop_spark']['hudi_bundle_url']                               = "#{no
 #
 default['hadoop_spark']['databricks_delta_version']                          = "2.11-0.3.0"
 
-# Spark elastic connector 
+# Spark elastic connector
 default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-20_2.11-#{node['elastic']['version']}.jar"
