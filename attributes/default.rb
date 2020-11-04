@@ -119,7 +119,7 @@ default['hadoop_spark']['hopsexamples_featurestore_util_py']['url'] = "#{node['d
 default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.0"
 default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"
 default['hadoop_spark']['spark_tfrecord_version']                        = "2.11-0.1.1"
-default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-5.1.29-bin.jar"
+default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
 
 
 default['hadoop_spark']['hsfs']['version']                          = node['install']['version']
@@ -136,5 +136,5 @@ default['hadoop_spark']['hudi_bundle_url']                               = "#{no
 #
 default['hadoop_spark']['databricks_delta_version']                          = "2.11-0.3.0"
 
-# Spark elastic connector 
+# Spark elastic connector
 default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-20_2.11-#{node['elastic']['version']}.jar"
