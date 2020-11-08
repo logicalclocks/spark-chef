@@ -283,45 +283,15 @@ end
 #
 case node['platform_family']
 when "debian"
-
   package "libnetlib-java" do
     action :install
   end
-
-when "rhel"
-
-  # TODO - add 'netlib-java'
 end
 
 
 jarFile="spark-#{node['hadoop_spark']['version']}-yarn-shuffle.jar"
-
-
 link "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{jarFile}" do
   owner node['hops']['yarn']['user']
   group node['hops']['group']
   to "#{node['hadoop_spark']['base_dir']}/yarn/#{jarFile}"
-end
-
-
-# Support for 'R'
-case node['platform_family']
-when "debian"
- package "r-base" do
-  action :install
- end
-
-when "rhel"
-  package "R" do
-    action :install
-  end
-  package "R-devel" do
-    action :install
-  end
-  package "libcurl-devel" do
-    action :install
-  end
-  package "openssl-devel" do
-    action :install
-  end
 end
