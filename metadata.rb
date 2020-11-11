@@ -4,7 +4,7 @@ maintainer_email "jdowling@kth.se"
 license          "Apache v2"
 description      'Installs/Configures Spark'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "2.0.0"
+version          "2.1.0"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
 depends 'java', '~> 7.0.0'
