@@ -136,7 +136,13 @@ sql_dep = [
   "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
   "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",  
   "spark-avro_#{node['hadoop_spark']['databricks_spark_avro_version']}.jar",
-  "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar"
+  "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar",
+  "spark-metrics_#{node['hadoop_spark']['spark-metrics_version']}.jar",
+  "simpleclient-#{node['hadoop_spark']['simpleclient_version']}.jar",
+  "simpleclient_common-#{node['hadoop_spark']['simpleclient_version']}.jar",
+  "simpleclient_dropwizard-#{node['hadoop_spark']['simpleclient_version']}.jar",
+  "simpleclient_pushgateway-#{node['hadoop_spark']['simpleclient_version']}.jar",
+  "metrics-core-#{node['hadoop_spark']['metrics-core_version']}.jar"
 ]
 for f in sql_dep do
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do
