@@ -16,7 +16,7 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   mode 0750
   action :create
   variables({
-              :influxdb_endpoint => consul_helper.get_service_fqdn("graphite.influxdb")
+    :pushgateway => consul_helper.get_service_fqdn("pushgateway")
   })
 end
 
@@ -181,23 +181,6 @@ if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
     group node['hops']['group']
     mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreUtilPy}"
-  end
-
-  hops_hdfs_directory "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties"  do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/metrics.properties"
-  end
-
-
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/metrics.properties" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hops']['hdfs']['user']}/metrics.properties"
   end
 
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
