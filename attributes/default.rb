@@ -116,7 +116,7 @@ default['hadoop_spark']['hopsexamples_featurestore_util_py']['url'] = "#{node['d
 #
 # Featurestore dependencies
 #
-default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.0"
+default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.3.2"
 default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"
 default['hadoop_spark']['spark_tfrecord_version']                        = "2.11-0.1.1"
 default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
@@ -128,7 +128,6 @@ default['hadoop_spark']['hsfs']['url']                              = "#{node['d
 #
 # Hudi Dependencies
 #
-default['hadoop_spark']['databricks_spark_avro_version']                 = "2.11-4.0.0"
 default['hadoop_spark']['hudi_bundle_url']                               = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-spark-bundle-#{node['hive2']['hudi_version']}.jar"
 
 #
