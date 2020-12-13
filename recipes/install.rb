@@ -122,21 +122,17 @@ end
 
 sql_dep = [
   "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-common-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-hadoop-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-format-#{node['hadoop_spark']['parquet_format_version']}.jar",
-  "snappy-0.4.jar",
+  "snappy-#{node['hadoop_spark']['snappy_version']}.jar",
   "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
-  "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
+#  "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
   "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",  
-  "spark-avro_#{node['hadoop_spark']['databricks_spark_avro_version']}.jar",
-  "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar"
+  "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
+  "delta-core_#{node['hadoop_spark']['delta_version']}.jar"
 ]
 for f in sql_dep do
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do
