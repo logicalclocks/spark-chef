@@ -129,10 +129,9 @@ sql_dep = [
   "parquet-format-#{node['hadoop_spark']['parquet_format_version']}.jar",
   "snappy-#{node['hadoop_spark']['snappy_version']}.jar",
   "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
-#  "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
-  "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",  
-  "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
-  "delta-core_#{node['hadoop_spark']['delta_version']}.jar"
+  "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
+  "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",
+  "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar"
 ]
 for f in sql_dep do
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do

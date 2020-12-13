@@ -15,7 +15,6 @@ default['hadoop_spark']['tf_spark_connector_version']           = "2.12-1.12.0"
 default['hadoop_spark']['spark_tfrecord_version']               = "2.12-0.3.0"
 default['hadoop_spark']['yarn']['py4j_archive']                 = "py4j-0.10.7-src.zip"
 default['hadoop_spark']['spark_avro_version']                   = "2.12-3.0.1.jar"
-default['hadoop_spark']['delta_version']                        = "2.12-0.7.0"
 default['hadoop_spark']['snappy_version']                       = "0.4"
 
 default['hadoop_spark']['dir']                                  = node['install']['dir'].empty? ? "/srv/hops" : node['install']['dir']
@@ -123,6 +122,9 @@ default['hadoop_spark']['hopsexamples_featurestore_util_py']['url'] = "#{node['d
 #
 # Featurestore dependencies
 #
+default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.3.2"
+default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"
+default['hadoop_spark']['spark_tfrecord_version']                        = "2.11-0.1.1"
 default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
 
 
@@ -133,6 +135,13 @@ default['hadoop_spark']['hsfs']['url']                              = "#{node['d
 # Hudi Dependencies
 #
 default['hadoop_spark']['hudi_bundle_url']                               = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-spark-bundle-#{node['hive2']['hudi_version']}.jar"
+
+#
+# Delta
+#
+#default['hadoop_spark']['databricks_delta_version']                          = "2.11-0.3.0"
+default['hadoop_spark']['databricks_delta_version']                          = "2.12-0.7.0"
+#default['hadoop_spark']['delta_version']                        = "2.12-0.7.0"
 
 # Spark elastic connector
 default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-20_2.11-#{node['elastic']['version']}.jar"
