@@ -92,12 +92,9 @@ link node['hadoop_spark']['base_dir'] do
   to node['hadoop_spark']['home']
 end
 
-#Copy SQL dependencies to SPARK_HOME/jars
-purl=node['hadoop_spark']['spark_sql_dependencies_url']
 # The following dependencies are required to run spark-sql with parquet and orc. We install them here so that users don't have to do it from their notebooks/jobs
 # https://mvnrepository.com/artifact/org.spark-project.hive/hive-exec/1.2.1.spark2
 # http://central.maven.org/maven2/org/iq80/snappy/snappy/0.4/
-
 # To make sure that all the custom jars that do not come with the Spark distribution are correctly updated
 # during installation/upgrades, we create a separate directory which is cleaned up every time we run this recipe.
 directory node['hadoop_spark']['hopsworks_jars'] do
@@ -145,7 +142,7 @@ sql_dep = [
 ]
 for f in sql_dep do
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do
-    source "#{purl}/#{f}"
+    source "#{node['hadoop_spark']['spark_sql_dependencies_url']}/#{f}"
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "0644"
