@@ -113,7 +113,7 @@ directory node['hadoop_spark']['hopsworks_jars'] do
   action :create
 end
 
-# We create a symlink from within spark/jars that points to spark/hopsworks-jars so that all the custom libraries 
+# We create a symlink from within spark/jars that points to spark/hopsworks-jars so that all the custom libraries
 # are transparently available to the spark applications without the need of fixing the classpaths.
 link "#{node['hadoop_spark']['home']}/jars/hopsworks-jars" do
   to node['hadoop_spark']['hopsworks_jars']
@@ -134,8 +134,7 @@ sql_dep = [
   "snappy-0.4.jar",
   "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
   "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
-  "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",  
-  "spark-avro_#{node['hadoop_spark']['databricks_spark_avro_version']}.jar",
+  "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",
   "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar",
   "spark-metrics_#{node['hadoop_spark']['spark-metrics_version']}.jar",
   "simpleclient-#{node['hadoop_spark']['simpleclient_version']}.jar",
