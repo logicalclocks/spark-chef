@@ -16,7 +16,7 @@ template "#{node['hadoop_spark']['base_dir']}/conf/metrics.properties" do
   mode 0750
   action :create
   variables({
-    :pushgateway => consul_helper.get_service_fqdn("pushgateway")
+    :pushgateway => consul_helper.get_service_fqdn("pushgateway.prometheus")
   })
 end
 

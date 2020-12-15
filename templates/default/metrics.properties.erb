@@ -4,3 +4,7 @@
 # Prometheus pushgateway address
 *.sink.prometheus.pushgateway-address-protocol=http
 *.sink.prometheus.pushgateway-address=<%= @pushgateway %>:<%= node['pushgateway']['port'] %>
+
+# Spark provides more metrics through the dropwizard export than jmx
+*.sink.prometheus.enable-dropwizard-collector=true
+*.sink.prometheus.enable-jmx-collector=false
