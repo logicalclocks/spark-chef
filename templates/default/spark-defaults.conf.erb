@@ -16,8 +16,9 @@ spark.history.fs.cleaner.enabled  <%= node['hadoop_spark']['history']['fs']['cle
 spark.history.fs.cleaner.interval <%= node['hadoop_spark']['history']['fs']['cleaner']['interval'] %>
 spark.history.fs.cleaner.maxAge   <%= node['hadoop_spark']['history']['fs']['cleaner']['maxAge'] %>
 spark.eventLog.compress           true
-spark.yarn.historyServer.address <%= @historyserver_endpoint %>
+spark.yarn.historyServer.address  <%= @historyserver_endpoint %>
 
+spark.metrics.conf                <%= node['hadoop_spark']['conf_dir'] %>/metrics.properties
 
 # YARN settings
 
