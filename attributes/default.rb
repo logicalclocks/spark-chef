@@ -6,7 +6,7 @@ include_attribute "elastic"
 
 default['hadoop_spark']['user']                                 = node['install']['user'].empty? ? "spark" : node['install']['user']
 
-default['hadoop_spark']['version']                              = "3.0.1"
+default['hadoop_spark']['version']                              = "3.0.2"
 default['scala']['version'] 	                                = "2.12"
 default['hadoop_spark']['parquet_version']                      = "1.11.1"
 default['hadoop_spark']['parquet_format_version']               = "2.8.0"
