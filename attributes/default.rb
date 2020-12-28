@@ -145,3 +145,8 @@ default['hadoop_spark']['databricks_delta_version']                          = "
 
 # Spark elastic connector
 default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-20_2.11-#{node['elastic']['version']}.jar"
+
+# Prometheus exporter
+default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-2.4-1.0.5"
+default['hadoop_spark']['simpleclient_version']         = "0.8.1"
+default['hadoop_spark']['metrics-core_version']         = "3.1.5"
