@@ -278,3 +278,4 @@ link "#{node['hops']['base_dir']}/share/hadoop/yarn/lib/#{jarFile}" do
   group node['hops']['group']
   to "#{node['hadoop_spark']['base_dir']}/yarn/#{jarFile}"
 end
+
