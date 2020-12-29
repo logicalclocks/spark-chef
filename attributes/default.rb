@@ -10,11 +10,13 @@ default['hadoop_spark']['version']                              = "3.0.2-SNAPSHO
 default['scala']['version'] 	                                = "2.12"
 default['hadoop_spark']['parquet_version']                      = "1.11.1"
 default['hadoop_spark']['parquet_format_version']               = "2.8.0"
-default['hadoop_spark']['spark_avro_version']                   = "2.12-2.4.0"
-default['hadoop_spark']['tf_spark_connector_version']           = "2.12-1.12.0"
-default['hadoop_spark']['spark_tfrecord_version']               = "2.12-0.3.0"
+default['hadoop_spark']['spark_avro_version']                   = "#{node['scala']['version']}-3.0.1.jar"
+# built tf_spark_connect from source from msater on 29/12/2020
+# https://github.com/tensorflow/ecosystem/tree/master/spark/spark-tensorflow-connector
+default['hadoop_spark']['tf_spark_connector_version']           = "#{node['scala']['version']}-1.15.0"
+default['hadoop_spark']['spark_tfrecord_version']               = "#{node['scala']['version']}-0.3.0"
 default['hadoop_spark']['yarn']['py4j_archive']                 = "py4j-0.10.7-src.zip"
-default['hadoop_spark']['spark_avro_version']                   = "2.12-3.0.1.jar"
+
 default['hadoop_spark']['snappy_version']                       = "0.4"
 
 default['hadoop_spark']['dir']                                  = node['install']['dir'].empty? ? "/srv/hops" : node['install']['dir']
@@ -122,12 +124,7 @@ default['hadoop_spark']['hopsexamples_featurestore_util_py']['url'] = "#{node['d
 #
 # Featurestore dependencies
 #
-default['hadoop_spark']['spark_avro_version']                            = "2.11-2.4.3.2"
-default['hadoop_spark']['tf_spark_connector_version']                    = "2.11-1.12.0"
-default['hadoop_spark']['spark_tfrecord_version']                        = "2.11-0.1.1"
 default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
-
-
 default['hadoop_spark']['hsfs']['version']                          = node['install']['version']
 default['hadoop_spark']['hsfs']['url']                              = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
@@ -139,14 +136,15 @@ default['hadoop_spark']['hudi_bundle_url']                               = "#{no
 #
 # Delta
 #
-#default['hadoop_spark']['databricks_delta_version']                          = "2.11-0.3.0"
-default['hadoop_spark']['databricks_delta_version']                          = "2.12-0.7.0"
-#default['hadoop_spark']['delta_version']                        = "2.12-0.7.0"
+#default['hadoop_spark']['databricks_delta_version']                          = "#{node['scala']['version']}-0.3.0"
+default['hadoop_spark']['databricks_delta_version']                          = "#{node['scala']['version']}-0.7.0"
 
 # Spark elastic connector
-default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-20_2.11-#{node['elastic']['version']}.jar"
+# Built using the PR from here on 20/12/2020
+# https://github.com/scxwhite/elasticsearch-hadoop-spark3.0
+default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-30_#{node['scala']['version']}-#{node['elastic']['version']}.jar"
 
 # Prometheus exporter
-default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-2.4-1.0.5"
+default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-#{node['hadoop_spark']['version']}-1.0.5"
 default['hadoop_spark']['simpleclient_version']         = "0.8.1"
 default['hadoop_spark']['metrics-core_version']         = "3.1.5"
