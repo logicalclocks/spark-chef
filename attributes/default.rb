@@ -10,7 +10,7 @@ default['hadoop_spark']['version']                              = "3.0.2-SNAPSHO
 default['scala']['version'] 	                                = "2.12"
 default['hadoop_spark']['parquet_version']                      = "1.11.1"
 default['hadoop_spark']['parquet_format_version']               = "2.8.0"
-default['hadoop_spark']['spark_avro_version']                   = "#{node['scala']['version']}-3.0.1.jar"
+default['hadoop_spark']['spark_avro_version']                   = "#{node['scala']['version']}-3.0.1"
 # built tf_spark_connect from source from msater on 29/12/2020
 # https://github.com/tensorflow/ecosystem/tree/master/spark/spark-tensorflow-connector
 default['hadoop_spark']['tf_spark_connector_version']           = "#{node['scala']['version']}-1.15.0"
