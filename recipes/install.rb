@@ -129,7 +129,7 @@ sql_dep = [
   "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
   "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",
   "delta-core_#{node['hadoop_spark']['databricks_delta_version']}.jar",
-#  "spark-metrics_#{node['hadoop_spark']['spark-metrics_version']}.jar",
+  "spark-metrics_#{node['hadoop_spark']['spark-metrics_version']}.jar",
   "simpleclient-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "simpleclient_common-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "simpleclient_dropwizard-#{node['hadoop_spark']['simpleclient_version']}.jar",
