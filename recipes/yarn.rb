@@ -149,40 +149,6 @@ if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
     dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}"
   end
 
-  hopsExamplesFeaturestoreUtil4j=File.basename(node['hadoop_spark']['hopsexamples_featurestore_util4j']['url'])
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreUtil4j}" do
-    source node['hadoop_spark']['hopsexamples_featurestore_util4j']['url']
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    action :create
-  end
-
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreUtil4j}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreUtil4j}"
-  end
-
-  hopsExamplesFeaturestoreUtilPy=File.basename(node['hadoop_spark']['hopsexamples_featurestore_util_py']['url'])
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreUtilPy}" do
-    source node['hadoop_spark']['hopsexamples_featurestore_util_py']['url']
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    action :create
-  end
-
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreUtilPy}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreUtilPy}"
-  end
-
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
@@ -198,65 +164,6 @@ if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
     group node['hops']['group']
     mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
-  end
-
-  if node['install']['enterprise']['install'].casecmp? "true"
-    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_import.py"
-    remote_file "#{Chef::Config['file_cache_path']}/ft_import.py" do
-      user node['hadoop_spark']['user']
-      node['hops']['group']
-      source source
-      headers get_ee_basic_auth_header()
-      sensitive true
-      mode 0555
-      action :create_if_missing
-    end
-
-    hops_hdfs_directory "#{Chef::Config['file_cache_path']}/ft_import.py" do
-      action :replace_as_superuser
-      owner node['hadoop_spark']['user']
-      group node['hops']['group']
-      mode "1775"
-      dest "/user/#{node['hadoop_spark']['user']}/ft_import.py"
-    end
-
-    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_trainingdataset_job.py"
-    remote_file "#{Chef::Config['file_cache_path']}/ft_trainingdataset_job.py" do
-      user node['hadoop_spark']['user']
-      node['hops']['group']
-      source source
-      headers get_ee_basic_auth_header()
-      sensitive true
-      mode 0555
-      action :create_if_missing
-    end
-
-    hops_hdfs_directory "#{Chef::Config['file_cache_path']}/ft_trainingdataset_job.py" do
-      action :replace_as_superuser
-      owner node['hadoop_spark']['user']
-      group node['hops']['group']
-      mode "1775"
-      dest "/user/#{node['hadoop_spark']['user']}/ft_trainingdataset_job.py"
-    end
-
-    source = "#{node['install']['enterprise']['download_url']}/featurestore-helpers/#{node['install']['version']}/ft_trainingdataset_sql_job.py"
-    remote_file "#{Chef::Config['file_cache_path']}/ft_trainingdataset_sql_job.py" do
-      user node['hadoop_spark']['user']
-      node['hops']['group']
-      source source
-      headers get_ee_basic_auth_header()
-      sensitive true
-      mode 0555
-      action :create_if_missing
-    end
-
-    hops_hdfs_directory "#{Chef::Config['file_cache_path']}/ft_trainingdataset_sql_job.py" do
-      action :replace_as_superuser
-      owner node['hadoop_spark']['user']
-      group node['hops']['group']
-      mode "1775"
-      dest "/user/#{node['hadoop_spark']['user']}/ft_trainingdataset_sql_job.py"
-    end
   end
 end
 
