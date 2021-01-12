@@ -157,6 +157,24 @@ if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
     dest "/user/#{node['hadoop_spark']['user']}/log4j.properties"
   end
 
+
+  hsfs_utils = File.basename(node['hadoop_spark']['hsfs']['utils']['download_url'])
+  remote_file "#{Chef::Config['file_cache_path']}/#{hsfs_utils}" do
+    source node['hadoop_spark']['hsfs']['utils']['download_url']
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1755"
+    action :create
+  end
+
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hsfs_utils}" do
+    action :replace_as_superuser
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1755"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils}"
+  end
+
   #copy hive-site.xml to hdfs so that node-managers can download it to containers for running hive-jobs/notebooks
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/hive-site.xml" do
     action :replace_as_superuser
