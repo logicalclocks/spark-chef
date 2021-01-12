@@ -1,13 +1,13 @@
 [Unit]
 Description = Spark historyserver
 After = syslog.target network.target remote-fs.target <%= @deps %>
-StartLimitIntervalSec=80
-StartLimitBurst=10
+#restart every 5s and at most 121 times in 11min to guaranty that it will restart for at least 10min (120*5s)
+StartLimitIntervalSec=660
+StartLimitBurst=121
 
 [Service]
 User = <%= node['hops']['hdfs']['user'] %>
 PIDFile = /tmp/spark-<%= node['hops']['hdfs']['user'] %>-org.apache.spark.deploy.history.HistoryServer-1.pid
-ExecStartPre=/bin/bash -c 'while ! /usr/bin/host <%= @nn_rpc_endpoint %> ; do if systemctl list-units --full -all | grep -Fq 'namenode'; then if systemctl is-active --quiet namenode; then /bin/sleep 5; else ! break; fi; else /bin/sleep 5; fi;  done'
 ExecStart = <%= node['hadoop_spark']['base_dir'] %>/sbin/start-history-server.sh
 ExecStop = <%= node['hadoop_spark']['base_dir'] %>/sbin/stop-history-server.sh
 LimitNOFILE = 50000
