@@ -122,7 +122,7 @@ default['hadoop_spark']['spark_tfrecord_version']                        = "2.11
 default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
 
 
-default['hadoop_spark']['hsfs']['version']                          = "2.0.2"
+default['hadoop_spark']['hsfs']['version']                          = "2.0.8"
 default['hadoop_spark']['hsfs']['url']                              = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
 #
