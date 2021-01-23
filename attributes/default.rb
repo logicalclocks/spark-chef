@@ -146,5 +146,5 @@ default['hadoop_spark']['elastic_connector']['url']                          = "
 
 # Prometheus exporter
 default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-#{node['hadoop_spark']['version']}-1.0.6"
-default['hadoop_spark']['simpleclient_version']         = "0.8.1"
+default['hadoop_spark']['simpleclient_version']         = "0.9.0"
 default['hadoop_spark']['metrics-core_version']         = "3.1.5"
