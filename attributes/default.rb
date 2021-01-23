@@ -117,16 +117,21 @@ default['hadoop_spark']['hopsexamples_version']                     = node['inst
 default['hadoop_spark']['hopsexamples_spark']['url']                = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-spark-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 default['hadoop_spark']['hopsexamples_hive']['url']                 = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-hive-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 default['hadoop_spark']['hopsexamples_featurestore_tour']['url']    = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-featurestore-tour-#{node['hadoop_spark']['hopsexamples_version']}.jar"
-default['hadoop_spark']['hopsexamples_featurestore_util4j']['url']  = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-featurestore-util4j-#{node['hadoop_spark']['hopsexamples_version']}.jar"
-default['hadoop_spark']['hopsexamples_featurestore_util_py']['url'] = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/featurestore_util.py"
 
 
 #
 # Featurestore dependencies
 #
-default['hadoop_spark']['mysql_driver']                                  = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
-default['hadoop_spark']['hsfs']['version']                          = node['install']['version']
-default['hadoop_spark']['hsfs']['url']                              = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
+default['hadoop_spark']['spark_avro_version']               = "2.11-2.4.3.2"
+default['hadoop_spark']['tf_spark_connector_version']       = "2.11-1.12.0"
+default['hadoop_spark']['spark_tfrecord_version']           = "2.11-0.1.1"
+default['hadoop_spark']['mysql_driver']                     = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
+
+default['hadoop_spark']['hsfs']['version']                  = node['install']['version']
+default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
+
+default['hadoop_spark']['hsfs']['utils']['version']         = node['install']['version']
+default['hadoop_spark']['hsfs']['utils']['download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.py"
 
 #
 # Hudi Dependencies
