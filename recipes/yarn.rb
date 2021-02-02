@@ -98,23 +98,6 @@ if (private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0]))
     end
   end
 
-  hopsVerification = File.basename(node['hadoop_spark']['hops_verification']['url'])
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsVerification}" do
-    source node['hadoop_spark']['hops_verification']['url']
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "0755"
-    action :create
-  end
-
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsVerification}" do
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsVerification}"
-    action :replace_as_superuser
-  end
-
   hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     source node['hadoop_spark']['hopsexamples_spark']['url']
