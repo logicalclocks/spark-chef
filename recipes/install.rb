@@ -196,8 +196,8 @@ remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
   action :create
 end
 
-hsfs=File.basename(node['hadoop_spark']['snowflake-jdbc']['url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
+snowflake_jdbc=File.basename(node['hadoop_spark']['snowflake-jdbc']['url'])
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{snowflake_jdbc}" do
   source node['hadoop_spark']['snowflake-jdbc']['url']
   owner node['hadoop_spark']['user']
   group node['hops']['group']
@@ -205,8 +205,8 @@ remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
   action :create
 end
 
-hsfs=File.basename(node['hadoop_spark']['spark-snowflake']['url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
+spark_snowflake=File.basename(node['hadoop_spark']['spark-snowflake']['url'])
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{spark_snowflake}" do
   source node['hadoop_spark']['spark-snowflake']['url']
   owner node['hadoop_spark']['user']
   group node['hops']['group']
