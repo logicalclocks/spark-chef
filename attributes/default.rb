@@ -141,5 +141,5 @@ default['hadoop_spark']['snowflake-jdbc_version']       = "3.12.17"
 default['hadoop_spark']['spark-snowflake_artifactID']   = "2.11"  
 default['hadoop_spark']['spark-snowflake_version']      = "2.8.4-spark_2.4"
 
-default['hadoop_spark']['snowflake-jdbc']['url']        = "#{node['download_url']}/snowflake/snowflake-jdbc/#{node['hadoop_spark']['snowflake-jdbc_version']}/snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
-default['hadoop_spark']['spark-snowflake']['url']       = "#{node['download_url']}/snowflake/spark-snowflake/#{node['hadoop_spark']['spark-snowflake_version']}/spark-snowflake_#{node['hadoop_spark']['spark-snowflake_artifactID']}-#{node['hadoop_spark']['spark-snowflake_version']}.jar"
+default['hadoop_spark']['snowflake-jdbc']['url']        = "#{node['download_url']}/snowflake/snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
+default['hadoop_spark']['spark-snowflake']['url']       = "#{node['download_url']}/snowflake/spark-snowflake_#{node['hadoop_spark']['spark-snowflake_artifactID']}-#{node['hadoop_spark']['spark-snowflake_version']}.jar"
