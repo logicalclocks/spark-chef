@@ -155,4 +155,22 @@ attribute "hadoop_spark/hsfs/url",
           :description => "URL from where to download the HSFS library",
           :type => "string"
 
+attribute "hadoop_spark/snowflake-jdbc/version",
+          :description => "Version of the snowflake jdbc driver",
+          :type => "string"
 
+attribute "hadoop_spark/snowflake-jdbc/url",
+          :description => "URL from where to download the snowflake jdbc driver",
+          :type => "string"
+
+attribute "hadoop_spark/spark-snowflake/artifactID",
+          :description => "Artifact id of the spark-snowflake connector",
+          :type => "string"
+
+attribute "hadoop_spark/spark-snowflake/version",
+          :description => "Version of the spark-snowflake connector",
+          :type => "string"
+
+attribute "hadoop_spark/spark-snowflake/url",
+          :description => "URL from where to download the spark-snowflake connector",
+          :type => "string"

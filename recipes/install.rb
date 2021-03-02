@@ -196,6 +196,24 @@ remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
   action :create
 end
 
+hsfs=File.basename(node['hadoop_spark']['snowflake-jdbc']['url'])
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
+  source node['hadoop_spark']['snowflake-jdbc']['url']
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "0644"
+  action :create
+end
+
+hsfs=File.basename(node['hadoop_spark']['spark-snowflake']['url'])
+remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
+  source node['hadoop_spark']['spark-snowflake']['url']
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "0644"
+  action :create
+end
+
 template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
   source "app.log4j.properties.erb"
   owner node['hadoop_spark']['user']
