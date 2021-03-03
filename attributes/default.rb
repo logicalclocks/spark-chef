@@ -136,3 +136,10 @@ default['hadoop_spark']['elastic_connector']['url']                          = "
 default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-2.4-1.0.5"
 default['hadoop_spark']['simpleclient_version']         = "0.8.1"
 default['hadoop_spark']['metrics-core_version']         = "3.1.5"
+
+default['hadoop_spark']['snowflake-jdbc_version']       = "3.12.17"
+default['hadoop_spark']['spark-snowflake_artifactID']   = "2.11"  
+default['hadoop_spark']['spark-snowflake_version']      = "2.8.4-spark_2.4"
+
+default['hadoop_spark']['snowflake-jdbc']['url']        = "#{node['download_url']}/snowflake/snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
+default['hadoop_spark']['spark-snowflake']['url']       = "#{node['download_url']}/snowflake/spark-snowflake_#{node['hadoop_spark']['spark-snowflake_artifactID']}-#{node['hadoop_spark']['spark-snowflake_version']}.jar"
