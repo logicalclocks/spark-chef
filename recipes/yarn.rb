@@ -53,7 +53,15 @@ hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'
 hopsExamplesFeaturestoreTour=File.basename(node['hadoop_spark']['hopsexamples_featurestore_tour']['url'])
 hsfs_utils = File.basename(node['hadoop_spark']['hsfs']['utils']['download_url'])
 
-is_head_node = exists_local("hopsworks", "default") && !node['install']['cloud'].empty?
+is_head_node = false
+if exists_local("hopsworks", "default") and exists_local("cloud", "default")
+  unmanaged = false
+  if node.attribute? 'cloud' and node['cloud'].attribute? 'init' and node['cloud']['init'].attribute? 'config' and node['cloud']['init']['config'].attribute? 'unmanaged'
+    unmanaged = node['cloud']['init']['config']['unmanaged'].casecmp? 'true'
+  end
+  is_head_node = !unmanaged
+end
+
 is_first_spark_yarn_to_run = private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0])
 
 if is_head_node || is_first_spark_yarn_to_run
