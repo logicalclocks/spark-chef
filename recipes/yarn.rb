@@ -222,15 +222,18 @@ if is_head_node
     action :update_local_cache
     rel_paths ["#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}", "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}", "#{Chef::Config['file_cache_path']}/#{hsfs_utils}", "#{Chef::Config['file_cache_path']}/#{hopsVerification}"]
     rel_tours_info [
-                ["/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}", node['hadoop_spark']['user'], node['hops']['group'], "1755"],
-                ["/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}", node['hadoop_spark']['user'], node['hops']['group'], "1755"],
-                ["/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}", node['hadoop_spark']['user'], node['hops']['group'], "1755"],
-                ["/user/#{node['hadoop_spark']['user']}/#{hsfs_utils}", node['hadoop_spark']['user'], node['hops']['group'], "1755"],
-                ["/user/#{node['hadoop_spark']['user']}/#{hopsVerification}", node['hadoop_spark']['user'], node['hops']['group'], "1755"]
-              ]  
+                    "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}", 
+                    "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}",
+                    "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}", 
+                    "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils}", 
+                    "/user/#{node['hadoop_spark']['user']}/#{hopsVerification}"
+                  ]  
     abs_tours_info [
-                ["#{node['hadoop_spark']['home']}/conf/log4j.properties", "/user/#{node['hadoop_spark']['user']}/log4j.properties", node['hadoop_spark']['user'], node['hops']['group'], "1755"],
-                ["#{node['hadoop_spark']['home']}/conf/hive-site.xml", "/user/#{node['hadoop_spark']['user']}/hive-site.xml", node['hadoop_spark']['user'], node['hops']['group'], "1755"]
+                ["#{node['hadoop_spark']['home']}/conf/log4j.properties", "/user/#{node['hadoop_spark']['user']}/log4j.properties"],
+                ["#{node['hadoop_spark']['home']}/conf/hive-site.xml", "/user/#{node['hadoop_spark']['user']}/hive-site.xml"]
               ]
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1755"
   end 
 end
