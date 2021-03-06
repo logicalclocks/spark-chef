@@ -1,14 +1,14 @@
 # https:/.hops.spark.apache.org/docs/1.2.0/running-on-yarn.html
 
-spark.master                  <%= @master_ip %>
-spark.driver.memory           <%= node['hadoop_spark']['driver_memory'] %>
-spark.executor.memory         <%= node['hadoop_spark']['executor_memory'] %>
-spark.eventLog.enabled        <%= node['hadoop_spark']['eventlog_enabled'] %>
-spark.eventLog.dir            hdfs://<%= @nn_endpoint %><%= @eventlog_dir %>
-spark.serializer              org.apache.spark.serializer.KryoSerializer
-spark.worker.cleanup.enabled  <%= node['hadoop_spark']['worker']['cleanup']['enabled'] %>
-spark.io.compression.codec    <%= node['hadoop_spark']['io']['compression']['codec'] %>
-spark.streaming.stopGracefullyOnShutdown <%= node['hadoop_spark']['streaming']['stopGracefullyOnShutdown'] %>
+spark.master                              <%= @master_ip %>
+spark.driver.memory                       <%= node['hadoop_spark']['driver_memory'] %>
+spark.executor.memory                     <%= node['hadoop_spark']['executor_memory'] %>
+spark.eventLog.enabled                    <%= node['hadoop_spark']['eventlog_enabled'] %>
+spark.eventLog.dir                        hdfs://<%= @nn_endpoint %><%= @eventlog_dir %>
+spark.serializer                          org.apache.spark.serializer.KryoSerializer
+spark.worker.cleanup.enabled              <%= node['hadoop_spark']['worker']['cleanup']['enabled'] %>
+spark.io.compression.codec                <%= node['hadoop_spark']['io']['compression']['codec'] %>
+spark.streaming.stopGracefullyOnShutdown  <%= node['hadoop_spark']['streaming']['stopGracefullyOnShutdown'] %>
 
 # spark-history-server settings
 spark.history.fs.logDirectory     hdfs://<%= @nn_endpoint %><%= @eventlog_dir %>
@@ -30,39 +30,19 @@ spark.metrics.conf                <%= node['hadoop_spark']['conf_dir'] %>/metric
 -%>
 <%= auth  %>
 
-#spark.dynamicAllocation.enabled            true
-#spark.dynamicAllocation.minExecutors 1
-#spark.dynamicAllocation.maxExecutors
-#spark.dynamicAllocation.initialExecutors
-
-#spark.executor.extraJavaOptions            -Dlog4j.configuration=<%= node['hadoop_spark']['conf_dir'] %>/executor-log4j.properties -XX:+PrintReferenceGC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintAdaptiveSizePolicy -Djava.library.path=<%= node['hops']['base_dir'] %>/lib/native/
-#spark.driver.extraJavaOptions              -Dlog4j.configuration=<%= node['hadoop_spark']['conf_dir'] %>/yarnclient-driver-log4j.properties -Djava.library.path=<%= node['hops']['base_dir'] %>/lib/native/
-
 spark.yarn.am.waitTime                     <%= node['hadoop_spark']['yarn']['am']['waitTime'] %>
 spark.yarn.submit.file.replication         <%= node['hadoop_spark']['yarn']['submit']['file']['replication'] %>
 spark.yarn.preserve.staging.files          <%= node['hadoop_spark']['yarn']['preserve']['staging']['files'] %>
 spark.yarn.scheduler.heartbeat.interval-ms <%= node['hadoop_spark']['yarn']['scheduler']['heartbeat']['interval_ms'] %>
 spark.yarn.queue                           <%= node['hadoop_spark']['yarn']['queue'] %>
 spark.yarn.containerLauncherMaxThreads     <%= node['hadoop_spark']['yarn']['containerLauncherMaxThreads'] %>
-#spark.submit.pyFiles                       <%= node['hadoop_spark']['pyFiles'] %>
 
 spark.sql.warehouse.dir                    hdfs://<%= @nn_endpoint %><%= node['hadoop_spark']['yarn']['warehouse_hdfs'] %>
 spark.yarn.jars                            <%= node['hadoop_spark']['yarn']['jars'] %>
-#spark.yarn.dist.files                      <%= node['hadoop_spark']['yarn']['dist']['files'] %>
-# am.memory doesn't apply in cluster mode
-#spark.yarn.am.memory                       <%= node['hadoop_spark']['yarn']['am']['memory'] %>
+
 <% for env in node['hadoop_spark']['yarn']['appMasterEnv'].keys -%>
 spark.yarn.appMasterEnv.<% env -%>         <% node['hadoop_spark']['yarn']['appMasterEnv'][env] -%>
 <% end -%>
-
-#spark.yarn.access.namenodes  - these are kerberos enabled namenodes
-#spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
-#spark.yarn.max.executor.failures  numExecutors * 2, with minimum of 3
-#spark.yarn.executor.memoryOverhead	executorMemory * 0.07, with minimum of 384
-#spark.yarn.driver.memoryOverhead	driverMemory * 0.07, with minimum of 384
-#spark.yarn.access.namenodes
-#spark.yarn.containerLauncherMaxThreads	25
-#spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
 
 spark.driver.maxResultSize               <%= node['hadoop_spark']['driver']['maxResultSize'] %>
 spark.sql.broadcastTimeout               <%= node['hadoop_spark']['sql']['broadcastTimeout'] %>
