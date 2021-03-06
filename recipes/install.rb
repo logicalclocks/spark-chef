@@ -1,12 +1,3 @@
-#
-# Cookbook Name:: spark
-# Recipe:: install
-#
-# Copyright 2015, Jim Dowling
-#
-# All rights reserved
-#
-
 include_recipe "java"
 
 group node['hops']['group'] do
