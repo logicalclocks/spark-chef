@@ -105,12 +105,6 @@ default['hadoop_spark']['hopsutil_version']                    = node['install']
 default['hadoop_spark']['hopsutil']['url']                     = "#{node['download_url']}/hopsutil/#{node['hadoop_spark']['hopsutil_version']}/hops-util-#{node['hadoop_spark']['hopsutil_version']}.jar"
 
 #
-# Hops Deequ wrapper
-#
-default['hadoop_spark']['hops_verification']['version']        = node['install']['version']
-default['hadoop_spark']['hops_verification']['url']            = "#{node['download_url']}/hops-verification/hops-verification-assembly-#{node['hadoop_spark']['hops_verification']['version']}.jar"
-
-#
 # Hops Examples Spark Job/Notebook Dependency Jars
 #
 default['hadoop_spark']['hopsexamples_version']                     = node['install']['version']
@@ -153,3 +147,10 @@ default['hadoop_spark']['elastic_connector']['url']                          = "
 default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-#{node['hadoop_spark']['version']}-1.0.6"
 default['hadoop_spark']['simpleclient_version']         = "0.9.0"
 default['hadoop_spark']['metrics-core_version']         = "3.1.5"
+
+default['hadoop_spark']['snowflake-jdbc_version']       = "3.12.17"
+default['hadoop_spark']['spark-snowflake_artifactID']   = "2.11"  
+default['hadoop_spark']['spark-snowflake_version']      = "2.8.4-spark_2.4"
+
+default['hadoop_spark']['snowflake-jdbc']['url']        = "#{node['download_url']}/snowflake/snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
+default['hadoop_spark']['spark-snowflake']['url']       = "#{node['download_url']}/snowflake/spark-snowflake_#{node['hadoop_spark']['spark-snowflake_artifactID']}-#{node['hadoop_spark']['spark-snowflake_version']}.jar"

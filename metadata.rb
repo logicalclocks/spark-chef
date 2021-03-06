@@ -4,7 +4,7 @@ maintainer_email "jdowling@kth.se"
 license          "Apache v2"
 description      'Installs/Configures Spark'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "2.1.0"
+version          "2.2.0"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
 depends 'java', '~> 7.0.0'
@@ -55,7 +55,7 @@ attribute "hadoop_spark/worker/cleanup/enabled",
           :type => 'string'
 
 attribute "hadoop_spark/version",
-          :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 2.1.0)",
+          :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 2.2.0)",
           :type => 'string'
 
 attribute "hadoop_spark/history/fs/cleaner/enabled",
@@ -155,4 +155,22 @@ attribute "hadoop_spark/hsfs/url",
           :description => "URL from where to download the HSFS library",
           :type => "string"
 
+attribute "hadoop_spark/snowflake-jdbc/version",
+          :description => "Version of the snowflake jdbc driver",
+          :type => "string"
 
+attribute "hadoop_spark/snowflake-jdbc/url",
+          :description => "URL from where to download the snowflake jdbc driver",
+          :type => "string"
+
+attribute "hadoop_spark/spark-snowflake/artifactID",
+          :description => "Artifact id of the spark-snowflake connector",
+          :type => "string"
+
+attribute "hadoop_spark/spark-snowflake/version",
+          :description => "Version of the spark-snowflake connector",
+          :type => "string"
+
+attribute "hadoop_spark/spark-snowflake/url",
+          :description => "URL from where to download the spark-snowflake connector",
+          :type => "string"
