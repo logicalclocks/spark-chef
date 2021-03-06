@@ -42,10 +42,6 @@ remote_file cached_package_filename do
   action :create_if_missing
 end
 
-package "zip" do
-  action :install
-end
-
 spark_down = "#{node['hadoop_spark']['home']}/.hadoop_spark.extracted_#{node['hadoop_spark']['version']}"
 
 # Extract Spark
