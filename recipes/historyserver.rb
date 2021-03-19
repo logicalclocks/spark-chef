@@ -1,6 +1,5 @@
-
 eventlog_dir = "#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}/applicationHistory"
-tmp_dirs   = ["#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}", eventlog_dir ]
+tmp_dirs = ["#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}", eventlog_dir ]
 for d in tmp_dirs
  hops_hdfs_directory d do
     action :create_as_superuser
@@ -8,6 +7,13 @@ for d in tmp_dirs
     group node['hops']['group']
     mode "1777"
   end
+end
+
+template "#{node['hadoop_spark']['sbin_dir']}/start-history-server.sh" do
+  source "start-history-server.sh.erb"
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode "750"
 end
 
 deps = ""

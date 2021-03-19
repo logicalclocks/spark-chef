@@ -12,6 +12,7 @@ default['hadoop_spark']['dir']                                  = node['install'
 default['hadoop_spark']['base_dir']                             = "#{node['hadoop_spark']['dir']}/spark"
 default['hadoop_spark']['home']                                 = "#{node['hadoop_spark']['dir']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop-with-hive-with-r"
 default['hadoop_spark']['conf_dir']                             = "#{node['hadoop_spark']['base_dir']}/conf"
+default['hadoop_spark']['sbin_dir']                             = "#{node['hadoop_spark']['base_dir']}/sbin"
 default['hadoop_spark']['hopsworks_jars']                       = "#{node['hadoop_spark']['base_dir']}/hopsworks-jars"
 default['hadoop_spark']['url']                                  = "#{node['download_url']}/spark-#{node['hadoop_spark']['version']}-bin-without-hadoop-with-hive-with-r.tgz"
 
