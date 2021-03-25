@@ -35,7 +35,7 @@ export SPARK_DAEMON_JAVA_OPTS="-Dspark.ssl.historyServer.enabled=true \
   -Dspark.ssl.historyServer.port=<%= node['hadoop_spark']['historyserver']['port'] %> \
   -Dspark.ssl.historyServer.protocol=TLSv1.2 \
   -Dspark.ssl.historyServer.keyPassword=`cat <%= node['x509']['super-crypto']['base-dir'] %>/<%= node['hops']['hdfs']['user'] %>/<%= node['hops']['hdfs']['user'] %>__passwd` \
-  -Dspark.ssl.historyServer.keyStore.password =`cat <%= node['x509']['super-crypto']['base-dir'] %>/<%= node['hops']['hdfs']['user'] %>/<%= node['hops']['hdfs']['user'] %>__passwd`"
+  -Dspark.ssl.historyServer.keyStore.password=`cat <%= node['x509']['super-crypto']['base-dir'] %>/<%= node['hops']['hdfs']['user'] %>/<%= node['hops']['hdfs']['user'] %>__passwd`"
 
 exec "${SPARK_HOME}/sbin"/spark-daemon.sh start org.apache.spark.deploy.history.HistoryServer 1 "$@"
 
