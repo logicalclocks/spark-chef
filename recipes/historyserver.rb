@@ -15,7 +15,7 @@ template "#{node['hadoop_spark']['sbin_dir']}/start-history-server.sh" do
   group node['hops']['group']
   mode "750"
   variables({
-    :crypto_dir => get_crypto_dir(node['hops']['hdfs']['user'])
+    :crypto_dir => x509_helper.get_crypto_dir(node['hops']['hdfs']['user'])
   })
 end
 
