@@ -14,6 +14,9 @@ template "#{node['hadoop_spark']['sbin_dir']}/start-history-server.sh" do
   owner node['hadoop_spark']['user']
   group node['hops']['group']
   mode "750"
+  variables({
+    :crypto_dir => get_crypto_dir(node['hops']['hdfs']['user'])
+  })
 end
 
 deps = ""
