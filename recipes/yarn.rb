@@ -171,15 +171,6 @@ if is_first_spark_yarn_to_run
     mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils}"
   end
-
-  #copy hive-site.xml to hdfs so that node-managers can download it to containers for running hive-jobs/notebooks
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/hive-site.xml" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
-  end
 end
 
 #
