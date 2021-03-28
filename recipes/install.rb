@@ -58,21 +58,6 @@ bash 'extract_hadoop_spark' do
     not_if { ::File.exists?( spark_down ) }
 end
 
-bash 'link_jars' do
-    user "root"
-    code <<-EOH
-        set -e
-        rm -f #{node['hadoop_spark']['home']}/python/lib/py4j-src.zip
-        ln -s #{node['hadoop_spark']['home']}/python/lib/py4j-*-src.zip #{node['hadoop_spark']['home']}/python/lib/py4j-src.zip
-        rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo.jar
-        ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo.jar
-        rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-core.jar
-        ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-core-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-core.jar
-        rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms.jar
-        ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms.jar
-    EOH
-end
-
 link node['hadoop_spark']['base_dir'] do
   owner node['hadoop_spark']['user']
   group node['hops']['group']
