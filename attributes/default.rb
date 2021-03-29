@@ -133,10 +133,10 @@ default['hadoop_spark']['databricks_delta_version']         = "#{node['scala']['
 default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-30_#{node['scala']['version']}-#{node['elastic']['version']}.jar"
 
 # Prometheus exporter
-# TODO(Fabio): fix metrics and snowflake dependency
-# default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-#{node['hadoop_spark']['version']}-1.0.6"
-# default['hadoop_spark']['simpleclient_version']         = "0.9.0"
-# default['hadoop_spark']['metrics-core_version']         = "3.1.5"
+default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-3.1-1.1.0.jar"
+default['hadoop_spark']['simpleclient_version']         = "0.9.0"
+default['hadoop_spark']['metrics-core_version']         = "4.1.1"
+
 # default['hadoop_spark']['snowflake-jdbc_version']       = "3.12.17"
 # default['hadoop_spark']['spark-snowflake_artifactID']   = "2.11"  
 # default['hadoop_spark']['spark-snowflake_version']      = "2.8.4-spark_2.4"

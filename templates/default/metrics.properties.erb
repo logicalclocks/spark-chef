@@ -1,11 +1,10 @@
-# TODO(Fabio): deal with metrics later
-# # Enable Prometheus for all instances by class name
-# *.sink.prometheus.class=org.apache.spark.banzaicloud.metrics.sink.PrometheusSink
-# 
-# # Prometheus pushgateway address
-# *.sink.prometheus.pushgateway-address-protocol=http
-# *.sink.prometheus.pushgateway-address=<%= @pushgateway %>:<%= node['pushgateway']['port'] %>
-# 
-# # Spark provides more metrics through the dropwizard export than jmx
-# *.sink.prometheus.enable-dropwizard-collector=true
-# *.sink.prometheus.enable-jmx-collector=false
+# Enable Prometheus for all instances by class name
+*.sink.prometheus.class=org.apache.spark.banzaicloud.metrics.sink.PrometheusSink
+
+# Prometheus pushgateway address
+*.sink.prometheus.pushgateway-address-protocol=http
+*.sink.prometheus.pushgateway-address=<%= @pushgateway %>:<%= node['pushgateway']['port'] %>
+
+# Spark provides more metrics through the dropwizard export than jmx
+*.sink.prometheus.enable-dropwizard-collector=true
+*.sink.prometheus.enable-jmx-collector=false
