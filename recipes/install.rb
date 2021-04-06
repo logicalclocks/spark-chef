@@ -124,8 +124,6 @@ other_dependencies = [
   node['hadoop_spark']['hopsutil']['url'],
   node['hadoop_spark']['elastic_connector']['url'],
   node['hadoop_spark']['hsfs']['url'],
-  #node['hadoop_spark']['snowflake-jdbc']['url'],
-  #node['hadoop_spark']['spark-snowflake']['url'],
 ]
 
 for dep in other_dependencies do
