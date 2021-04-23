@@ -124,9 +124,6 @@ sql_dep = [
   "parquet-hadoop-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-format-#{node['hadoop_spark']['parquet_format_version']}.jar",
   "snappy-0.4.jar",
   "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
@@ -138,7 +135,8 @@ sql_dep = [
   "simpleclient_common-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "simpleclient_dropwizard-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "simpleclient_pushgateway-#{node['hadoop_spark']['simpleclient_version']}.jar",
-  "metrics-core-#{node['hadoop_spark']['metrics-core_version']}.jar"
+  "metrics-core-#{node['hadoop_spark']['metrics-core_version']}.jar",
+  "hops-jdbc-#{node['hive2']['version']}.jar",
 ]
 for f in sql_dep do
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do
