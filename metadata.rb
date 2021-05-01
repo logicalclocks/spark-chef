@@ -4,10 +4,9 @@ maintainer_email "jdowling@kth.se"
 license          "Apache v2"
 description      'Installs/Configures Spark'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "2.2.0"
+version          "2.3.0"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
-depends 'java', '~> 7.0.0'
 depends 'magic_shell', '~> 1.0.0'
 depends 'conda'
 depends 'kagent'
@@ -15,6 +14,7 @@ depends 'ndb'
 depends 'hops'
 depends 'hive2'
 depends 'hopsmonitor'
+depends 'java'
 
 recipe           "install", "Installs Spark binaries"
 #link:<a target='_blank' href='http://%host%:8080/'>Launch the WebUI for the Spark Master</a>
@@ -55,7 +55,7 @@ attribute "hadoop_spark/worker/cleanup/enabled",
           :type => 'string'
 
 attribute "hadoop_spark/version",
-          :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 2.2.0)",
+          :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 2.3.0)",
           :type => 'string'
 
 attribute "hadoop_spark/history/fs/cleaner/enabled",
