@@ -107,8 +107,11 @@ sql_dep = [
   "simpleclient_dropwizard-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "simpleclient_pushgateway-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "metrics-core-#{node['hadoop_spark']['metrics-core_version']}.jar",
-  "hops-jdbc-#{node['hive2']['version']}.jar",
+  "elasticsearch-spark-#{node['hadoop_spark']['elastic_connector_version']}.jar",
+  "spark-snowflake_#{node['hadoop_spark']['spark-snowflake_version']}.jar"
+  "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
 ]
+
 for f in sql_dep do
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do
     source "#{node['hadoop_spark']['spark_sql_dependencies_url']}/#{f}"
@@ -123,7 +126,6 @@ other_dependencies = [
   node['hadoop_spark']['hudi_bundle_url'],
   node['hadoop_spark']['mysql_driver'],
   node['hadoop_spark']['hopsutil']['url'],
-  node['hadoop_spark']['elastic_connector']['url'],
   node['hadoop_spark']['hsfs']['url'],
 ]
 

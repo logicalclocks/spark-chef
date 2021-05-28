@@ -2,7 +2,6 @@ include_attribute "kagent"
 include_attribute "hops"
 include_attribute "hopsmonitor"
 include_attribute "hive2"
-include_attribute "elastic"
 
 default['hadoop_spark']['user']                                 = node['install']['user'].empty? ? "spark" : node['install']['user']
 
@@ -121,26 +120,18 @@ default['hadoop_spark']['hsfs']['utils']['download_url']    = "#{node['download_
 #
 # Hudi Dependencies
 #
-default['hadoop_spark']['hudi_bundle_url']                  = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-spark-bundle_#{node['scala']['version']}-#{node['hive2']['hudi_version']}.jar"
+default['hadoop_spark']['hudi_bundle_url']                  = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-spark3-bundle_#{node['scala']['version']}-#{node['hive2']['hudi_version']}.jar"
 
 #
 # Delta
 #
 default['hadoop_spark']['databricks_delta_version']         = "#{node['scala']['version']}-0.7.0"
-
-# Spark elastic connector
-# Built using the PR from here on 20/12/2020
-# https://github.com/scxwhite/elasticsearch-hadoop-spark3.0
-default['hadoop_spark']['elastic_connector']['url']                          = "#{node['download_url']}/elasticsearch-spark-30_#{node['scala']['version']}-#{node['elastic']['version']}.jar"
+default['hadoop_spark']['elastic_connector_version']        = "30_#{node['scala']['version']}-7.13.0-SNAPSHOT"
 
 # Prometheus exporter
-default['hadoop_spark']['spark-metrics_version']        = "#{node['scala']['version']}-3.1-1.1.0"
-default['hadoop_spark']['simpleclient_version']         = "0.9.0"
-default['hadoop_spark']['metrics-core_version']         = "4.1.1"
+default['hadoop_spark']['spark-metrics_version']            = "#{node['scala']['version']}-3.1-1.1.0"
+default['hadoop_spark']['simpleclient_version']             = "0.9.0"
+default['hadoop_spark']['metrics-core_version']             = "4.1.1"
 
-# default['hadoop_spark']['snowflake-jdbc_version']       = "3.12.17"
-# default['hadoop_spark']['spark-snowflake_artifactID']   = "2.11"  
-# default['hadoop_spark']['spark-snowflake_version']      = "2.8.4-spark_2.4"
-# 
-# default['hadoop_spark']['snowflake-jdbc']['url']        = "#{node['download_url']}/snowflake/snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
-# default['hadoop_spark']['spark-snowflake']['url']       = "#{node['download_url']}/snowflake/spark-snowflake_#{node['hadoop_spark']['spark-snowflake_artifactID']}-#{node['hadoop_spark']['spark-snowflake_version']}.jar"
+default['hadoop_spark']['spark-snowflake_version']          = "#{node['scala']['version']}-2.9.0-spark_3.1"
+default['hadoop_spark']['snowflake-jdbc_version']           = "3.13.3"
