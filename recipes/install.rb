@@ -1,12 +1,3 @@
-#
-# Cookbook Name:: spark
-# Recipe:: install
-#
-# Copyright 2015, Jim Dowling
-#
-# All rights reserved
-#
-
 include_recipe "java"
 
 group node['hops']['group'] do
@@ -51,39 +42,20 @@ remote_file cached_package_filename do
   action :create_if_missing
 end
 
-package "zip" do
-  action :install
-end
-
 spark_down = "#{node['hadoop_spark']['home']}/.hadoop_spark.extracted_#{node['hadoop_spark']['version']}"
 
 # Extract Spark
 bash 'extract_hadoop_spark' do
-        user "root"
-        code <<-EOH
-                set -e
-                rm -rf #{node['hadoop_spark']['base_dir']}
-                tar -xf #{cached_package_filename} -C #{node['hadoop_spark']['dir']}
-                chown -R #{node['hadoop_spark']['user']}:#{node['hops']['group']} #{node['hadoop_spark']['dir']}/spark*
-                chmod -R 755 #{node['hadoop_spark']['dir']}/spark*
-                touch #{spark_down}
-        EOH
-     not_if { ::File.exists?( spark_down ) }
-end
-
-bash 'link_jars' do
-        user "root"
-        code <<-EOH
-                set -e
-                rm -f #{node['hadoop_spark']['home']}/python/lib/py4j-src.zip
-                ln -s #{node['hadoop_spark']['home']}/python/lib/py4j-*-src.zip #{node['hadoop_spark']['home']}/python/lib/py4j-src.zip
-                rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo.jar
-                ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-api-jdo.jar
-                rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-core.jar
-                ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-core-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-core.jar
-                rm -f #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms.jar
-                ln -s #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms-*.jar #{node['hadoop_spark']['home']}/jars/datanucleus-rdbms.jar
-        EOH
+    user "root"
+    code <<-EOH
+       set -e
+       rm -rf #{node['hadoop_spark']['base_dir']}
+       tar -xf #{cached_package_filename} -C #{node['hadoop_spark']['dir']}
+       chown -R #{node['hadoop_spark']['user']}:#{node['hops']['group']} #{node['hadoop_spark']['dir']}/spark*
+       chmod -R 755 #{node['hadoop_spark']['dir']}/spark*
+       touch #{spark_down}
+    EOH
+    not_if { ::File.exists?( spark_down ) }
 end
 
 link node['hadoop_spark']['base_dir'] do
@@ -119,13 +91,12 @@ end
 
 sql_dep = [
   "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar",
-  "parquet-encoding-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-common-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-hadoop-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-jackson-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-column-#{node['hadoop_spark']['parquet_version']}.jar",
   "parquet-format-#{node['hadoop_spark']['parquet_format_version']}.jar",
-  "snappy-0.4.jar",
+  "snappy-#{node['hadoop_spark']['snappy_version']}.jar",
   "spark-avro_#{node['hadoop_spark']['spark_avro_version']}.jar",
   "spark-tensorflow-connector_#{node['hadoop_spark']['tf_spark_connector_version']}.jar",
   "spark-tfrecord_#{node['hadoop_spark']['spark_tfrecord_version']}.jar",
@@ -136,8 +107,11 @@ sql_dep = [
   "simpleclient_dropwizard-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "simpleclient_pushgateway-#{node['hadoop_spark']['simpleclient_version']}.jar",
   "metrics-core-#{node['hadoop_spark']['metrics-core_version']}.jar",
-  "hops-jdbc-#{node['hive2']['version']}.jar",
+  "elasticsearch-spark-#{node['hadoop_spark']['elastic_connector_version']}.jar",
+  "spark-snowflake_#{node['hadoop_spark']['spark-snowflake_version']}.jar",
+  "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
 ]
+
 for f in sql_dep do
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{f}" do
     source "#{node['hadoop_spark']['spark_sql_dependencies_url']}/#{f}"
@@ -148,68 +122,22 @@ for f in sql_dep do
   end
 end
 
-hudi_bundle =File.basename(node['hadoop_spark']['hudi_bundle_url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hudi_bundle}" do
-  source node['hadoop_spark']['hudi_bundle_url']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0644"
-  action :create
-end
+other_dependencies = [
+  node['hadoop_spark']['hudi_bundle_url'],
+  node['hadoop_spark']['mysql_driver'],
+  node['hadoop_spark']['hopsutil']['url'],
+  node['hadoop_spark']['hsfs']['url'],
+]
 
-# Download MySQL Driver for Online featurestore
-mysql_driver=File.basename(node['hadoop_spark']['mysql_driver'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{mysql_driver}" do
-  source node['hadoop_spark']['mysql_driver']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0644"
-  action :create_if_missing
-end
-
-hopsUtil=File.basename(node['hadoop_spark']['hopsutil']['url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hopsUtil}" do
-  source node['hadoop_spark']['hopsutil']['url']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0644"
-  action :create
-end
-
-elastic_connector=File.basename(node['hadoop_spark']['elastic_connector']['url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{elastic_connector}" do
-  source node['hadoop_spark']['elastic_connector']['url']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0644"
-  action :create
-end
-
-hsfs=File.basename(node['hadoop_spark']['hsfs']['url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{hsfs}" do
-  source node['hadoop_spark']['hsfs']['url']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0644"
-  action :create
-end
-
-snowflake_jdbc=File.basename(node['hadoop_spark']['snowflake-jdbc']['url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{snowflake_jdbc}" do
-  source node['hadoop_spark']['snowflake-jdbc']['url']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0644"
-  action :create
-end
-
-spark_snowflake=File.basename(node['hadoop_spark']['spark-snowflake']['url'])
-remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{spark_snowflake}" do
-  source node['hadoop_spark']['spark-snowflake']['url']
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "0644"
-  action :create
+for dep in other_dependencies do
+  file_name = File.basename(dep)
+  remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{file_name}" do
+    source dep 
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "0644"
+    action :create
+  end
 end
 
 template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
