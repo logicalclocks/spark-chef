@@ -168,6 +168,13 @@ template"#{node['hadoop_spark']['home']}/conf/spark-env.sh" do
   mode 0655
 end
 
+template"#{node['hadoop_spark']['home']}/bin/getGpusResources.sh" do
+  source "getGpusResources.sh.erb"
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode 0555
+end
+
 template"#{node['hadoop_spark']['home']}/conf/spark-blacklisted-properties.txt" do
   source "spark-blacklisted-properties.txt.erb"
   owner node['hadoop_spark']['user']
