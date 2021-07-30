@@ -72,11 +72,16 @@ directory node['data']['dir'] do
   not_if { ::File.directory?(node['data']['dir']) }
 end
 
+directory node['hadoop_spark']['data_volume']['root_dir'] do
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
+  mode '0770'
+end
+
 directory node['hadoop_spark']['data_volume']['logs_dir'] do
   owner node['hadoop_spark']['user']
   group node['hops']['group']
   mode '0770'
-  recursive true
 end
 
 bash 'Move Spark logs to data volume' do
