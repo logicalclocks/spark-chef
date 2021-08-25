@@ -4,6 +4,7 @@ include_attribute "hopsmonitor"
 include_attribute "hive2"
 
 default['hadoop_spark']['user']                                 = node['install']['user'].empty? ? "spark" : node['install']['user']
+default['hadoop_spark']['user_id']                              = '1505'
 
 default['scala']['version'] 	                                  = "2.12"
 
