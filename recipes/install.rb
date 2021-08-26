@@ -8,6 +8,7 @@ group node['hops']['group'] do
 end
 
 user node['hadoop_spark']['user'] do
+  uid node['hadoop_spark']['user_id']
   gid node['hops']['group']
   action :create
   system true
