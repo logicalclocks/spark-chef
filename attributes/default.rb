@@ -114,10 +114,10 @@ default['hadoop_spark']['tf_spark_connector_version']       = "2.11-1.12.0"
 default['hadoop_spark']['spark_tfrecord_version']           = "2.11-0.1.1"
 default['hadoop_spark']['mysql_driver']                     = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
 
-default['hadoop_spark']['hsfs']['version']                  = "2.2.15"
+default['hadoop_spark']['hsfs']['version']                  = "2.2.20"
 default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
-default['hadoop_spark']['hsfs']['utils']['version']         = node['install']['version']
+default['hadoop_spark']['hsfs']['utils']['version']         = "2.2.20"
 default['hadoop_spark']['hsfs']['utils']['download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.py"
 
 #
