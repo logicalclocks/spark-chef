@@ -216,6 +216,7 @@ if is_head_node
             "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}", 
             "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}", 
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}",
+            "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}",
             "#{node['hadoop_spark']['home']}/conf/log4j.properties",
             "#{node['hadoop_spark']['home']}/conf/hive-site.xml"
           ]
@@ -224,6 +225,7 @@ if is_head_node
                   "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}",
                   "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}", 
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
+                  "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
                   "/user/#{node['hadoop_spark']['user']}/log4j.properties",
                   "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
                 ]  
