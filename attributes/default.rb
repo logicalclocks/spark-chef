@@ -125,8 +125,8 @@ default['hadoop_spark']['hsfs']['utils']['download_url']    = "#{node['download_
 #
 # Hudi Dependencies
 #
-default['hadoop_spark']['hudi_bundle_url']                  = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-spark3-bundle_#{node['scala']['version']}-#{node['hive2']['hudi_version']}.jar"
-default['hadoop_spark']['hudi_bundle_url']                  = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-utilities-bundle_#{node['scala']['version']}-#{node['hive2']['hudi_version']}.jar"
+default['hadoop_spark']['hudi_spark_bundle_url']                  = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-spark3-bundle_#{node['scala']['version']}-#{node['hive2']['hudi_version']}.jar"
+default['hadoop_spark']['hudi_util_bundle_url']                  = "#{node['download_url']}/hudi/#{node['hive2']['hudi_version']}/hudi-utilities-bundle_#{node['scala']['version']}-#{node['hive2']['hudi_version']}.jar"
 
 #
 # Delta

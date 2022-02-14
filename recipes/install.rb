@@ -163,7 +163,8 @@ for f in sql_dep do
 end
 
 other_dependencies = [
-  node['hadoop_spark']['hudi_bundle_url'],
+  node['hadoop_spark']['hudi_spark_bundle_url'],
+  node['hadoop_spark']['hudi_util_bundle_url'],
   node['hadoop_spark']['mysql_driver'],
   node['hadoop_spark']['hopsutil']['url'],
   node['hadoop_spark']['hsfs']['url'],
