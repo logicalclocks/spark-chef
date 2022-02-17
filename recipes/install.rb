@@ -149,7 +149,8 @@ sql_dep = [
   "metrics-core-#{node['hadoop_spark']['metrics-core_version']}.jar",
   "elasticsearch-spark-#{node['hadoop_spark']['elastic_connector_version']}.jar",
   "spark-snowflake_#{node['hadoop_spark']['spark-snowflake_version']}.jar",
-  "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
+  "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar",
+  "gcs-connector-hadoop3-#{node['hadoop_spark']['gcs_connector_version']}.jar"
 ]
 
 for f in sql_dep do
