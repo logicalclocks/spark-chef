@@ -121,7 +121,7 @@ default['hadoop_spark']['hsfs']['url']                      = "#{node['download_
 
 default['hadoop_spark']['hsfs']['utils']['version']         = node['install']['version']
 default['hadoop_spark']['hsfs']['utils']['py_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.py"
-default['hadoop_spark']['hsfs']['utils']['java_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.jar"
+default['hadoop_spark']['hsfs']['utils']['java_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs-utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.jar"
 
 #
 # Hudi Dependencies
