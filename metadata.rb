@@ -178,3 +178,13 @@ attribute "hadoop_spark/spark-snowflake/version",
 attribute "hadoop_spark/spark-snowflake/url",
           :description => "URL from where to download the spark-snowflake connector",
           :type => "string"
+
+attribute "hadoop_spark/hudi_spark_bundle_url",
+          :description => "URL for hudi spark jar",
+          :type => "string"
+
+attribute "hadoop_spark/hudi_util_bundle_url",
+          :description => "URL for hudi utiljar",
+          :type => "string"
+
+
