@@ -92,7 +92,7 @@ bash 'Move Spark logs to data volume' do
     mv -f #{node['hadoop_spark']['logs_dir']}/* #{node['hadoop_spark']['data_volume']['logs_dir']}
     rm -rf #{node['hadoop_spark']['logs_dir']}
   EOH
-  only_if { conda_helpers.is_upgrade }
+L  only_if { conda_helpers.is_upgrade }
   only_if { File.directory?(node['hadoop_spark']['logs_dir'])}
   not_if { File.symlink?(node['hadoop_spark']['logs_dir'])}
 end
@@ -149,9 +149,7 @@ sql_dep = [
   "metrics-core-#{node['hadoop_spark']['metrics-core_version']}.jar",
   "elasticsearch-spark-#{node['hadoop_spark']['elastic_connector_version']}.jar",
   "spark-snowflake_#{node['hadoop_spark']['spark-snowflake_version']}.jar",
-  "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar",
-  "gcs-connector-hadoop3-#{node['hadoop_spark']['gcs_connector_version']}.jar",
-  "spark-bigquery-with-dependencies_2.12-#{node['hadoop_spark']['bigquery_version']}.jar"
+  "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar"
 ]
 
 for f in sql_dep do
@@ -165,8 +163,7 @@ for f in sql_dep do
 end
 
 other_dependencies = [
-  node['hadoop_spark']['hudi_spark_bundle_url'],
-  node['hadoop_spark']['hudi_util_bundle_url'],
+  node['hadoop_spark']['hudi_bundle_url'],
   node['hadoop_spark']['mysql_driver'],
   node['hadoop_spark']['hopsutil']['url'],
   node['hadoop_spark']['hsfs']['url'],
@@ -175,7 +172,7 @@ other_dependencies = [
 for dep in other_dependencies do
   file_name = File.basename(dep)
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{file_name}" do
-    source dep
+    source dep 
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "0644"
