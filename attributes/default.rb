@@ -108,7 +108,6 @@ default['hadoop_spark']['hopsutil']['url']                     = "#{node['downlo
 default['hadoop_spark']['hopsexamples_version']                     = node['install']['version']
 default['hadoop_spark']['hopsexamples_spark']['url']                = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-spark-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 default['hadoop_spark']['hopsexamples_hive']['url']                 = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-hive-#{node['hadoop_spark']['hopsexamples_version']}.jar"
-default['hadoop_spark']['hopsexamples_featurestore_tour']['url']    = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-featurestore-tour-#{node['hadoop_spark']['hopsexamples_version']}.jar"
 
 
 #

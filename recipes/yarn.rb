@@ -50,7 +50,6 @@ end
 
 
 hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
-hopsExamplesFeaturestoreTour=File.basename(node['hadoop_spark']['hopsexamples_featurestore_tour']['url'])
 hsfs_utils_py = File.basename(node['hadoop_spark']['hsfs']['utils']['py_download_url'])
 hsfs_utils_java = File.basename(node['hadoop_spark']['hsfs']['utils']['java_download_url'])
 
@@ -75,14 +74,6 @@ if is_head_node || is_first_spark_yarn_to_run
     action :create
   end
 
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}" do
-    source node['hadoop_spark']['hopsexamples_featurestore_tour']['url']
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    action :create
-  end
-
   remote_file "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}" do
     source node['hadoop_spark']['hsfs']['utils']['py_download_url']
     owner node['hadoop_spark']['user']
@@ -98,6 +89,15 @@ if is_head_node || is_first_spark_yarn_to_run
     mode "1755"
     action :create
   end
+
+  ['open_high_low.py', 'avgs.py'].each do |tour_file|
+    cookbook_file "#{Chef::Config['file_cache_path']}/#{tour_file}" do
+      source "fs_tour/open_high_low.py"
+      owner node['glassfish']['user']
+      mode 0750
+      action :create
+    end
+  end
 end 
 
 # Only the first of the spark::yarn hosts needs to run this code (not all of them)
@@ -105,88 +105,42 @@ end
 #if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
 if is_first_spark_yarn_to_run
 
-  hops_hdfs_directory "#{home}" do
-    action :create_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1777"
-  end
-
-
-  hops_hdfs_directory "#{home}/#{node['hadoop_spark']['user']}" do
-    action :create_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1777"
-  end
-
-  hops_hdfs_directory "#{home}/#{node['hadoop_spark']['user']}/eventlog" do
-    action :create_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-  end
-
-  hops_hdfs_directory "#{home}/#{node['hadoop_spark']['user']}/spark-warehouse" do
-    action :create_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-  end
-
-  hops_hdfs_directory "#{home}/#{node['hadoop_spark']['user']}/share/lib" do
-    action :create_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1775"
-  end
-
-  hopsworks_user=node['hops']['hdfs']['user']
-
-  if node.attribute?('hopsworks') == true
-    if node['hopsworks'].attribute?('user') == true
-      hopsworks_user = node['hopsworks']['user']
+  ["#{home}",
+   "#{home}/#{node['hadoop_spark']['user']}"].each do |hopsfs_dir|
+    hops_hdfs_directory hopsfs_dir do
+      action :create_as_superuser
+      owner node['hadoop_spark']['user']
+      group node['hops']['group']
+      mode "1777"
     end
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}"
+  ["#{home}/#{node['hadoop_spark']['user']}/eventlog",
+   "#{home}/#{node['hadoop_spark']['user']}/spark-warehouse",
+   "#{home}/#{node['hadoop_spark']['user']}/share/lib"].each do |hopsfs_dir|
+      hops_hdfs_directory hopsfs_dir do
+        action :create_as_superuser
+        owner node['hadoop_spark']['user']
+        group node['hops']['group']
+        mode "1775"
+      end
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}"
-  end
-
-  hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/log4j.properties"
-  end
-
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}"
-  end
-
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}"
+  {
+    "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" => "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}",
+    "#{node['hadoop_spark']['home']}/conf/log4j.properties" => "/user/#{node['hadoop_spark']['user']}/log4j.properties",
+    "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}" => "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
+    "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}" => "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
+    "#{Chef::Config['file_cache_path']}/open_high_low.py" => "/user/#{node['hadoop_spark']['user']}/open_high_low.py",
+    "#{Chef::Config['file_cache_path']}/avgs.py" => "/user/#{node['hadoop_spark']['user']}/avgs.py"
+  }.each do |src, dest|
+    hops_hdfs_directory src do
+      action :replace_as_superuser
+      owner node['hadoop_spark']['user']
+      group node['hops']['group']
+      mode "1755"
+      dest dest 
+    end
   end
 end
 
@@ -214,20 +168,21 @@ if is_head_node
     action :update_local_cache
     paths [
             "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}", 
-            "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}", 
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}",
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}",
+            "#{Chef::Config['file_cache_path']}/open_high_low.py",
+            "#{Chef::Config['file_cache_path']}/avgs.py",
             "#{node['hadoop_spark']['home']}/conf/log4j.properties",
             "#{node['hadoop_spark']['home']}/conf/hive-site.xml"
           ]
     hdfs_paths [
                   "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}", 
-                  "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}",
-                  "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}", 
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
                   "/user/#{node['hadoop_spark']['user']}/log4j.properties",
-                  "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
+                  "/user/#{node['hadoop_spark']['user']}/hive-site.xml",
+                  "/user/#{node['hadoop_spark']['user']}/open_high_low.py",
+                  "/user/#{node['hadoop_spark']['user']}/avgs.py"
                 ]  
     owner node['hadoop_spark']['user']
     group node['hops']['group']
