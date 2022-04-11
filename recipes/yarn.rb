@@ -93,7 +93,7 @@ if is_head_node || is_first_spark_yarn_to_run
   ['open_high_low.py', 'avgs.py'].each do |tour_file|
     cookbook_file "#{Chef::Config['file_cache_path']}/#{tour_file}" do
       source "fs_tour/open_high_low.py"
-      owner node['glassfish']['user']
+      owner node['hadoop_spark']['user']
       mode 0750
       action :create
     end
