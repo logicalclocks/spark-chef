@@ -135,11 +135,21 @@ default['hadoop_spark']['hudi_util_bundle_url']                  = "#{node['down
 default['hadoop_spark']['databricks_delta_version']         = "#{node['scala']['version']}-0.7.0"
 default['hadoop_spark']['elastic_connector_version']        = "30_#{node['scala']['version']}-7.13.0-SNAPSHOT"
 
+#
 # Prometheus exporter
+#
 default['hadoop_spark']['spark-metrics_version']            = "#{node['scala']['version']}-3.1-1.1.0"
 default['hadoop_spark']['simpleclient_version']             = "0.9.0"
 default['hadoop_spark']['metrics-core_version']             = "4.1.1"
 
+#
+# Snowflake
+#
 default['hadoop_spark']['spark-snowflake_version']          = "#{node['scala']['version']}-2.9.0-spark_3.1"
 default['hadoop_spark']['snowflake-jdbc_version']           = "3.13.3"
 default['hadoop_spark']['gcs_connector_version']           = "2.2.5-shaded"
+
+#
+# Optimized PIT
+#
+default['hadoop_spark']['spark-pit_version']                = "#{node['scala']['version']}-0.3.2"
