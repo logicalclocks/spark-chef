@@ -116,7 +116,7 @@ default['hadoop_spark']['hopsexamples_featurestore_tour']['url']    = "#{node['d
 #
 default['hadoop_spark']['mysql_driver']                     = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
 
-default['hadoop_spark']['hsfs']['version']                  = node['install']['version']
+default['hadoop_spark']['hsfs']['version']                  = "2.5.8"
 default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
 default['hadoop_spark']['hsfs']['utils']['version']         = node['install']['version']
