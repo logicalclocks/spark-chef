@@ -119,7 +119,7 @@ default['hadoop_spark']['mysql_driver']                     = "#{node['download_
 default['hadoop_spark']['hsfs']['version']                  = "2.5.8"
 default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
-default['hadoop_spark']['hsfs']['utils']['version']         = "2.5.8"
+default['hadoop_spark']['hsfs']['utils']['version']         = node['install']['version']
 default['hadoop_spark']['hsfs']['utils']['download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.py"
 
 #
