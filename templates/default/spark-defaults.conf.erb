@@ -37,6 +37,7 @@ spark.yarn.scheduler.heartbeat.interval-ms <%= node['hadoop_spark']['yarn']['sch
 spark.yarn.queue                           <%= node['hadoop_spark']['yarn']['queue'] %>
 spark.yarn.containerLauncherMaxThreads     <%= node['hadoop_spark']['yarn']['containerLauncherMaxThreads'] %>
 
+spark.sql.catalogImplementation            hive
 spark.sql.warehouse.dir                    hdfs://<%= @nn_endpoint %><%= node['hadoop_spark']['yarn']['warehouse_hdfs'] %>
 spark.yarn.jars                            <%= node['hadoop_spark']['yarn']['jars'] %>
 
