@@ -150,7 +150,8 @@ sql_dep = [
   "elasticsearch-spark-#{node['hadoop_spark']['elastic_connector_version']}.jar",
   "spark-snowflake_#{node['hadoop_spark']['spark-snowflake_version']}.jar",
   "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar",
-  "gcs-connector-hadoop3-#{node['hadoop_spark']['gcs_connector_version']}.jar"
+  "gcs-connector-hadoop3-#{node['hadoop_spark']['gcs_connector_version']}.jar",
+  "spark-bigquery-with-dependencies_2.12-#{node['hadoop_spark']['bigquery_version']}.jar"
 ]
 
 for f in sql_dep do
@@ -174,7 +175,7 @@ other_dependencies = [
 for dep in other_dependencies do
   file_name = File.basename(dep)
   remote_file "#{node['hadoop_spark']['hopsworks_jars']}/#{file_name}" do
-    source dep 
+    source dep
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "0644"
