@@ -31,7 +31,6 @@ spark.metrics.conf                <%= node['hadoop_spark']['conf_dir'] %>/metric
 <%= auth  %>
 
 spark.yarn.am.waitTime                     <%= node['hadoop_spark']['yarn']['am']['waitTime'] %>
-spark.yarn.submit.file.replication         <%= node['hadoop_spark']['yarn']['submit']['file']['replication'] %>
 spark.yarn.preserve.staging.files          <%= node['hadoop_spark']['yarn']['preserve']['staging']['files'] %>
 spark.yarn.scheduler.heartbeat.interval-ms <%= node['hadoop_spark']['yarn']['scheduler']['heartbeat']['interval_ms'] %>
 spark.yarn.queue                           <%= node['hadoop_spark']['yarn']['queue'] %>
