@@ -8,7 +8,7 @@ default['hadoop_spark']['user_id']                              = '1505'
 
 default['scala']['version'] 	                                  = "2.12"
 
-default['hadoop_spark']['version']                              = "3.1.1.0"
+default['hadoop_spark']['version']                              = "3.1.1.2"
 
 default['hadoop_spark']['parquet_version']                      = "1.11.1"
 default['hadoop_spark']['parquet_format_version']               = "2.8.0"
