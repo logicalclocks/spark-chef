@@ -50,7 +50,6 @@ end
 
 
 hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
-hopsExamplesFeaturestoreTour=File.basename(node['hadoop_spark']['hopsexamples_featurestore_tour']['url'])
 hsfs_utils_py = File.basename(node['hadoop_spark']['hsfs']['utils']['py_download_url'])
 hsfs_utils_java = File.basename(node['hadoop_spark']['hsfs']['utils']['java_download_url'])
 
@@ -69,14 +68,6 @@ if is_head_node || is_first_spark_yarn_to_run
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
     source node['hadoop_spark']['hopsexamples_spark']['url']
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    action :create
-  end
-
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}" do
-    source node['hadoop_spark']['hopsexamples_featurestore_tour']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
@@ -157,14 +148,6 @@ if is_first_spark_yarn_to_run
     dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}"
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}"
-  end
-
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j.properties" do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
@@ -214,7 +197,6 @@ if is_head_node
     action :update_local_cache
     paths [
             "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}", 
-            "#{Chef::Config['file_cache_path']}/#{hopsExamplesFeaturestoreTour}", 
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}",
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}",
             "#{node['hadoop_spark']['home']}/conf/log4j.properties",
@@ -222,8 +204,6 @@ if is_head_node
           ]
     hdfs_paths [
                   "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}", 
-                  "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}",
-                  "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesFeaturestoreTour}", 
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
                   "/user/#{node['hadoop_spark']['user']}/log4j.properties",
