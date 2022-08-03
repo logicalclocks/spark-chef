@@ -74,12 +74,20 @@ attribute "hadoop_spark/history/fs/cleaner/maxAge",
           :description => "Age in days of the historyservers logs before they are removed (e.g., '7d' for 7 days)",
           :type => 'string'
 
+attribute "hadoop_spark/history/retainedApplications",
+          :description => "The number of applications to retain UI data for in the cache. If an application is not in the cache, it will have to be loaded from disk if it is accessed from the UI. (Default 20)",
+          :type => 'string'
+
 attribute "hadoop_spark/yarn/am/attemptFailuresValidityInterval",
           :description => "Defines the validity interval for AM failure tracking. If the AM has been running for at least the defined interval, the AM failure count will be reset.",
           :type => 'string'
 
 attribute "hadoop_spark/driver/maxResultSize",
           :description => "Default '5g'. Change to '1g', '500m', etc",
+          :type => 'string'
+
+attribute "hadoop_spark/daemon/memory",
+  :description => "Heap size for the Spark history server. Default 2G",
           :type => 'string'
 
 attribute "hadoop_spark/historyserver/private_ips",

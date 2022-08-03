@@ -11,10 +11,12 @@ spark.io.compression.codec                <%= node['hadoop_spark']['io']['compre
 spark.streaming.stopGracefullyOnShutdown  <%= node['hadoop_spark']['streaming']['stopGracefullyOnShutdown'] %>
 
 # spark-history-server settings
-spark.history.fs.logDirectory     hdfs://<%= @nn_endpoint %><%= @eventlog_dir %>
-spark.history.fs.cleaner.enabled  <%= node['hadoop_spark']['history']['fs']['cleaner']['enabled'] %>
-spark.history.fs.cleaner.interval <%= node['hadoop_spark']['history']['fs']['cleaner']['interval'] %>
-spark.history.fs.cleaner.maxAge   <%= node['hadoop_spark']['history']['fs']['cleaner']['maxAge'] %>
+spark.history.fs.logDirectory      hdfs://<%= @nn_endpoint %><%= @eventlog_dir %>
+spark.history.fs.cleaner.enabled   <%= node['hadoop_spark']['history']['fs']['cleaner']['enabled'] %>
+spark.history.fs.cleaner.interval  <%= node['hadoop_spark']['history']['fs']['cleaner']['interval'] %>
+spark.history.fs.cleaner.maxAge    <%= node['hadoop_spark']['history']['fs']['cleaner']['maxAge'] %>
+spark.history.retainedApplications <%= node['hadoop_spark']['history']['retainedApplications'] %>
+
 spark.eventLog.compress           true
 spark.yarn.historyServer.address  <%= @historyserver_endpoint %>
 
