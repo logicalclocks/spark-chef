@@ -151,7 +151,8 @@ sql_dep = [
   "spark-snowflake_#{node['hadoop_spark']['spark-snowflake_version']}.jar",
   "snowflake-jdbc-#{node['hadoop_spark']['snowflake-jdbc_version']}.jar",
   "gcs-connector-hadoop3-#{node['hadoop_spark']['gcs_connector_version']}.jar",
-  "spark-bigquery-with-dependencies_2.12-#{node['hadoop_spark']['bigquery_version']}.jar"
+  "spark-bigquery-with-dependencies_2.12-#{node['hadoop_spark']['bigquery_version']}.jar",
+   "redshift-jdbc42-#{node['hadoop_spark']['redshift_version']}.jar"
 ]
 
 for f in sql_dep do
