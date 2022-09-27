@@ -142,3 +142,4 @@ default['hadoop_spark']['spark-snowflake_version']          = "#{node['scala']['
 default['hadoop_spark']['snowflake-jdbc_version']           = "3.13.3"
 default['hadoop_spark']['gcs_connector_version']           = "2.2.5-shaded"
 default['hadoop_spark']['bigquery_version']           		= "0.23.2"
+default['hadoop_spark']['redshift_version']           		= "2.1.0.9"
