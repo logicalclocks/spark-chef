@@ -180,6 +180,8 @@ end
 case node['platform_family']
 when "debian"
   package "libnetlib-java" do
+    retries 10
+    retry_delay 30
     action :install
   end
 end
