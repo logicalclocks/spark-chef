@@ -184,8 +184,8 @@ for dep in other_dependencies do
   end
 end
 
-template"#{node['hadoop_spark']['conf_dir']}/log4j.properties" do
-  source "app.log4j.properties.erb"
+template"#{node['hadoop_spark']['conf_dir']}/log4j2.properties" do
+  source "app.log4j2.properties.erb"
   owner node['hadoop_spark']['user']
   group node['hops']['group']
   mode 0650

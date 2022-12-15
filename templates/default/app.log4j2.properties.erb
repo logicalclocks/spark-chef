@@ -1,0 +1,31 @@
+appender.stdout.type=Console
+appender.stdout.name=stdout
+appender.stdout.target=SYSTEM_OUT
+appender.stdout.layout.type=PatternLayout
+appender.stdout.layout.pattern=%d{yyyy-MM-dd HH:mm:ss,SSS} %p ${hopsworks.logstash.job.info} %c{1}: %m%n
+
+appender.stderr.type=Console
+appender.stderr.name=stderr
+appender.stderr.target=SYSTEM_ERR
+appender.stderr.layout.type=PatternLayout
+appender.stderr.layout.pattern=%d{yyyy-MM-dd HH:mm:ss,SSS} %p ${hopsworks.logstash.job.info} %c{1}: %m%n
+
+rootLogger.level = INFO 
+rootLogger.appenderRefs = stdout
+
+loggers=eclipse,apache,spark
+
+logger.eclipse.name=org.eclipse.jetty
+logger.eclipse.level = WARN
+logger.eclipse.appenderRefs = stderr 
+logger.eclipse.additivity = false
+
+logger.apache.name=org.apache
+logger.apache.level = WARN
+logger.apache.appenderRefs = stderr 
+logger.apache.additivity = false
+
+logger.spark.name=org.sparkproject
+logger.spark.level = WARN
+logger.spark.appenderRefs = stderr 
+logger.spark.additivity = false
