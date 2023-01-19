@@ -102,8 +102,8 @@ default['hadoop_spark']['ssl']['truststorepassword']		  = "#{node['hopsworks']['
 default['hadoop_spark']['hopsutil_version']                    = node['install']['version']
 default['hadoop_spark']['hopsutil']['url']                     = "#{node['download_url']}/hopsutil/#{node['hadoop_spark']['hopsutil_version']}/hops-util-#{node['hadoop_spark']['hopsutil_version']}.jar"
 
-default['hadoop_spark']['hopsworks_jobs_py']['version']              = 0.1.0
-default['hadoop_spark']['hopsworks_jobs_py']['url']                  = "#{node['download_url']}/hopsworks_jobs_py/hdfs_file_operations-#{node['hadoop_spark']['hopsworks_jobs_py']['version']}.py"
+default['hadoop_spark']['hopsworks_jobs_py']['version']        = "0.1.0"
+default['hadoop_spark']['hopsworks_jobs_py']['url']            = "#{node['download_url']}/hopsworks_jobs_py/hdfs_file_operations-#{node['hadoop_spark']['hopsworks_jobs_py']['version']}.py"
 
 #
 # Hops Examples Spark Job/Notebook Dependency Jars
