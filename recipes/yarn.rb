@@ -225,6 +225,7 @@ if is_head_node
                   "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}", 
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
+                  "/user/#{node['hadoop_spark']['user']}/#{hopsworks_jobs_py}",
                   "/user/#{node['hadoop_spark']['user']}/log4j2.properties",
                   "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
                 ]  
