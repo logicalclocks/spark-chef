@@ -218,6 +218,7 @@ if is_head_node
             "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}", 
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}",
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}",
+            "#{Chef::Config['file_cache_path']}/#{hopsworks_jobs_py}",
             "#{node['hadoop_spark']['home']}/conf/log4j2.properties",
             "#{node['hadoop_spark']['home']}/conf/hive-site.xml"
           ]
