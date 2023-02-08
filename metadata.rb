@@ -122,6 +122,14 @@ attribute "hadoop_spark/hopsutil/url",
           :description => "the url for dowloading the hopsutil .jar",
           :type => "string"
 
+attribute "hadoop_spark/hopsworks_jobs_py/version",
+          :description => "the version of the hopsworks-jobs .py",
+          :type => "string"
+
+attribute "hadoop_spark/hopsworks_jobs_py/url",
+          :description => "the url for dowloading the hopsworks-jobs .py",
+          :type => "string"
+
 attribute "hadoop_spark/hopsexamples_version",
           :description => "the version of the hops-examples artifacts",
           :type => "string"
@@ -181,5 +189,3 @@ attribute "hadoop_spark/hudi_spark_bundle_url",
 attribute "hadoop_spark/hudi_util_bundle_url",
           :description => "URL for hudi utiljar",
           :type => "string"
-
-

@@ -52,6 +52,7 @@ end
 hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
 hsfs_utils_py = File.basename(node['hadoop_spark']['hsfs']['utils']['py_download_url'])
 hsfs_utils_java = File.basename(node['hadoop_spark']['hsfs']['utils']['java_download_url'])
+hopsworks_jobs_py = File.basename(node['hadoop_spark']['hopsworks_jobs_py']['url'])
 
 is_head_node = false
 if exists_local("hopsworks", "default") and exists_local("cloud", "default")
@@ -84,6 +85,14 @@ if is_head_node || is_first_spark_yarn_to_run
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}" do
     source node['hadoop_spark']['hsfs']['utils']['java_download_url']
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1755"
+    action :create
+  end
+
+  remote_file "#{Chef::Config['file_cache_path']}/#{hopsworks_jobs_py}" do
+    source node['hadoop_spark']['hopsworks_jobs_py']['url']
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
@@ -171,6 +180,14 @@ if is_first_spark_yarn_to_run
     mode "1755"
     dest "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}"
   end
+
+  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsworks_jobs_py}" do
+    action :replace_as_superuser
+    owner node['hadoop_spark']['user']
+    group node['hops']['group']
+    mode "1755"
+    dest "/user/#{node['hadoop_spark']['user']}/#{hopsworks_jobs_py}"
+  end
 end
 
 #
@@ -201,6 +218,7 @@ if is_head_node
             "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}", 
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}",
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}",
+            "#{Chef::Config['file_cache_path']}/#{hopsworks_jobs_py}",
             "#{node['hadoop_spark']['home']}/conf/log4j2.properties",
             "#{node['hadoop_spark']['home']}/conf/hive-site.xml"
           ]
@@ -208,6 +226,7 @@ if is_head_node
                   "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}", 
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
+                  "/user/#{node['hadoop_spark']['user']}/#{hopsworks_jobs_py}",
                   "/user/#{node['hadoop_spark']['user']}/log4j2.properties",
                   "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
                 ]  
