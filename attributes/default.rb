@@ -99,7 +99,7 @@ default['hadoop_spark']['ssl']['truststorepassword']		  = "#{node['hopsworks']['
 #
 # Hops API jar
 #
-default['hadoop_spark']['hopsutil_version']                    = node['install']['version']
+default['hadoop_spark']['hopsutil_version']                    = "3.1.0"
 default['hadoop_spark']['hopsutil']['url']                     = "#{node['download_url']}/hopsutil/#{node['hadoop_spark']['hopsutil_version']}/hops-util-#{node['hadoop_spark']['hopsutil_version']}.jar"
 
 #
@@ -115,10 +115,10 @@ default['hadoop_spark']['hopsexamples_hive']['url']                 = "#{node['d
 #
 default['hadoop_spark']['mysql_driver']                     = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
 
-default['hadoop_spark']['hsfs']['version']                  = "#{node['install']['version']}-RC0"
+default['hadoop_spark']['hsfs']['version']                  = "3.1.1-RC0"
 default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
-default['hadoop_spark']['hsfs']['utils']['version']         = "#{node['install']['version']}-RC0"
+default['hadoop_spark']['hsfs']['utils']['version']         = "3.1.1-RC0"
 default['hadoop_spark']['hsfs']['utils']['py_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.py"
 default['hadoop_spark']['hsfs']['utils']['java_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs-utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.jar"
 
