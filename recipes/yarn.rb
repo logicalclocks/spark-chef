@@ -49,7 +49,6 @@ template"#{node['hadoop_spark']['home']}/conf/spark-defaults.conf" do
 end
 
 
-hopsExamplesSpark=File.basename(node['hadoop_spark']['hopsexamples_spark']['url'])
 hsfs_utils_py = File.basename(node['hadoop_spark']['hsfs']['utils']['py_download_url'])
 hsfs_utils_java = File.basename(node['hadoop_spark']['hsfs']['utils']['java_download_url'])
 hopsworks_jobs_py = File.basename(node['hadoop_spark']['hopsworks_jobs_py']['url'])
@@ -66,14 +65,6 @@ end
 is_first_spark_yarn_to_run = private_ip.eql?(node['hadoop_spark']['yarn']['private_ips'].sort[0])
 
 if is_head_node || is_first_spark_yarn_to_run
-
-  remote_file "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
-    source node['hadoop_spark']['hopsexamples_spark']['url']
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    action :create
-  end
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}" do
     source node['hadoop_spark']['hsfs']['utils']['py_download_url']
@@ -149,14 +140,6 @@ if is_first_spark_yarn_to_run
     end
   end
 
-  hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}" do
-    action :replace_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}"
-  end
-
   hops_hdfs_directory "#{node['hadoop_spark']['home']}/conf/log4j2.properties" do
     action :replace_as_superuser
     owner node['hadoop_spark']['user']
@@ -215,7 +198,6 @@ if is_head_node
   hops_tours "Cache tour files locally" do 
     action :update_local_cache
     paths [
-            "#{Chef::Config['file_cache_path']}/#{hopsExamplesSpark}", 
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}",
             "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}",
             "#{Chef::Config['file_cache_path']}/#{hopsworks_jobs_py}",
@@ -223,7 +205,6 @@ if is_head_node
             "#{node['hadoop_spark']['home']}/conf/hive-site.xml"
           ]
     hdfs_paths [
-                  "/user/#{node['hadoop_spark']['user']}/#{hopsExamplesSpark}", 
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
                   "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
                   "/user/#{node['hadoop_spark']['user']}/#{hopsworks_jobs_py}",
