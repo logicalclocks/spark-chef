@@ -31,6 +31,7 @@ fi
 . "${SPARK_HOME}/bin/load-spark-env.sh"
 
 export SPARK_DAEMON_JAVA_OPTS="-Dspark.ssl.historyServer.enabled=true \
+  -Djdk.tls.ephemeralDHKeySize=2048 \
   -Dspark.ssl.historyServer.keyStore=<%= @crypto_dir %>/<%= node['hops']['hdfs']['user'] %>__kstore.jks \
   -Dspark.ssl.historyServer.port=<%= node['hadoop_spark']['historyserver']['port'] %> \
   -Dspark.ssl.historyServer.protocol=TLSv1.2 \
