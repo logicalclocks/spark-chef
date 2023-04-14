@@ -130,18 +130,6 @@ attribute "hadoop_spark/hopsworks_jobs_py/url",
           :description => "the url for dowloading the hopsworks-jobs .py",
           :type => "string"
 
-attribute "hadoop_spark/hopsexamples_version",
-          :description => "the version of the hops-examples artifacts",
-          :type => "string"
-
-attribute "hadoop_spark/hopsexamples_spark/url",
-          :description => "the url for dowloading the hopsexamples_spark jar",
-          :type => "string"
-
-attribute "hadoop_spark/hopsexamples_hive/url",
-          :description => "the url for dowloading the hopsexamples_hive jar",
-          :type => "string"
-
 attribute "hadoop_spark/spark_avro_version",
           :description => "the version of the spark-avro jar",
           :type => "string"

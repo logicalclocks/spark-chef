@@ -106,14 +106,6 @@ default['hadoop_spark']['hopsworks_jobs_py']['version']        = "0.1.0"
 default['hadoop_spark']['hopsworks_jobs_py']['url']            = "#{node['download_url']}/hopsworks_jobs_py/hdfs_file_operations-#{node['hadoop_spark']['hopsworks_jobs_py']['version']}.py"
 
 #
-# Hops Examples Spark Job/Notebook Dependency Jars
-#
-default['hadoop_spark']['hopsexamples_version']                     = node['install']['version']
-default['hadoop_spark']['hopsexamples_spark']['url']                = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-spark-#{node['hadoop_spark']['hopsexamples_version']}.jar"
-default['hadoop_spark']['hopsexamples_hive']['url']                 = "#{node['download_url']}/hopsexamples/#{node['hadoop_spark']['hopsexamples_version']}/hops-examples-hive-#{node['hadoop_spark']['hopsexamples_version']}.jar"
-
-
-#
 # Featurestore dependencies
 #
 default['hadoop_spark']['mysql_driver']                     = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
