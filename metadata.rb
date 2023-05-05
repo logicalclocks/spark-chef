@@ -114,6 +114,14 @@ attribute "hadoop_spark/spark_tfrecord_version",
           :description => "the version of the spark-tfrecord library .jar",
           :type => "string"
 
+attribute "hadoop_spark/hopsutil_version",
+          :description => "the version of the hops-library .jar",
+          :type => "string"
+
+attribute "hadoop_spark/hopsutil/url",
+          :description => "the url for dowloading the hopsutil .jar",
+          :type => "string"
+
 attribute "hadoop_spark/hopsworks_jobs_py/version",
           :description => "the version of the hopsworks-jobs .py",
           :type => "string"
