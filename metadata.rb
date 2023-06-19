@@ -25,6 +25,7 @@ recipe           "yarn", "Creates directories for yarn. Run on only one machine.
 recipe           "default", "Install spark binaries only."
 recipe           "libs", "Install spark jars to nodemanager hosts"
 recipe           "historyserver", "Installs/starts the Spark historyserver"
+recipe           "config", "Configuration files for Spark/Yarn"
 
 attribute "hadoop_spark/user",
           :description => "Username to run spark master/worker as",
