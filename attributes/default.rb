@@ -107,10 +107,11 @@ default['hadoop_spark']['hopsworks_jobs_py']['url']            = "#{node['downlo
 #
 default['hadoop_spark']['mysql_driver']                     = "#{node['download_url']}/mysql-connector-java-8.0.21-bin.jar"
 
-default['hadoop_spark']['hsfs']['version']                  = node['install']['version']
+default['hadoop_spark']['hsfs']['rc_version']               = ""
+default['hadoop_spark']['hsfs']['version']                  = node['hadoop_spark']['hsfs']['rc_version'].empty? ? node['install']['version'] : "#{node['install']['version']}-#{node['hadoop_spark']['hsfs']['rc_version']}"
 default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-spark-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
-default['hadoop_spark']['hsfs']['utils']['version']         = node['install']['version']
+default['hadoop_spark']['hsfs']['utils']['version']         = node['hadoop_spark']['hsfs']['rc_version'].empty? ? node['install']['version'] : "#{node['install']['version']}-#{node['hadoop_spark']['hsfs']['rc_version']}"
 default['hadoop_spark']['hsfs']['utils']['py_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.py"
 default['hadoop_spark']['hsfs']['utils']['java_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs-utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.jar"
 

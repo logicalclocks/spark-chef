@@ -135,6 +135,10 @@ attribute "hadoop_spark/url",
           :description => "the url for downloading the spark tgz",
           :type => "string"
 
+attribute "hadoop_spark/hsfs/rc_version",
+          :description => "Optionally a Release Candidate version suffixed to the main version ie RC0, Default: ''",
+          :type => "string"
+
 attribute "hadoop_spark/hsfs/version",
           :description => "Version of the HSFS library",
           :type => "string"
