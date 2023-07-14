@@ -105,7 +105,7 @@ if is_first_spark_yarn_to_run
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}"
+    dest "/user/#{node['hadoop_spark']['user']}/hsfs_utils.py"
   end
 
   hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hsfs_utils_java}" do
@@ -113,7 +113,7 @@ if is_first_spark_yarn_to_run
     owner node['hadoop_spark']['user']
     group node['hops']['group']
     mode "1755"
-    dest "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}"
+    dest "/user/#{node['hadoop_spark']['user']}/hsfs-utils.jar"
   end
 
   hops_hdfs_directory "#{Chef::Config['file_cache_path']}/#{hopsworks_jobs_py}" do
@@ -157,8 +157,8 @@ if is_head_node
             "#{node['hadoop_spark']['home']}/conf/hive-site.xml"
           ]
     hdfs_paths [
-                  "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_py}",
-                  "/user/#{node['hadoop_spark']['user']}/#{hsfs_utils_java}",
+                  "/user/#{node['hadoop_spark']['user']}/hsfs_utils.py",
+                  "/user/#{node['hadoop_spark']['user']}/hsfs-utils.jar",
                   "/user/#{node['hadoop_spark']['user']}/#{hopsworks_jobs_py}",
                   "/user/#{node['hadoop_spark']['user']}/log4j2.properties",
                   "/user/#{node['hadoop_spark']['user']}/hive-site.xml"
