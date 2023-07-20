@@ -7,7 +7,7 @@ StartLimitBurst=121
 
 [Service]
 User = <%= node['hops']['hdfs']['user'] %>
-PIDFile = /tmp/spark-<%= node['hops']['hdfs']['user'] %>-org.apache.spark.deploy.history.HistoryServer-1.pid
+PIDFile = <%= node['hadoop_spark']['daemon_pid_dir'] %>/spark-<%= node['hops']['hdfs']['user'] %>-org.apache.spark.deploy.history.HistoryServer-1.pid
 ExecStart = <%= node['hadoop_spark']['base_dir'] %>/sbin/start-history-server.sh
 ExecStop = <%= node['hadoop_spark']['base_dir'] %>/sbin/stop-history-server.sh
 LimitNOFILE = 50000

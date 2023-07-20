@@ -38,5 +38,10 @@ export SPARK_DAEMON_JAVA_OPTS="-Dspark.ssl.historyServer.enabled=true \
   -Dspark.ssl.historyServer.keyPassword=`cat <%= @crypto_dir %>/<%= node['hops']['hdfs']['user'] %>__passwd` \
   -Dspark.ssl.historyServer.keyStore.password=`cat <%= @crypto_dir %>/<%= node['hops']['hdfs']['user'] %>__passwd`"
 
+SPARK_TMP_DIR=<%= node['install']['tmp_directory'] %>
+if [ ! -z "$SPARK_TMP_DIR" ]; then
+    export SPARK_DAEMON_JAVA_OPTS="$SPARK_DAEMON_JAVA_OPTS -Djava.io.tmpdir=$SPARK_TMP_DIR"
+fi
+
 exec "${SPARK_HOME}/sbin"/spark-daemon.sh start org.apache.spark.deploy.history.HistoryServer 1 "$@"
 
