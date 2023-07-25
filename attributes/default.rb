@@ -43,6 +43,7 @@ default['hadoop_spark']['driver']['maxResultSize']                 = "512m"
 default['hadoop_spark']['io']['compression']['codec']              = "snappy"
 default['hadoop_spark']['streaming']['stopGracefullyOnShutdown']   = "true"
 default['hadoop_spark']['master']['port']                          = 7077
+default['hadoop_spark']['daemon_pid_dir']                          = node['install']['tmp_directory'].empty? ? "/tmp" : node['install']['tmp_directory']
 
 default['hadoop_spark']['worker']['cleanup']['enabled']            = true
 
