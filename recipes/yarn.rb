@@ -16,7 +16,7 @@ hsfs_utils_py = File.basename(node['hadoop_spark']['hsfs']['utils']['py_download
 hsfs_utils_java = File.basename(node['hadoop_spark']['hsfs']['utils']['java_download_url'])
 hopsworks_jobs_py = File.basename(node['hadoop_spark']['hopsworks_jobs_py']['url'])
 
-if is_head_node || is_first_spark_yarn_to_run
+if (is_head_node || is_first_spark_yarn_to_run) && node["install"]["secondary_region"].casecmp?("false")
 
   remote_file "#{Chef::Config['file_cache_path']}/#{hsfs_utils_py}" do
     source node['hadoop_spark']['hsfs']['utils']['py_download_url']
@@ -46,7 +46,7 @@ end
 # Only the first of the spark::yarn hosts needs to run this code (not all of them)
 #see HOPSWORKS-572 why the following if clause changed
 #if private_ip.eql? node['hadoop_spark']['yarn']['private_ips'][0]
-if is_first_spark_yarn_to_run
+if is_first_spark_yarn_to_run && node["install"]["secondary_region"].casecmp?("false")
   home = node['hops']['hdfs']['user_home']
   hops_hdfs_directory "#{home}" do
     action :create_as_superuser

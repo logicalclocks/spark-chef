@@ -1,11 +1,13 @@
-eventlog_dir = "#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}/applicationHistory"
-tmp_dirs = ["#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}", eventlog_dir ]
-for d in tmp_dirs
- hops_hdfs_directory d do
-    action :create_as_superuser
-    owner node['hadoop_spark']['user']
-    group node['hops']['group']
-    mode "1777"
+if node["install"]["secondary_region"].casecmp?("false")
+  eventlog_dir = "#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}/applicationHistory"
+  tmp_dirs = ["#{node['hops']['hdfs']['user_home']}/#{node['hadoop_spark']['user']}", eventlog_dir ]
+  for d in tmp_dirs
+   hops_hdfs_directory d do
+      action :create_as_superuser
+      owner node['hadoop_spark']['user']
+      group node['hops']['group']
+      mode "1777"
+    end
   end
 end
 
