@@ -110,7 +110,7 @@ default['hadoop_spark']['mysql_driver']                     = "#{node['download_
 
 default['hadoop_spark']['hsfs']['rc_version']               = ""
 default['hadoop_spark']['hsfs']['version']                  = node['hadoop_spark']['hsfs']['rc_version'].empty? ? node['install']['version'] : "#{node['install']['version']}-#{node['hadoop_spark']['hsfs']['rc_version']}"
-default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-spark-#{node['hadoop_spark']['hsfs']['version']}.jar"
+default['hadoop_spark']['hsfs']['url']                      = "#{node['download_url']}/hsfs/#{node['hadoop_spark']['hsfs']['version']}/hsfs-spark-spark3.1-#{node['hadoop_spark']['hsfs']['version']}.jar"
 
 default['hadoop_spark']['hsfs']['utils']['version']         = node['hadoop_spark']['hsfs']['rc_version'].empty? ? node['install']['version'] : "#{node['install']['version']}-#{node['hadoop_spark']['hsfs']['rc_version']}"
 default['hadoop_spark']['hsfs']['utils']['py_download_url']    = "#{node['download_url']}/hsfs_utils/hsfs_utils-#{node['hadoop_spark']['hsfs']['utils']['version']}.py"
