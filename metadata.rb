@@ -4,7 +4,7 @@ maintainer_email "jdowling@kth.se"
 license          "Apache v2"
 description      'Installs/Configures Spark'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "3.7.0"
+version          "3.8.0"
 source_url       "https://github.com/hopshadoop/spark-chef"
 
 depends 'magic_shell', '~> 1.0.0'
@@ -60,7 +60,7 @@ attribute "hadoop_spark/worker/cleanup/enabled",
           :type => 'string'
 
 attribute "hadoop_spark/version",
-          :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 3.7.0)",
+          :description => "Spark version (e.g., 1.6.1 or 2.0.1 or 3.8.0)",
           :type => 'string'
 
 attribute "hadoop_spark/history/fs/cleaner/enabled",
