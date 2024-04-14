@@ -48,3 +48,6 @@ spark.yarn.appMasterEnv.<% env -%>         <% node['hadoop_spark']['yarn']['appM
 
 spark.driver.maxResultSize               <%= node['hadoop_spark']['driver']['maxResultSize'] %>
 spark.sql.broadcastTimeout               <%= node['hadoop_spark']['sql']['broadcastTimeout'] %>
+
+spark.driver.defaultJavaOptions		 -Dfile.encoding=UTF-8
+spark.executor.defaultJavaOptions  -Dfile.encoding=UTF-8
