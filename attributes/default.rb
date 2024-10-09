@@ -125,7 +125,7 @@ default['hadoop_spark']['hudi_util_bundle_url']                  = "#{node['down
 #
 # Delta
 #
-default['hadoop_spark']['databricks_delta_version']         = "#{node['scala']['version']}-0.7.0"
+default['hadoop_spark']['databricks_delta_version']         = "#{node['scala']['version']}-1.0.1"
 default['hadoop_spark']['elastic_connector_version']        = "30_#{node['scala']['version']}-7.13.0-SNAPSHOT"
 
 # Prometheus exporter
